@@ -23,7 +23,13 @@ PRUEBAS = [
     (
         "SSB",
         "https://data.ssb.no/api/pxwebapi/v2/tables/03013/data",
-        {"lang": "en", "outputFormat": "json-stat2", "valueCodes[Tid]": "top(2)"},
+        {
+            "lang": "en",
+            "outputFormat": "json-stat2",
+            "valueCodes[Konsumgrp]": "TOTAL",
+            "valueCodes[ContentsCode]": "KpiIndMnd",
+            "valueCodes[Tid]": "top(2)",
+        },
         "jsonstat",
     ),
 ]
