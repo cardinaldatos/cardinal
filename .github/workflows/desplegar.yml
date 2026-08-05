@@ -14,10 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Astro 6 en adelante exige Node 22 o superior.
+      # Astro 6 en adelante exige Node 22 o superior. El runner ya usa 24
+      # por defecto, así que lo pedimos explícitamente y evitamos el aviso.
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24"
 
       - name: Instalar dependencias
         run: cd sitio && npm install
@@ -31,3 +32,6 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: sitio
+          # Sin esta línea la acción instala wrangler 3, que no sabe desplegar
+          # un sitio de solo activos estáticos y falla con "Missing entry-point".
+          wranglerVersion: "4"
