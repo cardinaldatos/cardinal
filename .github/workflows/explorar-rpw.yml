@@ -1,6 +1,6 @@
 name: Explorar RPW
 
-# Solo se ejecuta cuando le das al boton. No corre solo.
+# Solo cuando le das al botón. No corre solo.
 on:
   workflow_dispatch:
 
@@ -8,21 +8,21 @@ jobs:
   explorar:
     runs-on: ubuntu-latest
     steps:
-      - name: Bajar el repositorio
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Preparar Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Correr el descubrimiento
-        run: python pipeline/explorar_rpw.py
+      - run: pip install -r requirements.txt
 
-      - name: Guardar los JSON crudos para descargar
+      - name: Descubrir las fuentes RPW
+        run: cd pipeline && python explorar_rpw.py
+
+      - name: Guardar los JSON para descargar
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: rpw-descubrimiento
-          path: crudo/rpw_descubrimiento/
+          path: data/rpw-descubrimiento/
           if-no-files-found: warn
