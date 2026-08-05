@@ -1,0 +1,39 @@
+---
+// Layout base de todas las páginas.
+// Las tipografías van aquí como <link>, no como @import en el CSS: así el
+// navegador arranca las dos descargas a la vez.
+
+import "../styles/sistema.css";
+
+const { titulo, descripcion = "Estadísticas públicas sobre migración y diáspora, en español." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo ? `${titulo} — Cardinal Datos` : "Cardinal Datos"}</title>
+    <meta name="description" content={descripcion} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: #14181c;
+  }
+</style>
