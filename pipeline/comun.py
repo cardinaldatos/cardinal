@@ -8,13 +8,19 @@ from pathlib import Path
 import requests
 
 RAIZ = Path(__file__).resolve().parent.parent
-CABECERAS = {"User-Agent": "cardinal-datos/1.0 (hola@cardinaldatos.org)"}
+CABECERAS = {
+    "User-Agent": "Mozilla/5.0 (compatible; cardinal-datos/1.0; +https://cardinaldatos.workers.dev)",
+    "Accept": "application/json",
+}
 
 
 def pedir(url, params=None, timeout=60):
-    """GET con errores explícitos. Nunca falles en silencio."""
+    """GET con errores explícitos, incluido el cuerpo de la respuesta."""
     r = requests.get(url, params=params, headers=CABECERAS, timeout=timeout)
-    r.raise_for_status()
+    if not r.ok:
+        raise RuntimeError(
+            f"HTTP {r.status_code} en {r.url}\nRespuesta: {r.text[:600]}"
+        )
     return r.json()
 
 
