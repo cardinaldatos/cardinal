@@ -1,0 +1,35 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base titulo="Página no encontrada">
+  <div class="pieza" data-fondo="oscuro">
+    <div class="marco">
+      <p class="cejilla">Error 404</p>
+
+      <h1 class="titular">
+        Aquí no hay<br /><em>nada</em>
+      </h1>
+
+      <p class="bajada">
+        La dirección que buscas no existe o se movió. Puedes volver a la
+        portada y buscar desde ahí.
+      </p>
+
+      <p><a href="/">Ir a la portada</a></p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  a {
+    font-size: 13px;
+    color: var(--texto);
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 4px;
+  }
+
+  a:hover {
+    text-decoration-color: var(--rojo);
+  }
+</style>

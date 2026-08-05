@@ -1,0 +1,84 @@
+---
+import Base from "../layouts/Base.astro";
+
+// Las piezas se listan a mano hasta que haya suficientes para justificar una
+// colección de contenido. Cada una entra aquí cuando se publica.
+const PIEZAS = [
+  {
+    slug: "remesas-costo-latam",
+    titulo: "Cuánto se queda en el camino",
+    resumen:
+      "Lo que cuesta enviar 200 dólares a diez países de América Latina, y los tres que no aparecen en la estadística.",
+    fuente: "Banco Mundial",
+    anio: "2023",
+    estado: "en construcción",
+  },
+];
+---
+
+<Base titulo={null}>
+  <div class="pieza" data-fondo="oscuro">
+    <div class="marco">
+      <p class="cejilla">Cardinal Datos</p>
+
+      <h1 class="titular">
+        Datos que no se<br /><em>traducen solos</em>
+      </h1>
+
+      <p class="bajada">
+        Recogemos estadísticas públicas sobre migración y diáspora que existen,
+        pero casi nadie puede leer. Las volvemos comprensibles, en español.
+      </p>
+
+      <div class="bloque">
+        <h2>Piezas</h2>
+        <p class="intro">
+          Cada pieza declara su fuente, su año y su método. Si un dato no se
+          puede rastrear hasta un archivo público, no se publica.
+        </p>
+
+        {
+          PIEZAS.map((p) => (
+            <article class="entrada">
+              <p class="cejilla">
+                {p.fuente} · {p.anio}
+                {p.estado && ` · ${p.estado}`}
+              </p>
+              <h3>{p.titulo}</h3>
+              <p>{p.resumen}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="pie">
+        <b>Cardinal Datos.</b> Proyecto colectivo. Las fuentes originales
+        pertenecen a sus organismos: Banco Mundial, Eurostat, SSB, IMDi y NAV.
+        El método de cada pieza es público.
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .entrada {
+    border-top: 1px solid var(--linea);
+    padding: 18px 0 4px;
+  }
+
+  .entrada h3 {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 17px;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .entrada p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--texto-2);
+    margin: 0;
+    max-width: 48ch;
+  }
+</style>
