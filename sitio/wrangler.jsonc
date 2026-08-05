@@ -3,7 +3,7 @@
   // de Cloudflare. Míralo en el panel: Workers & Pages → el nombre de la lista.
   // Si aquí pones otro nombre, Cloudflare crea un Worker nuevo en vez de
   // actualizar el tuyo, y acabas con dos sitios.
-  "name": "cardinaldatos",
+  "name": "www",
 
   "compatibility_date": "2026-08-05",
 
