@@ -1,0 +1,623 @@
+/* ==========================================================================
+   Cardinal Datos — sistema de diseño v1
+
+   Fuente de verdad: «Cardinal — Manual de marca v1».
+   La estructura de componentes viene de los tres prototipos; los colores,
+   tipografías y reglas vienen del manual. Donde los prototipos contradecían
+   al manual, manda el manual.
+
+   REGLAS DEL MANUAL CODIFICADAS AQUÍ
+   - Seis colores, ni uno más.
+   - El rojo cardinal marca el dato central de la pieza. Nada más.
+   - Un solo acento por pieza además del rojo (verde o ámbar).
+   - Todas las cifras en IBM Plex Mono, con coma decimal.
+   - Sin degradados. Sin sombras.
+   - El rojo nunca como fondo de bloques grandes.
+
+   ESTRUCTURA
+   1. Paleta y tipografía
+   2. Fondo claro y fondo oscuro
+   3. Base
+   4. Chrome           — cabecera, bloque, pie de fuente
+   5. Controles        — fichas, deslizador
+   6. Cifras
+   7. Componentes de dato
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. PALETA Y TIPOGRAFÍA
+   ========================================================================== */
+
+.pieza {
+  --tinta: #14181C;
+  --rojo: #C0392F;
+  --papel: #F1F2EF;
+  --verde: #0E5A57;
+  --ambar: #E0A02E;
+  --pizarra: #5C6B72;
+
+  /* El acento de la pieza. Verde o ámbar, nunca los dos.
+     Se declara en el elemento raíz de cada pieza:
+       <div class="pieza" style="--acento: var(--ambar)">          */
+  --acento: var(--verde);
+
+  --fuente-titular: 'Archivo', system-ui, sans-serif;
+  --fuente-texto: 'IBM Plex Sans', system-ui, sans-serif;
+  --fuente-cifra: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --columna: 560px;
+}
+
+
+/* ==========================================================================
+   2. FONDO CLARO Y FONDO OSCURO
+   El manual pide alternar entre publicaciones. Los roles se invierten;
+   la paleta no cambia.
+   ========================================================================== */
+
+.pieza {
+  --fondo: var(--papel);
+  --texto: var(--tinta);
+  --texto-2: #37424A;      /* tinta aclarada, para bajadas y detalle */
+  --superficie: #E4E6E2;   /* papel oscurecido, para cajas sobre claro */
+  --linea: #CBD0CD;
+}
+
+.pieza[data-fondo="oscuro"] {
+  --fondo: var(--tinta);
+  --texto: var(--papel);
+  --texto-2: #B9BEC1;
+  --superficie: #1E242A;
+  --linea: #2E363D;
+}
+
+
+/* ==========================================================================
+   3. BASE
+   ========================================================================== */
+
+.pieza {
+  min-height: 100%;
+  padding: 30px 16px 56px;
+  box-sizing: border-box;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente-texto);
+}
+
+.pieza * { box-sizing: border-box; }
+
+.marco {
+  max-width: var(--columna);
+  margin: 0 auto;
+}
+
+
+/* ==========================================================================
+   4. CHROME
+   ========================================================================== */
+
+/* --- Cabecera de pieza ---------------------------------------------------
+   La cejilla nombra fuente y periodo. Es lo primero que se lee y lo que
+   sostiene la credibilidad: no se omite nunca. En mono, porque contiene
+   año y referencia.
+   ------------------------------------------------------------------------ */
+
+.cejilla {
+  font-family: var(--fuente-cifra);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--pizarra);
+  margin: 0 0 12px;
+}
+
+.titular {
+  font-family: var(--fuente-titular);
+  font-weight: 700;
+  font-size: clamp(30px, 9vw, 46px);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+  margin: 0 0 14px;
+}
+
+/* La palabra destacada del titular va en rojo: es el dato que señala la
+   pieza, en versión verbal. Una sola por titular. */
+.titular em,
+.titular span {
+  font-style: normal;
+  color: var(--rojo);
+}
+
+.bajada {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--texto-2);
+  margin: 0 0 26px;
+  max-width: 46ch;
+}
+
+/* --- Bloque de sección --------------------------------------------------- */
+
+.bloque { margin-top: 40px; }
+
+.bloque h2 {
+  font-family: var(--fuente-titular);
+  font-weight: 700;
+  font-size: 19px;
+  margin: 0 0 4px;
+  letter-spacing: -.015em;
+}
+
+.bloque .intro {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--texto-2);
+  margin: 0 0 16px;
+}
+
+/* --- Pie de fuente -------------------------------------------------------
+   Obligatorio en toda pieza: fuente, año y método visibles. Es el metodo.md
+   en versión corta.
+   ------------------------------------------------------------------------ */
+
+.pie {
+  margin-top: 38px;
+  padding-top: 14px;
+  border-top: 1px solid var(--linea);
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--pizarra);
+}
+
+.pie b {
+  color: var(--texto-2);
+  font-weight: 600;
+}
+
+
+/* ==========================================================================
+   5. CONTROLES
+   ========================================================================== */
+
+.campo { margin-bottom: 20px; }
+
+.etiqueta {
+  font-family: var(--fuente-cifra);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--pizarra);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.fichas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ficha {
+  font-family: inherit;
+  font-size: 12.5px;
+  padding: 7px 12px;
+  background: transparent;
+  color: var(--texto-2);
+  border: 1px solid var(--linea);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+
+.ficha:hover {
+  border-color: var(--texto);
+  color: var(--texto);
+}
+
+/* El estado activo se marca con aria-pressed, no con una clase aparte.
+   Así el estilo y la accesibilidad no pueden desincronizarse. */
+.ficha[aria-pressed="true"] {
+  background: var(--texto);
+  color: var(--fondo);
+  border-color: var(--texto);
+  font-weight: 500;
+}
+
+.ficha:focus-visible {
+  outline: 2px solid var(--rojo);
+  outline-offset: 2px;
+}
+
+.deslizador {
+  width: 100%;
+  accent-color: var(--texto);
+  margin: 4px 0 0;
+}
+
+
+/* ==========================================================================
+   6. CIFRAS
+   Todas en mono. La coma decimal se resuelve en JS con
+   toLocaleString('es'), no aquí.
+   ========================================================================== */
+
+.cifra,
+.barra-cab .n,
+.linea .val,
+.valor,
+.caja b,
+.lectura b,
+.sello .s-num,
+.monto-vivo {
+  font-family: var(--fuente-cifra);
+  font-variant-numeric: tabular-nums;
+}
+
+/* El dato central de la pieza. Uno por pieza, en rojo.
+   Si hay dos, uno de los dos no es central. */
+.dato-central {
+  font-family: var(--fuente-cifra);
+  font-variant-numeric: tabular-nums;
+  color: var(--rojo);
+  font-size: 38px;
+  line-height: 1;
+  display: block;
+}
+
+.monto-vivo {
+  font-size: 26px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+
+/* ==========================================================================
+   7. COMPONENTES DE DATO
+   ========================================================================== */
+
+/* --- Barras comparadas ---------------------------------------------------
+   Del recibo y del título. El relleno va en el color de texto por defecto;
+   el acento marca la fila destacada. El rojo se reserva para la fila que
+   contiene el dato central de la pieza, si la hay.
+   ------------------------------------------------------------------------ */
+
+.barra-fila { margin-bottom: 9px; }
+
+.barra-cab {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11.5px;
+  margin-bottom: 3px;
+  color: var(--texto-2);
+}
+
+.barra-cab .n { color: var(--texto); }
+
+.pista {
+  height: 7px;
+  background: var(--superficie);
+  position: relative;
+}
+
+.relleno {
+  height: 100%;
+  background: var(--texto);
+}
+
+.relleno.acento { background: var(--acento); }
+.relleno.central { background: var(--rojo); }
+
+.fila-activa .barra-cab {
+  color: var(--texto);
+  font-weight: 500;
+}
+
+.marca-meta {
+  position: relative;
+  height: 22px;
+  margin-top: 6px;
+  border-top: 1px dashed var(--linea);
+  font-family: var(--fuente-cifra);
+  font-size: 10px;
+  color: var(--pizarra);
+}
+
+.marca-meta span {
+  position: absolute;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+
+/* --- Rejilla de 100 ------------------------------------------------------
+   Del título no cruza. Cien unidades, N marcadas: la forma más honesta de
+   mostrar una proporción, porque el denominador está a la vista.
+
+   La tacha se dibuja con una línea rotada, no con un degradado.
+   ------------------------------------------------------------------------ */
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.unidad {
+  aspect-ratio: 3 / 4;
+  border: 1px solid var(--linea);
+  background: var(--fondo);
+  position: relative;
+  overflow: hidden;
+  transition: border-color .25s;
+}
+
+.unidad::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -20%;
+  width: 140%;
+  height: 1.5px;
+  background: var(--rojo);
+  transform: rotate(-52deg);
+  transform-origin: center;
+  opacity: 0;
+  transition: opacity .25s;
+}
+
+.unidad.marcada { border-color: var(--rojo); }
+.unidad.marcada::after { opacity: 1; }
+
+.leyenda {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 11.5px;
+  color: var(--pizarra);
+  border-top: 1px solid var(--linea);
+  padding-top: 12px;
+}
+
+.leyenda i {
+  width: 11px;
+  height: 14px;
+  display: inline-block;
+  vertical-align: -2px;
+  border: 1px solid var(--linea);
+  background: var(--fondo);
+  margin-right: 6px;
+}
+
+.leyenda i.marcada { border-color: var(--rojo); }
+
+
+/* --- Eje de brecha -------------------------------------------------------
+   De la distancia que no se cierra. Dos puntos y el puente entre ellos.
+   El puente es el dato: la distancia, no los valores absolutos. Por eso el
+   puente lleva el acento y los puntos no.
+   ------------------------------------------------------------------------ */
+
+.eje { position: relative; height: 30px; }
+
+.eje::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 9px;
+  height: 1px;
+  background: var(--linea);
+}
+
+.puente {
+  position: absolute;
+  top: 8px;
+  height: 3px;
+  background: var(--acento);
+  border-radius: 2px;
+}
+
+.punto {
+  position: absolute;
+  top: 3px;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.punto.primario { background: var(--texto); }
+
+.punto.referencia {
+  background: var(--fondo);
+  border: 1.5px solid var(--texto);
+}
+
+.valor {
+  position: absolute;
+  top: 18px;
+  font-size: 10.5px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.valor.primario { color: var(--texto); }
+.valor.referencia { color: var(--pizarra); }
+
+
+/* --- Recibo --------------------------------------------------------------
+   Del recibo invisible. El dato es la resta; los dentados son estructura.
+   Sin sombra: el manual la prohíbe. La separación del fondo la da el borde.
+   ------------------------------------------------------------------------ */
+
+.recibo {
+  position: relative;
+  background: var(--papel);
+  color: var(--tinta);
+  border: 1px solid var(--linea);
+  padding: 26px 20px 22px;
+  margin: 30px 0 12px;
+}
+
+.recibo-cab {
+  text-align: center;
+  border-bottom: 1px dashed var(--pizarra);
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.recibo-cab strong {
+  font-family: var(--fuente-titular);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: .04em;
+  display: block;
+}
+
+.recibo-cab span {
+  font-family: var(--fuente-cifra);
+  font-size: 10px;
+  color: var(--pizarra);
+  letter-spacing: .1em;
+}
+
+.linea {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13px;
+  padding: 5px 0;
+}
+
+.linea .pts {
+  flex: 1;
+  border-bottom: 1px dotted var(--pizarra);
+  transform: translateY(-3px);
+}
+
+.linea .val { white-space: nowrap; }
+
+.linea.total {
+  border-top: 1px solid var(--tinta);
+  margin-top: 10px;
+  padding-top: 10px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.nota-linea {
+  font-size: 10px;
+  color: var(--pizarra);
+  margin: -2px 0 6px;
+}
+
+/* El sello enmarca el dato central. Borde y cifra en rojo; el fondo no,
+   porque el manual prohíbe el rojo como fondo de bloques. */
+.sello {
+  margin-top: 18px;
+  border: 2px solid var(--rojo);
+  padding: 12px 14px;
+}
+
+.sello .s-eti {
+  font-family: var(--fuente-cifra);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--pizarra);
+}
+
+.sello .s-num {
+  color: var(--rojo);
+  font-size: 30px;
+  line-height: 1.1;
+}
+
+.sello .s-pie {
+  font-size: 11px;
+  color: var(--pizarra);
+  margin-top: 4px;
+}
+
+/* Bloque de contraste: la alternativa, en verde. Es señal positiva, y el
+   verde sí admite fondo. */
+.contraste {
+  background: var(--verde);
+  color: var(--papel);
+  padding: 11px 14px;
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.contraste b { font-family: var(--fuente-cifra); font-weight: 600; }
+
+
+/* --- Cajas de cifra ------------------------------------------------------
+   De la distancia. Uno o dos números de cierre, con su explicación.
+   ------------------------------------------------------------------------ */
+
+.cifras {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.caja {
+  background: var(--superficie);
+  padding: 16px 14px;
+  border-top: 2px solid var(--acento);
+}
+
+.caja b {
+  font-size: 26px;
+  display: block;
+  line-height: 1.05;
+  margin-bottom: 6px;
+}
+
+.caja span {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--texto-2);
+}
+
+
+/* --- Detalle desplegable ------------------------------------------------- */
+
+.detalle {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--texto-2);
+  margin: 12px 0 0;
+  padding: 12px 14px;
+  background: var(--superficie);
+  border-left: 2px solid var(--acento);
+}
+
+.detalle em {
+  font-style: normal;
+  color: var(--pizarra);
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+}
+
+
+/* ==========================================================================
+   Accesibilidad — está en los tres prototipos y no se pierde al unificar.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .ficha,
+  .unidad,
+  .unidad::after {
+    transition: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .cifras { grid-template-columns: 1fr; }
+}
