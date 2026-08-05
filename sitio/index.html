@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cardinal Datos — Datos que no se traducen solos</title>
+<meta name="description" content="Estadísticas públicas sobre migración y diáspora que existen, pero casi nadie puede leer. Las volvemos comprensibles, en español.">
+<meta name="robots" content="noindex">
+
+<meta property="og:title" content="Cardinal Datos">
+<meta property="og:description" content="Datos que no se traducen solos.">
+<meta property="og:type" content="website">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --tinta: #14181C;
+    --cardinal: #C0392F;
+    --papel: #F1F2EF;
+    --pizarra: #5C6B72;
+    --borde: #D6D8D3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--papel);
+    color: var(--tinta);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 24px;
+  }
+  main { max-width: 560px; margin: 0 auto; width: 100%; }
+
+  .marca { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+  .marca svg { width: 62px; height: 62px; flex-shrink: 0; }
+  .nombre {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 34px;
+    letter-spacing: -.03em;
+    line-height: 1;
+  }
+  .nombre span {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--pizarra);
+    margin-top: 5px;
+  }
+
+  h1 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: clamp(30px, 7vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -.03em;
+    margin: 0 0 20px;
+  }
+  h1 em { font-style: normal; color: var(--cardinal); }
+
+  p.lede {
+    font-size: 16px;
+    line-height: 1.65;
+    max-width: 44ch;
+    margin: 0 0 34px;
+    color: #334046;
+  }
+
+  .estado {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--pizarra);
+    border-top: 1px solid var(--borde);
+    padding-top: 18px;
+  }
+  .estado b { color: var(--cardinal); font-weight: 500; }
+
+  footer {
+    margin-top: 44px;
+    font-size: 12px;
+    color: var(--pizarra);
+    line-height: 1.6;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body { background: var(--tinta); color: var(--papel); }
+    p.lede { color: #B7C2C7; }
+    .estado, footer { color: #8D9BA1; border-color: #2A3238; }
+    .brazo { fill: #F1F2EF; }
+    .eje { fill: #14181C; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="marca">
+    <svg viewBox="0 0 100 100" role="img" aria-label="Cardinal Datos">
+      <path d="M50 6 L57 46 L50 52 L43 46 Z" fill="#C0392F"/>
+      <path class="brazo" d="M94 52 L56 58 L50 52 L56 46 Z" fill="#14181C"/>
+      <path class="brazo" d="M50 84 L43 58 L50 52 L57 58 Z" fill="#14181C"/>
+      <path class="brazo" d="M8 52 L44 46 L50 52 L44 58 Z" fill="#14181C"/>
+      <circle class="eje" cx="50" cy="52" r="2.6" fill="#F1F2EF"/>
+    </svg>
+    <div class="nombre">
+      Cardinal
+      <span>Datos</span>
+    </div>
+  </div>
+
+  <h1>Datos que no se <em>traducen solos</em></h1>
+
+  <p class="lede">
+    Recogemos estadísticas públicas sobre migración y diáspora que existen,
+    pero casi nadie puede leer. Las volvemos comprensibles, en español.
+  </p>
+
+  <p class="estado">
+    Estado: <b>en construcción</b> · primera publicación próximamente
+  </p>
+
+  <footer>
+    Fuentes: Banco Mundial, Eurostat, SSB y otros organismos públicos.
+    Cada cifra publicada lleva fuente, año y método.
+  </footer>
+
+</main>
+</body>
+</html>
