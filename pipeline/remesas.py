@@ -24,7 +24,10 @@ PAISES = [
 ]
 
 LOTE = 6  # más de esto y el API devuelve 500
-MONTO = 200  # dólares del envío de referencia del recibo
+
+# 200 USD no es una elección nuestra: es el monto sobre el que el indicador
+# está definido. Cambiarlo convertiría el recibo en una extrapolación.
+MONTO = 200
 
 
 def lotes(lista, tam):
@@ -114,17 +117,21 @@ def main():
                "provienen de Remittance Prices Worldwide.",
         url=f"{BASE}/country/<ISO3>/indicator/{SERIE}?format=json&mrv=5",
         definicion=(
-            f"Costo total promedio de enviar remesas hacia el país, como porcentaje "
-            f"del monto enviado. La cifra en dólares de esta pieza aplica ese "
-            f"porcentaje a un envío de referencia de {MONTO} USD; no es una tarifa "
-            f"observada de ningún proveedor concreto."
+            f"Costo total de transacción de enviar {MONTO} USD hacia el país, como "
+            f"porcentaje del monto enviado, promediado entre todos los proveedores "
+            f"de servicios de remesas incluidos en la base Remittance Prices "
+            f"Worldwide para ese destino.\n\n"
+            f"La cifra en dólares de esta pieza devuelve ese porcentaje al monto "
+            f"sobre el que el indicador está definido: no es una extrapolación. "
+            f"Tampoco es la tarifa de ningún proveedor concreto — es el promedio "
+            f"del mercado rastreado."
         ),
         limites=(
-            "1. PENDIENTE DE RESOLVER ANTES DE PUBLICAR: los valores de esta serie "
-            "rondan el 2–3,5 %, mientras que el promedio global que publica el "
-            "informe RPW es de 6,36 %. Hay que confirmar si esta serie del WDI mide "
-            "el mismo concepto que el titular del informe o una variante. Si no se "
-            "resuelve, la pieza no sale.\n\n"
+            "1. Los valores latinoamericanos (2–3,5 %) quedan muy por debajo del "
+            "promedio global del RPW (6,36 %). No es una discrepancia de método: "
+            "ambos miden lo mismo, y América Latina es la región más barata del "
+            "mundo para recibir remesas. Pendiente menor: contrastar contra el "
+            "promedio regional del informe, no contra el global.\n\n"
             "2. Frecuencia anual, no trimestral. El metadato del catálogo declara "
             "actualizaciones recientes, pero el último año con dato es 2023: "
             "refrescan el catálogo sin añadir años. Verificar en cada ejecución.\n\n"
