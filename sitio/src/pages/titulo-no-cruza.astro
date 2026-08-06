@@ -1,0 +1,83 @@
+---
+import Base from "../layouts/Base.astro";
+import TituloNoCruza from "../components/TituloNoCruza.jsx";
+---
+
+<Base
+  titulo="El título no cruza"
+  descripcion="Cuatro de cada diez migrantes de fuera de la UE con título universitario trabajan por debajo de su formación. Datos de Eurostat, 2024."
+>
+  <TituloNoCruza client:load />
+</Base>
+
+<style is:global>
+  /* Estilos propios de esta pieza. Lo que se repita en una segunda pieza
+     se promociona a sistema.css; hasta entonces vive aquí.
+     is:global porque el HTML lo genera la isla de React y los estilos
+     con ámbito de Astro no lo alcanzan. */
+
+  .tarjeta {
+    background: var(--fondo);
+    border: 1px solid var(--linea);
+    padding: 22px 20px 20px;
+  }
+
+  .lectura {
+    font-size: 15px;
+    line-height: 1.4;
+    margin: 0 0 16px;
+    max-width: 44ch;
+  }
+
+  .lectura .dato-central {
+    margin-bottom: 6px;
+  }
+
+  /* Barras de la comparación por década: dos rellenos superpuestos.
+     El tenue (2014) detrás, el acento (2024) delante y más fino. */
+  .decada {
+    margin-bottom: 16px;
+  }
+
+  .decada .pista {
+    height: 22px;
+  }
+
+  .relleno.tenue {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--linea);
+  }
+
+  .relleno.encima {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    height: 12px;
+  }
+
+  .barra-pie {
+    font-size: 11px;
+    color: var(--pizarra);
+    margin: 4px 0 0;
+  }
+
+  .caso {
+    border-top: 1px solid var(--linea);
+    padding: 13px 0;
+    display: grid;
+    gap: 3px;
+  }
+
+  .caso strong {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .caso span {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--texto-2);
+  }
+</style>
