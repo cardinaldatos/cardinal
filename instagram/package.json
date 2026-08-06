@@ -1,0 +1,11 @@
+{
+  "name": "cardinal-instagram",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "generar": "node generar.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.48.0"
+  }
+}
