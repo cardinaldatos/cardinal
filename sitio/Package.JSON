@@ -1,0 +1,16 @@
+{
+  "name": "cardinal-sitio",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.1.6",
+    "@astrojs/react": "^6.0.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
