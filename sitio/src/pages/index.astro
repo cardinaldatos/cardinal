@@ -40,12 +40,20 @@ const PIEZAS = [
         {
           PIEZAS.map((p) => (
             <article class="entrada">
-              <p class="cejilla">
+              {/* La fuente y el año van juntos y caben en una línea.
+                  El estado sale de la cejilla: es metadato del proyecto,
+                  no de los datos, y mezclarlos alargaba la línea hasta
+                  partirla en dos. */}
+              <p class="cejilla origen">
                 {p.fuente} · {p.anio}
-                {p.estado && ` · ${p.estado}`}
               </p>
-              <h3>{p.titulo}</h3>
-              <p>{p.resumen}</p>
+
+              <h3>
+                {p.titulo}
+                {p.estado && <span class="estado">{p.estado}</span>}
+              </h3>
+
+              <p class="resumen">{p.resumen}</p>
             </article>
           ))
         }
@@ -63,18 +71,43 @@ const PIEZAS = [
 <style>
   .entrada {
     border-top: 1px solid var(--linea);
-    padding: 18px 0 4px;
+    padding: 18px 0 6px;
+  }
+
+  /* La cejilla de la entrada necesita más aire que la de la cabecera:
+     aquí va pegada a un h3, no a un titular grande. */
+  .origen {
+    margin-bottom: 8px;
   }
 
   .entrada h3 {
     font-family: var(--fuente-titular);
     font-weight: 700;
     font-size: 17px;
-    margin: 0 0 6px;
+    margin: 0 0 8px;
     letter-spacing: -0.01em;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 9px;
   }
 
-  .entrada p {
+  /* Estado del trabajo, no del dato. En pizarra y sin color de acento
+     para que no compita con el titular. */
+  .estado {
+    font-family: var(--fuente-cifra);
+    font-weight: 400;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pizarra);
+    border: 1px solid var(--linea);
+    border-radius: 2px;
+    padding: 3px 7px;
+    white-space: nowrap;
+  }
+
+  .resumen {
     font-size: 13px;
     line-height: 1.6;
     color: var(--texto-2);
