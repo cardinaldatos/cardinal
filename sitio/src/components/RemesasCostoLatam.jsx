@@ -6,6 +6,10 @@ import { useState } from "react";
    que los lee de data/remesas-costo-latam/limpio.json — el mismo
    archivo que genera pipeline/remesas.py y que usan las imágenes de
    Instagram. Un solo origen para las tres superficies.
+
+   Los nombres de país vienen ya en español desde el pipeline. Antes
+   había aquí un diccionario propio para los países sin dato; se quitó
+   para no tener dos listas que se desincronicen.
 ------------------------------------------------------------------ */
 
 const coma = (v, decimales = 2) =>
@@ -13,8 +17,6 @@ const coma = (v, decimales = 2) =>
     minimumFractionDigits: decimales,
     maximumFractionDigits: decimales,
   });
-
-const NOMBRES_SIN_DATO = { VEN: "Venezuela", ARG: "Argentina", CHL: "Chile" };
 
 export default function RemesasCostoLatam({ datos }) {
   const paises = datos.con_dato; // ya viene ordenado de mayor a menor costo_pct
@@ -25,7 +27,7 @@ export default function RemesasCostoLatam({ datos }) {
   const llega = monto - pais.sobre_200_usd;
   const maxCosto = paises[0].costo_pct;
 
-  const sinDato = datos.sin_dato.map((c) => NOMBRES_SIN_DATO[c] ?? c);
+  const sinDato = datos.sin_dato.map((p) => p.pais);
 
   return (
     <div className="pieza" data-fondo="oscuro" style={{ "--acento": "var(--verde)" }}>
@@ -142,7 +144,9 @@ export default function RemesasCostoLatam({ datos }) {
           editorial. Cifras anuales, no trimestrales: el año más reciente
           disponible es {paises[0].anio}. El detalle por proveedor,
           comisión y tipo de cambio no está en esta serie — solo el
-          promedio total de transacción.
+          promedio total de transacción. Los nombres de país están
+          traducidos por nosotros; el original de la fuente queda en el
+          método.
         </div>
       </div>
     </div>
