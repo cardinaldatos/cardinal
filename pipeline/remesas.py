@@ -8,6 +8,13 @@ genérico, sin explicación, cuando la lista es más larga.
 Venezuela va en la lista a propósito, aunque sabemos que no tiene dato. Su
 ausencia queda registrada en limpio.json como hallazgo, no como omisión.
 
+Los nombres de país se traducen aquí, no en cada superficie. El API los
+devuelve en inglés ("Peru", "Dominican Republic") y este es un proyecto en
+español: si la traducción viviera en el sitio y en los generadores de
+Instagram por separado, tendríamos tres diccionarios que se desincronizan.
+El nombre original de la fuente se conserva en `pais_fuente` para que la
+cifra siga siendo rastreable hasta el registro crudo.
+
 Córrelo:  cd pipeline && python remesas.py
 """
 
@@ -22,6 +29,23 @@ PAISES = [
     "COL", "ECU", "PER", "DOM", "MEX", "GTM",
     "HND", "SLV", "NIC", "BOL", "ARG", "CHL", "VEN",
 ]
+
+# Nombre publicable, en español. Cubre los trece de PAISES, tengan dato o no.
+NOMBRES_ES = {
+    "COL": "Colombia",
+    "ECU": "Ecuador",
+    "PER": "Perú",
+    "DOM": "República Dominicana",
+    "MEX": "México",
+    "GTM": "Guatemala",
+    "HND": "Honduras",
+    "SLV": "El Salvador",
+    "NIC": "Nicaragua",
+    "BOL": "Bolivia",
+    "ARG": "Argentina",
+    "CHL": "Chile",
+    "VEN": "Venezuela",
+}
 
 LOTE = 6  # más de esto y el API devuelve 500
 
@@ -65,16 +89,22 @@ def limpiar(crudo):
                 continue
             previo = por_pais.get(iso)
             if previo is None or anio > previo["anio"]:
+                nombre_fuente = r["country"]["value"]
                 por_pais[iso] = {
                     "iso3": iso,
-                    "pais": r["country"]["value"],
+                    "pais": NOMBRES_ES.get(iso, nombre_fuente),
+                    "pais_fuente": nombre_fuente,
                     "anio": anio,
                     "costo_pct": round(valor, 2),
                     "sobre_200_usd": round(valor / 100 * MONTO, 2),
                 }
 
     con_dato = sorted(por_pais.values(), key=lambda f: f["costo_pct"], reverse=True)
-    sin_dato = [p for p in PAISES if p not in por_pais]
+    sin_dato = [
+        {"iso3": p, "pais": NOMBRES_ES.get(p, p)}
+        for p in PAISES
+        if p not in por_pais
+    ]
 
     return {
         "serie": SERIE,
@@ -94,7 +124,16 @@ def revisar(limpio):
         print(f"  Todos los países en el mismo año: {anios.pop()}")
 
     if limpio["sin_dato"]:
-        print(f"  Sin dato: {', '.join(limpio['sin_dato'])}")
+        print(f"  Sin dato: {', '.join(p['iso3'] for p in limpio['sin_dato'])}")
+
+    # Si el API trae un país que no está en NOMBRES_ES, se publicaría con el
+    # nombre en inglés sin que nadie lo note. Mejor que grite.
+    faltan = [
+        f["iso3"] for f in limpio["con_dato"] if f["iso3"] not in NOMBRES_ES
+    ]
+    if faltan:
+        print(f"  AVISO: sin nombre en español para {', '.join(faltan)}.")
+        print("         Se publicarán con el nombre en inglés de la fuente.")
 
 
 def main():
@@ -143,7 +182,11 @@ def main():
             "aparecen con valor nulo. Su ausencia se registra en limpio.json.\n\n"
             "5. No hay desglose entre comisión y margen de tipo de cambio, ni por "
             "país emisor, ni por tipo de proveedor. Ese detalle solo existe en el "
-            "Excel trimestral de Remittance Prices Worldwide."
+            "Excel trimestral de Remittance Prices Worldwide.\n\n"
+            "6. Los nombres de país se publican en español. La traducción es "
+            "nuestra, no de la fuente: el API los devuelve en inglés. El nombre "
+            "original queda guardado en el campo `pais_fuente` de limpio.json, y "
+            "en crudo.json sin tocar. Ninguna cifra depende de esta traducción."
         ),
     )
 
