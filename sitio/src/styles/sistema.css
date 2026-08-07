@@ -2,9 +2,13 @@
    Cardinal Datos — sistema de diseño v1
 
    Fuente de verdad: «Cardinal — Manual de marca v1».
-   La estructura de componentes viene de los tres prototipos; los colores,
-   tipografías y reglas vienen del manual. Donde los prototipos contradecían
-   al manual, manda el manual.
+
+   CAMBIO DE HOY: la paleta y las tipografías vivían solo dentro de
+   `.pieza`, así que nada fuera de una pieza (como la cabecera del sitio)
+   podía usarlas. Ahora están en :root. Es un cambio seguro: .pieza sigue
+   viendo exactamente los mismos valores, porque :root es su ancestro y
+   las variables CSS heredan igual. Lo único que cambia es que ahora
+   también las ve todo lo que vive fuera de una pieza.
 
    REGLAS DEL MANUAL CODIFICADAS AQUÍ
    - Seis colores, ni uno más.
@@ -15,8 +19,8 @@
    - El rojo nunca como fondo de bloques grandes.
 
    ESTRUCTURA
-   1. Paleta y tipografía
-   2. Fondo claro y fondo oscuro
+   1. Paleta y tipografía (global)
+   2. Fondo claro y fondo oscuro (por pieza)
    3. Base
    4. Chrome           — cabecera, bloque, pie de fuente
    5. Controles        — fichas, deslizador
@@ -26,10 +30,10 @@
 
 
 /* ==========================================================================
-   1. PALETA Y TIPOGRAFÍA
+   1. PALETA Y TIPOGRAFÍA — global, no solo dentro de piezas
    ========================================================================== */
 
-.pieza {
+:root {
   --tinta: #14181C;
   --rojo: #C0392F;
   --papel: #F1F2EF;
@@ -37,14 +41,16 @@
   --ambar: #E0A02E;
   --pizarra: #5C6B72;
 
+  --fuente-titular: 'Archivo', system-ui, sans-serif;
+  --fuente-texto: 'IBM Plex Sans', system-ui, sans-serif;
+  --fuente-cifra: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+.pieza {
   /* El acento de la pieza. Verde o ámbar, nunca los dos.
      Se declara en el elemento raíz de cada pieza:
        <div class="pieza" style="--acento: var(--ambar)">          */
   --acento: var(--verde);
-
-  --fuente-titular: 'Archivo', system-ui, sans-serif;
-  --fuente-texto: 'IBM Plex Sans', system-ui, sans-serif;
-  --fuente-cifra: 'IBM Plex Mono', ui-monospace, monospace;
 
   --columna: 560px;
 }
@@ -98,12 +104,6 @@
    4. CHROME
    ========================================================================== */
 
-/* --- Cabecera de pieza ---------------------------------------------------
-   La cejilla nombra fuente y periodo. Es lo primero que se lee y lo que
-   sostiene la credibilidad: no se omite nunca. En mono, porque contiene
-   año y referencia.
-   ------------------------------------------------------------------------ */
-
 .cejilla {
   font-family: var(--fuente-cifra);
   font-size: 10px;
@@ -122,8 +122,6 @@
   margin: 0 0 14px;
 }
 
-/* La palabra destacada del titular va en rojo: es el dato que señala la
-   pieza, en versión verbal. Una sola por titular. */
 .titular em,
 .titular span {
   font-style: normal;
@@ -137,8 +135,6 @@
   margin: 0 0 26px;
   max-width: 46ch;
 }
-
-/* --- Bloque de sección --------------------------------------------------- */
 
 .bloque { margin-top: 40px; }
 
@@ -156,11 +152,6 @@
   color: var(--texto-2);
   margin: 0 0 16px;
 }
-
-/* --- Pie de fuente -------------------------------------------------------
-   Obligatorio en toda pieza: fuente, año y método visibles. Es el metodo.md
-   en versión corta.
-   ------------------------------------------------------------------------ */
 
 .pie {
   margin-top: 38px;
@@ -216,8 +207,6 @@
   color: var(--texto);
 }
 
-/* El estado activo se marca con aria-pressed, no con una clase aparte.
-   Así el estilo y la accesibilidad no pueden desincronizarse. */
 .ficha[aria-pressed="true"] {
   background: var(--texto);
   color: var(--fondo);
@@ -239,8 +228,6 @@
 
 /* ==========================================================================
    6. CIFRAS
-   Todas en mono. La coma decimal se resuelve en JS con
-   toLocaleString('es'), no aquí.
    ========================================================================== */
 
 .cifra,
@@ -255,8 +242,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* El dato central de la pieza. Uno por pieza, en rojo.
-   Si hay dos, uno de los dos no es central. */
 .dato-central {
   font-family: var(--fuente-cifra);
   font-variant-numeric: tabular-nums;
@@ -276,12 +261,6 @@
 /* ==========================================================================
    7. COMPONENTES DE DATO
    ========================================================================== */
-
-/* --- Barras comparadas ---------------------------------------------------
-   Del recibo y del título. El relleno va en el color de texto por defecto;
-   el acento marca la fila destacada. El rojo se reserva para la fila que
-   contiene el dato central de la pieza, si la hay.
-   ------------------------------------------------------------------------ */
 
 .barra-fila { margin-bottom: 9px; }
 
@@ -330,14 +309,6 @@
   transform: translateX(-50%);
   white-space: nowrap;
 }
-
-
-/* --- Rejilla de 100 ------------------------------------------------------
-   Del título no cruza. Cien unidades, N marcadas: la forma más honesta de
-   mostrar una proporción, porque el denominador está a la vista.
-
-   La tacha se dibuja con una línea rotada, no con un degradado.
-   ------------------------------------------------------------------------ */
 
 .rejilla {
   display: grid;
@@ -394,13 +365,6 @@
 
 .leyenda i.marcada { border-color: var(--rojo); }
 
-
-/* --- Eje de brecha -------------------------------------------------------
-   De la distancia que no se cierra. Dos puntos y el puente entre ellos.
-   El puente es el dato: la distancia, no los valores absolutos. Por eso el
-   puente lleva el acento y los puntos no.
-   ------------------------------------------------------------------------ */
-
 .eje { position: relative; height: 30px; }
 
 .eje::before {
@@ -444,12 +408,6 @@
 
 .valor.primario { color: var(--texto); }
 .valor.referencia { color: var(--pizarra); }
-
-
-/* --- Recibo --------------------------------------------------------------
-   Del recibo invisible. El dato es la resta; los dentados son estructura.
-   Sin sombra: el manual la prohíbe. La separación del fondo la da el borde.
-   ------------------------------------------------------------------------ */
 
 .recibo {
   position: relative;
@@ -513,8 +471,6 @@
   margin: -2px 0 6px;
 }
 
-/* El sello enmarca el dato central. Borde y cifra en rojo; el fondo no,
-   porque el manual prohíbe el rojo como fondo de bloques. */
 .sello {
   margin-top: 18px;
   border: 2px solid var(--rojo);
@@ -541,8 +497,6 @@
   margin-top: 4px;
 }
 
-/* Bloque de contraste: la alternativa, en verde. Es señal positiva, y el
-   verde sí admite fondo. */
 .contraste {
   background: var(--verde);
   color: var(--papel);
@@ -553,11 +507,6 @@
 }
 
 .contraste b { font-family: var(--fuente-cifra); font-weight: 600; }
-
-
-/* --- Cajas de cifra ------------------------------------------------------
-   De la distancia. Uno o dos números de cierre, con su explicación.
-   ------------------------------------------------------------------------ */
 
 .cifras {
   display: grid;
@@ -584,9 +533,6 @@
   color: var(--texto-2);
 }
 
-
-/* --- Detalle desplegable ------------------------------------------------- */
-
 .detalle {
   font-size: 12.5px;
   line-height: 1.6;
@@ -607,7 +553,7 @@
 
 
 /* ==========================================================================
-   Accesibilidad — está en los tres prototipos y no se pierde al unificar.
+   Accesibilidad
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
