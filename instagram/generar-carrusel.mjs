@@ -4,6 +4,10 @@
 //
 // Narrativa: gancho → el más caro → el más barato → el hallazgo del hueco
 // → cierre con llamada a la web.
+//
+// Los nombres de país ya vienen en español desde limpio.json. Antes había
+// aquí un diccionario propio para los países sin dato; se quitó al mover
+// la traducción al pipeline.
 
 import { chromium } from "playwright";
 import { readFile, mkdir } from "node:fs/promises";
@@ -12,8 +16,6 @@ import { FUENTES, coma, CSS_MINI_RANKING, renderMiniRanking } from "./comun.mjs"
 
 const RAIZ = path.resolve(import.meta.dirname, "..");
 const SALIDA = path.join(import.meta.dirname, "salida");
-
-const NOMBRES_PAIS = { VEN: "Venezuela", ARG: "Argentina", CHL: "Chile" };
 
 /* --------------------------------------------------------------------
    ARMAZÓN COMÚN A LAS CINCO LÁMINAS
@@ -262,7 +264,7 @@ function laminaCierre({ total, pie }) {
   const cuerpo = `
     <p class="titular-cierre">Datos que no se<br /><em>traducen solos</em></p>
     <p class="cta">Lee la pieza completa en</p>
-    <p class="enlace">cardinaldatos.workers.dev</p>
+    <p class="enlace">cardinaldatos.org</p>
   `;
   return documento({
     cejilla: "CARDINAL DATOS",
@@ -305,7 +307,7 @@ async function construirCarrusel() {
 
   const [masCaro] = datos.con_dato;
   const masBarato = datos.con_dato[datos.con_dato.length - 1];
-  const nombresSinDato = datos.sin_dato.map((iso) => NOMBRES_PAIS[iso] ?? iso);
+  const nombresSinDato = datos.sin_dato.map((p) => p.pais);
 
   const TOTAL = 5;
 
