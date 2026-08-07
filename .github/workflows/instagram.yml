@@ -19,12 +19,18 @@ jobs:
       - name: Instalar navegador de Playwright
         run: cd instagram && npx playwright install --with-deps chromium
 
-      - name: Generar imágenes
+      - name: Generar presentación
+        run: cd instagram && node generar-presentacion.mjs
+
+      - name: Generar feed
         run: cd instagram && node generar.mjs
+
+      - name: Generar carrusel
+        run: cd instagram && node generar-carrusel.mjs
 
       - name: Guardar imágenes para descargar
         uses: actions/upload-artifact@v4
         with:
-          name: instagram-feed
+          name: instagram-imagenes
           path: instagram/salida/
           if-no-files-found: error
