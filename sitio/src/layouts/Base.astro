@@ -1,7 +1,11 @@
 ---
 // Layout base de todas las páginas.
-// Las tipografías van aquí como <link>, no como @import en el CSS: así el
-// navegador arranca las dos descargas a la vez.
+//
+// Nuevo hoy: la cabecera del sitio. Vive fuera de cualquier .pieza, así
+// que lleva su propio fondo tinta fijo — no depende de si la página de
+// abajo es data-fondo="oscuro" o "claro". Por eso el isotipo de fondo
+// oscuro (el mismo archivo real de 01 — Identidad) funciona aquí sin
+// necesitar una segunda variante de color.
 
 import "../styles/sistema.css";
 
@@ -15,6 +19,7 @@ const { titulo, descripcion = "Estadísticas públicas sobre migración y diásp
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{titulo ? `${titulo} — Cardinal Datos` : "Cardinal Datos"}</title>
     <meta name="description" content={descripcion} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,6 +30,30 @@ const { titulo, descripcion = "Estadísticas públicas sobre migración y diásp
   </head>
 
   <body>
+    <header class="chrome-header">
+      <a href="/" class="chrome-marca">
+        <svg viewBox="0 0 100 100" width="26" height="26" role="img" aria-label="Cardinal">
+          <g transform="translate(0, 2)">
+            <path d="M50 12 L56 46 L50 51 L44 46 Z" fill="#C0392F" />
+            <path d="M88 51 L56 57 L50 51 L56 45 Z" fill="#F1F2EF" />
+            <path d="M50 79 L44 57 L50 51 L56 57 Z" fill="#F1F2EF" />
+            <path d="M12 51 L44 45 L50 51 L44 57 Z" fill="#F1F2EF" />
+            <circle cx="50" cy="51" r="2.4" fill="#14181C" />
+          </g>
+        </svg>
+        <span>Cardinal Datos</span>
+      </a>
+
+      <a
+        href="https://www.instagram.com/cardinaldatos"
+        class="chrome-ig"
+        target="_blank"
+        rel="noopener"
+      >
+        Síguenos en Instagram ↗
+      </a>
+    </header>
+
     <slot />
   </body>
 </html>
@@ -35,5 +64,54 @@ const { titulo, descripcion = "Estadísticas públicas sobre migración y diásp
     margin: 0;
     padding: 0;
     background: #14181c;
+  }
+</style>
+
+<style>
+  .chrome-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 24px;
+    background: var(--tinta);
+    border-bottom: 1px solid #2e363d;
+  }
+
+  .chrome-marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--papel);
+  }
+
+  .chrome-marca span {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .chrome-ig {
+    font-family: var(--fuente-cifra);
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    color: var(--pizarra);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .chrome-ig:hover {
+    color: var(--rojo);
+  }
+
+  @media (max-width: 480px) {
+    .chrome-marca span {
+      display: none;
+    }
   }
 </style>
