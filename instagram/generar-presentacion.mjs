@@ -117,7 +117,7 @@ function plantillaPresentacion() {
 
   <p class="pie">
     Proyecto colectivo · método siempre declarado<br />
-    cardinaldatos.workers.dev
+    cardinaldatos.org
   </p>
 </body>
 </html>`;
