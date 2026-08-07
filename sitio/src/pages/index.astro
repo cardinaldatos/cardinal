@@ -1,8 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
 
-// Las piezas se listan a mano hasta que haya suficientes para justificar una
-// colección de contenido. Cada una entra aquí cuando se publica.
 const PIEZAS = [
   {
     slug: "remesas-costo-latam",
@@ -11,7 +9,14 @@ const PIEZAS = [
       "Lo que cuesta enviar 200 dólares a diez países de América Latina, y los tres que no aparecen en la estadística.",
     fuente: "Banco Mundial",
     anio: "2023",
-    estado: "en construcción",
+  },
+  {
+    slug: "titulo-no-cruza",
+    titulo: "El título no cruza",
+    resumen:
+      "Cuatro de cada diez migrantes de fuera de la UE con título universitario trabajan por debajo de su formación.",
+    fuente: "Eurostat",
+    anio: "2024",
   },
 ];
 ---
@@ -40,19 +45,12 @@ const PIEZAS = [
         {
           PIEZAS.map((p) => (
             <article class="entrada">
-              {/* La fuente y el año van juntos y caben en una línea.
-                  El estado sale de la cejilla: es metadato del proyecto,
-                  no de los datos, y mezclarlos alargaba la línea hasta
-                  partirla en dos. */}
               <p class="cejilla origen">
                 {p.fuente} · {p.anio}
               </p>
-
               <h3>
-                {p.titulo}
-                {p.estado && <span class="estado">{p.estado}</span>}
+                <a href={`/${p.slug}/`}>{p.titulo}</a>
               </h3>
-
               <p class="resumen">{p.resumen}</p>
             </article>
           ))
@@ -74,8 +72,6 @@ const PIEZAS = [
     padding: 18px 0 6px;
   }
 
-  /* La cejilla de la entrada necesita más aire que la de la cabecera:
-     aquí va pegada a un h3, no a un titular grande. */
   .origen {
     margin-bottom: 8px;
   }
@@ -86,25 +82,16 @@ const PIEZAS = [
     font-size: 17px;
     margin: 0 0 8px;
     letter-spacing: -0.01em;
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 9px;
   }
 
-  /* Estado del trabajo, no del dato. En pizarra y sin color de acento
-     para que no compita con el titular. */
-  .estado {
-    font-family: var(--fuente-cifra);
-    font-weight: 400;
-    font-size: 9.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--pizarra);
-    border: 1px solid var(--linea);
-    border-radius: 2px;
-    padding: 3px 7px;
-    white-space: nowrap;
+  .entrada h3 a {
+    color: inherit;
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 4px;
+  }
+
+  .entrada h3 a:hover {
+    text-decoration-color: var(--rojo);
   }
 
   .resumen {
