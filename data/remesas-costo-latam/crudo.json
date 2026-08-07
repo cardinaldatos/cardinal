@@ -1,0 +1,1025 @@
+[
+  {
+    "paises": [
+      "COL",
+      "ECU",
+      "PER",
+      "DOM",
+      "MEX",
+      "GTM"
+    ],
+    "url": "https://api.worldbank.org/v2/country/COL;ECU;PER;DOM;MEX;GTM/indicator/SI.RMT.COST.IB.ZS",
+    "respuesta": [
+      {
+        "page": 1,
+        "pages": 1,
+        "per_page": 200,
+        "total": 30,
+        "sourceid": "2",
+        "lastupdated": "2026-07-13"
+      },
+      [
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "CO",
+            "value": "Colombia"
+          },
+          "countryiso3code": "COL",
+          "date": "2023",
+          "value": 2.434,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "CO",
+            "value": "Colombia"
+          },
+          "countryiso3code": "COL",
+          "date": "2022",
+          "value": 2.4858335,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "CO",
+            "value": "Colombia"
+          },
+          "countryiso3code": "COL",
+          "date": "2021",
+          "value": 2.945,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "CO",
+            "value": "Colombia"
+          },
+          "countryiso3code": "COL",
+          "date": "2020",
+          "value": 1.559065,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "CO",
+            "value": "Colombia"
+          },
+          "countryiso3code": "COL",
+          "date": "2019",
+          "value": 3.762845,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "DO",
+            "value": "Dominican Republic"
+          },
+          "countryiso3code": "DOM",
+          "date": "2023",
+          "value": 2.51977766666667,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "DO",
+            "value": "Dominican Republic"
+          },
+          "countryiso3code": "DOM",
+          "date": "2022",
+          "value": 1.912222,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "DO",
+            "value": "Dominican Republic"
+          },
+          "countryiso3code": "DOM",
+          "date": "2021",
+          "value": 1.57,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "DO",
+            "value": "Dominican Republic"
+          },
+          "countryiso3code": "DOM",
+          "date": "2020",
+          "value": 2.24808,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "DO",
+            "value": "Dominican Republic"
+          },
+          "countryiso3code": "DOM",
+          "date": "2019",
+          "value": 1.81331333333333,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "EC",
+            "value": "Ecuador"
+          },
+          "countryiso3code": "ECU",
+          "date": "2023",
+          "value": 2.29555566666667,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "EC",
+            "value": "Ecuador"
+          },
+          "countryiso3code": "ECU",
+          "date": "2022",
+          "value": 0.306667,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "EC",
+            "value": "Ecuador"
+          },
+          "countryiso3code": "ECU",
+          "date": "2021",
+          "value": 2.48,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "EC",
+            "value": "Ecuador"
+          },
+          "countryiso3code": "ECU",
+          "date": "2020",
+          "value": 2.52204333333333,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "EC",
+            "value": "Ecuador"
+          },
+          "countryiso3code": "ECU",
+          "date": "2019",
+          "value": 3.12303333333333,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "GT",
+            "value": "Guatemala"
+          },
+          "countryiso3code": "GTM",
+          "date": "2023",
+          "value": 2.556667,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "GT",
+            "value": "Guatemala"
+          },
+          "countryiso3code": "GTM",
+          "date": "2022",
+          "value": 2.786667,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "GT",
+            "value": "Guatemala"
+          },
+          "countryiso3code": "GTM",
+          "date": "2021",
+          "value": 3.41,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "GT",
+            "value": "Guatemala"
+          },
+          "countryiso3code": "GTM",
+          "date": "2020",
+          "value": 3.21713,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "GT",
+            "value": "Guatemala"
+          },
+          "countryiso3code": "GTM",
+          "date": "2019",
+          "value": 3.14997,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "MX",
+            "value": "Mexico"
+          },
+          "countryiso3code": "MEX",
+          "date": "2023",
+          "value": 2.653333,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "MX",
+            "value": "Mexico"
+          },
+          "countryiso3code": "MEX",
+          "date": "2022",
+          "value": 1.34,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "MX",
+            "value": "Mexico"
+          },
+          "countryiso3code": "MEX",
+          "date": "2021",
+          "value": 1.78,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "MX",
+            "value": "Mexico"
+          },
+          "countryiso3code": "MEX",
+          "date": "2020",
+          "value": 2.27165,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "MX",
+            "value": "Mexico"
+          },
+          "countryiso3code": "MEX",
+          "date": "2019",
+          "value": 4.41505,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "PE",
+            "value": "Peru"
+          },
+          "countryiso3code": "PER",
+          "date": "2023",
+          "value": 3.56916675,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "PE",
+            "value": "Peru"
+          },
+          "countryiso3code": "PER",
+          "date": "2022",
+          "value": 3.77000025,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "PE",
+            "value": "Peru"
+          },
+          "countryiso3code": "PER",
+          "date": "2021",
+          "value": 4.440415,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "PE",
+            "value": "Peru"
+          },
+          "countryiso3code": "PER",
+          "date": "2020",
+          "value": 5.8991975,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "PE",
+            "value": "Peru"
+          },
+          "countryiso3code": "PER",
+          "date": "2019",
+          "value": 4.59773,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        }
+      ]
+    ]
+  },
+  {
+    "paises": [
+      "HND",
+      "SLV",
+      "NIC",
+      "BOL",
+      "ARG",
+      "CHL"
+    ],
+    "url": "https://api.worldbank.org/v2/country/HND;SLV;NIC;BOL;ARG;CHL/indicator/SI.RMT.COST.IB.ZS",
+    "respuesta": [
+      {
+        "page": 1,
+        "pages": 1,
+        "per_page": 200,
+        "total": 30,
+        "sourceid": "2",
+        "lastupdated": "2026-07-13"
+      },
+      [
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "AR",
+            "value": "Argentina"
+          },
+          "countryiso3code": "ARG",
+          "date": "2023",
+          "value": null,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "AR",
+            "value": "Argentina"
+          },
+          "countryiso3code": "ARG",
+          "date": "2022",
+          "value": null,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "AR",
+            "value": "Argentina"
+          },
+          "countryiso3code": "ARG",
+          "date": "2021",
+          "value": null,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "AR",
+            "value": "Argentina"
+          },
+          "countryiso3code": "ARG",
+          "date": "2020",
+          "value": null,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "AR",
+            "value": "Argentina"
+          },
+          "countryiso3code": "ARG",
+          "date": "2019",
+          "value": null,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "BO",
+            "value": "Bolivia"
+          },
+          "countryiso3code": "BOL",
+          "date": "2023",
+          "value": 3.4495835,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "BO",
+            "value": "Bolivia"
+          },
+          "countryiso3code": "BOL",
+          "date": "2022",
+          "value": 4.3870835,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "BO",
+            "value": "Bolivia"
+          },
+          "countryiso3code": "BOL",
+          "date": "2021",
+          "value": 4.14375,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "BO",
+            "value": "Bolivia"
+          },
+          "countryiso3code": "BOL",
+          "date": "2020",
+          "value": 3.92218,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "BO",
+            "value": "Bolivia"
+          },
+          "countryiso3code": "BOL",
+          "date": "2019",
+          "value": 4.966205,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "CL",
+            "value": "Chile"
+          },
+          "countryiso3code": "CHL",
+          "date": "2023",
+          "value": null,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "CL",
+            "value": "Chile"
+          },
+          "countryiso3code": "CHL",
+          "date": "2022",
+          "value": null,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "CL",
+            "value": "Chile"
+          },
+          "countryiso3code": "CHL",
+          "date": "2021",
+          "value": null,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "CL",
+            "value": "Chile"
+          },
+          "countryiso3code": "CHL",
+          "date": "2020",
+          "value": null,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "CL",
+            "value": "Chile"
+          },
+          "countryiso3code": "CHL",
+          "date": "2019",
+          "value": null,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "HN",
+            "value": "Honduras"
+          },
+          "countryiso3code": "HND",
+          "date": "2023",
+          "value": 2.6233335,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "HN",
+            "value": "Honduras"
+          },
+          "countryiso3code": "HND",
+          "date": "2022",
+          "value": 2.8033335,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "HN",
+            "value": "Honduras"
+          },
+          "countryiso3code": "HND",
+          "date": "2021",
+          "value": 2.055,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "HN",
+            "value": "Honduras"
+          },
+          "countryiso3code": "HND",
+          "date": "2020",
+          "value": 2.167105,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "HN",
+            "value": "Honduras"
+          },
+          "countryiso3code": "HND",
+          "date": "2019",
+          "value": 2.601175,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "NI",
+            "value": "Nicaragua"
+          },
+          "countryiso3code": "NIC",
+          "date": "2023",
+          "value": 2.333333,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "NI",
+            "value": "Nicaragua"
+          },
+          "countryiso3code": "NIC",
+          "date": "2022",
+          "value": 1.69,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "NI",
+            "value": "Nicaragua"
+          },
+          "countryiso3code": "NIC",
+          "date": "2021",
+          "value": 2.75,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "NI",
+            "value": "Nicaragua"
+          },
+          "countryiso3code": "NIC",
+          "date": "2020",
+          "value": 2.768335,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "NI",
+            "value": "Nicaragua"
+          },
+          "countryiso3code": "NIC",
+          "date": "2019",
+          "value": 3.19375,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "SV",
+            "value": "El Salvador"
+          },
+          "countryiso3code": "SLV",
+          "date": "2023",
+          "value": 2,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "SV",
+            "value": "El Salvador"
+          },
+          "countryiso3code": "SLV",
+          "date": "2022",
+          "value": 0,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "SV",
+            "value": "El Salvador"
+          },
+          "countryiso3code": "SLV",
+          "date": "2021",
+          "value": 1.91667,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "SV",
+            "value": "El Salvador"
+          },
+          "countryiso3code": "SLV",
+          "date": "2020",
+          "value": 0,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        },
+        {
+          "indicator": {
+            "id": "SI.RMT.COST.IB.ZS",
+            "value": "Average transaction cost of sending remittances to a specific country (%)"
+          },
+          "country": {
+            "id": "SV",
+            "value": "El Salvador"
+          },
+          "countryiso3code": "SLV",
+          "date": "2019",
+          "value": 2.99875,
+          "unit": "",
+          "obs_status": "",
+          "decimal": 2
+        }
+      ]
+    ]
+  },
+  {
+    "paises": [
+      "VEN"
+    ],
+    "url": "https://api.worldbank.org/v2/country/VEN/indicator/SI.RMT.COST.IB.ZS",
+    "respuesta": [
+      {
+        "page": 0,
+        "pages": 0,
+        "per_page": 0,
+        "total": 0,
+        "sourceid": null,
+        "lastupdated": null
+      },
+      null
+    ]
+  }
+]

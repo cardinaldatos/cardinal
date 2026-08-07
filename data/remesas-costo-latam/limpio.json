@@ -1,0 +1,81 @@
+{
+  "serie": "SI.RMT.COST.IB.ZS",
+  "monto_referencia_usd": 200,
+  "con_dato": [
+    {
+      "iso3": "PER",
+      "pais": "Peru",
+      "anio": "2023",
+      "costo_pct": 3.57,
+      "sobre_200_usd": 7.14
+    },
+    {
+      "iso3": "BOL",
+      "pais": "Bolivia",
+      "anio": "2023",
+      "costo_pct": 3.45,
+      "sobre_200_usd": 6.9
+    },
+    {
+      "iso3": "MEX",
+      "pais": "Mexico",
+      "anio": "2023",
+      "costo_pct": 2.65,
+      "sobre_200_usd": 5.31
+    },
+    {
+      "iso3": "HND",
+      "pais": "Honduras",
+      "anio": "2023",
+      "costo_pct": 2.62,
+      "sobre_200_usd": 5.25
+    },
+    {
+      "iso3": "GTM",
+      "pais": "Guatemala",
+      "anio": "2023",
+      "costo_pct": 2.56,
+      "sobre_200_usd": 5.11
+    },
+    {
+      "iso3": "DOM",
+      "pais": "Dominican Republic",
+      "anio": "2023",
+      "costo_pct": 2.52,
+      "sobre_200_usd": 5.04
+    },
+    {
+      "iso3": "COL",
+      "pais": "Colombia",
+      "anio": "2023",
+      "costo_pct": 2.43,
+      "sobre_200_usd": 4.87
+    },
+    {
+      "iso3": "NIC",
+      "pais": "Nicaragua",
+      "anio": "2023",
+      "costo_pct": 2.33,
+      "sobre_200_usd": 4.67
+    },
+    {
+      "iso3": "ECU",
+      "pais": "Ecuador",
+      "anio": "2023",
+      "costo_pct": 2.3,
+      "sobre_200_usd": 4.59
+    },
+    {
+      "iso3": "SLV",
+      "pais": "El Salvador",
+      "anio": "2023",
+      "costo_pct": 2,
+      "sobre_200_usd": 4.0
+    }
+  ],
+  "sin_dato": [
+    "ARG",
+    "CHL",
+    "VEN"
+  ]
+}
