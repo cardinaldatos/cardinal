@@ -19,3 +19,5 @@ La cifra en dólares de esta pieza devuelve ese porcentaje al monto sobre el que
 4. Venezuela no tiene indicador en esta serie. Argentina y Chile aparecen con valor nulo. Su ausencia se registra en limpio.json.
 
 5. No hay desglose entre comisión y margen de tipo de cambio, ni por país emisor, ni por tipo de proveedor. Ese detalle solo existe en el Excel trimestral de Remittance Prices Worldwide.
+
+6. Los nombres de país se publican en español. La traducción es nuestra, no de la fuente: el API los devuelve en inglés. El nombre original queda guardado en el campo `pais_fuente` de limpio.json, y en crudo.json sin tocar. Ninguna cifra depende de esta traducción.
