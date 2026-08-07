@@ -8,8 +8,12 @@ from pathlib import Path
 import requests
 
 RAIZ = Path(__file__).resolve().parent.parent
+
+# OJO: el Banco Mundial rechaza con error 400 los User-Agent que no le
+# gustan. Esta cadena está probada contra su API — si se cambia, hay que
+# correr explorar-rpw.yml y mirar el log antes de darla por buena.
 CABECERAS = {
-    "User-Agent": "Mozilla/5.0 (compatible; cardinal-datos/1.0; +https://cardinaldatos.workers.dev)",
+    "User-Agent": "Mozilla/5.0 (compatible; cardinal-datos/1.0; +https://cardinaldatos.org)",
     "Accept": "application/json",
 }
 
