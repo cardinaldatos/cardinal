@@ -1,0 +1,22 @@
+---
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import Base from "../layouts/Base.astro";
+import RemesasCostoLatam from "../components/RemesasCostoLatam.jsx";
+
+// data/ vive en la raíz del repo, un nivel por encima de sitio/. Esto se
+// lee en el servidor durante `astro build` (código de Node en el
+// frontmatter), no en el navegador — así que no importa que esté fuera
+// de src/. Es el mismo limpio.json que genera pipeline/remesas.py y que
+// usan las imágenes de Instagram: un solo origen de verdad para las tres
+// superficies.
+const rutaDatos = path.join(process.cwd(), "..", "data", "remesas-costo-latam", "limpio.json");
+const datos = JSON.parse(await readFile(rutaDatos, "utf-8"));
+---
+
+<Base
+  titulo="Cuánto se queda en el camino"
+  descripcion="Lo que cuesta enviar 200 dólares a diez países de América Latina, y los tres que no aparecen en la estadística. Banco Mundial, 2023."
+>
+  <RemesasCostoLatam client:load datos={datos} />
+</Base>
