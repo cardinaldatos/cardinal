@@ -3,6 +3,11 @@ name: Explorar RPW
 on:
   workflow_dispatch:
 
+# El paso nuevo hace un commit al repo. Sin este permiso, GitHub deniega el
+# push aunque el resto del workflow funcione perfecto.
+permissions:
+  contents: write
+
 jobs:
   explorar:
     runs-on: ubuntu-latest
@@ -25,3 +30,15 @@ jobs:
           name: remesas-costo-latam
           path: data/remesas-costo-latam/
           if-no-files-found: warn
+
+      # Sin este paso, crudo.json, limpio.json y metodo.md solo existen
+      # dentro de esta ejecución y desaparecen en 90 días. Cualquier otra
+      # pieza o herramienta que los necesite (como Instagram) no los
+      # encuentra, porque el checkout descarga el repo, no los artifacts.
+      - name: Guardar los datos en el repositorio
+        run: |
+          git config user.name "cardinal-bot"
+          git config user.email "actions@github.com"
+          git add data/remesas-costo-latam/
+          git diff --staged --quiet && echo "Sin cambios en los datos." || git commit -m "Actualizar datos: remesas-costo-latam"
+          git push
