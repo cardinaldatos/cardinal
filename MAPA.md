@@ -96,7 +96,7 @@ envejece sin avisar.
 
 ## `sitio/src/layouts/`
 
-- [Base.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/layouts/Base.astro) — 7 KB
+- [Base.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/layouts/Base.astro) — 8 KB
 
 ## `sitio/src/pages/`
 
