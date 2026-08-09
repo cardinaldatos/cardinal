@@ -80,7 +80,7 @@ envejece sin avisar.
 
 ## `sitio/src/layouts/`
 
-- [Base.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/layouts/Base.astro) — 3 KB
+- [Base.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/layouts/Base.astro) — 4 KB
 
 ## `sitio/src/pages/`
 
