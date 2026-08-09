@@ -83,7 +83,7 @@ envejece sin avisar.
 - [404.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/404.astro) — 703 B
 - [index.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/index.astro) — 2 KB
 - [remesas-costo-latam.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/remesas-costo-latam.astro) — 996 B
-- [rss.xml.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/rss.xml.js) — 3 KB
+- [rss.xml.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/rss.xml.js) — 4 KB
 - [titulo-no-cruza.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/titulo-no-cruza.astro) — 2 KB
 
 ## `sitio/src/styles/`
