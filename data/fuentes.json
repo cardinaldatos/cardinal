@@ -1,66 +1,128 @@
 {
-  "_nota": "Registro de fuentes de Cardinal Datos. Es el único sitio donde se declara qué fuentes existen. Lo leen pipeline/verificar.py (para sondearlas) y sitio/src/pages/metodo.astro (para publicarlas). Añadir una fuente = añadir un objeto aquí. No hay ningún número de fuentes escrito a mano en ninguna parte: si mañana hay once, los textos lo dicen solos.",
+  "_nota": "Registro de fuentes de Cardinal Datos. Único sitio donde se declara qué fuentes existen. Lo leen pipeline/verificar.py (para sondearlas), sitio/src/pages/metodo.astro y el pie de la portada. Añadir una fuente = añadir un objeto aquí. Ningún número de fuentes está escrito a mano en ninguna parte.",
+
+  "_criterio_de_entrada": "Dos preguntas. ¿Habla de personas migrantes o de su diáspora? ¿Está el dato encerrado en un idioma que no es el español, o disperso de forma que nadie puede leerlo? Si las dos son sí, entra. La región no es criterio: Noruega y Colombia entran por lo mismo, por ser países donde vive la diáspora.",
+
+  "_papeles": {
+    "global": "Compara todos los países con la misma vara. Da la cifra mundial y permite decir «de todos los países, este».",
+    "regional": "Compara dentro de un bloque, entre pares. Evita que un país quede medido contra un promedio mundial que no le corresponde.",
+    "destino": "Registro administrativo del país que recibe. Dice cosas que ninguna serie internacional recoge, y casi nunca está en español.",
+    "origen": "Lo que el país emisor publica sobre su propia gente fuera. Aquí el hueco es la noticia."
+  },
+
   "_estados": {
     "en uso": "Ya sostiene al menos una pieza publicada.",
     "sondeada": "Responde y la entendemos, pero todavía no hay pieza encima.",
-    "candidata": "Nos interesa. Falta descubrir su forma con un script de exploración, como pipeline/explorar_rpw.py hizo con RPW. Sin sonda todavía."
+    "candidata": "Nos interesa. Falta descubrir su forma con un script de exploración, como pipeline/explorar_rpw.py hizo con Remittance Prices Worldwide."
   },
+
   "_campos_sonda": {
     "url": "endpoint que se pide para comprobar que sigue viva",
     "params": "parámetros de la consulta de prueba",
     "tipo": "parser que sabe leerla: 'jsonstat' o 'banco_mundial'",
-    "meses_tolerados": "cuántos meses de antigüedad admite el último dato antes de dar aviso. null = la consulta fija un periodo concreto y medir frescura no tiene sentido.",
-    "_enlace": "página pública del organismo, para citarlo desde el sitio"
+    "meses_tolerados": "meses de antigüedad admitidos antes de dar aviso. null = la consulta fija un periodo concreto y medir frescura no tiene sentido."
   },
+
   "fuentes": [
     {
       "id": "banco-mundial",
       "nombre": "Banco Mundial",
       "organismo": "Banco Mundial — World Development Indicators",
-      "cubre": "Remesas, migración y empleo. Cobertura casi mundial.",
+      "papel": "global",
+      "cubre": "Remesas, migración y empleo. Cobertura casi mundial, series largas y comparables.",
       "licencia": "CC BY 4.0",
       "clave_de_acceso": false,
+      "enlace": "https://data.worldbank.org",
       "estado": "en uso",
       "sonda": {
         "url": "https://api.worldbank.org/v2/country/MEX/indicator/BX.TRF.PWKR.DT.GD.ZS",
-        "params": {
-          "format": "json",
-          "mrv": 1
-        },
+        "params": { "format": "json", "mrv": 1 },
         "tipo": "banco_mundial",
         "meses_tolerados": 30,
         "nota": "Anual, con rezago largo de publicación."
-      },
-      "enlace": "https://data.worldbank.org"
+      }
     },
+    {
+      "id": "acnur",
+      "nombre": "ACNUR",
+      "organismo": "ACNUR / UNHCR — Refugee Data Finder",
+      "papel": "global",
+      "cubre": "Población refugiada, solicitante de asilo y desplazada, por país de origen y de asilo. Serie desde 1951.",
+      "licencia": "Reuso con atribución",
+      "clave_de_acceso": false,
+      "enlace": "https://www.unhcr.org/refugee-statistics",
+      "estado": "candidata",
+      "sonda": null,
+      "nota": "API pública sin credenciales, con filtros por país de origen y de asilo. Es la vía para medir el desplazamiento venezolano en series que el Banco Mundial no cubre. Antes de sondearla hay que descubrir su forma con un script de exploración."
+    },
+    {
+      "id": "oim-portal",
+      "nombre": "OIM",
+      "organismo": "OIM — Portal de Datos Migratorios",
+      "papel": "global",
+      "cubre": "Indicadores migratorios de todos los países, con las definiciones y los metadatos de cada uno.",
+      "licencia": "Por conjunto de datos; hay que comprobarla en cada uno",
+      "clave_de_acceso": false,
+      "enlace": "https://www.migrationdataportal.org",
+      "estado": "candidata",
+      "sonda": null,
+      "nota": "Más que una fuente, es un agregador con fichas de metodología. Útil sobre todo para saber qué mide realmente cada indicador antes de publicarlo. Pendiente comprobar si expone datos por API o solo por descarga."
+    },
+
     {
       "id": "eurostat",
       "nombre": "Eurostat",
       "organismo": "Eurostat — API Statistics (JSON-stat 2.0)",
+      "papel": "regional",
       "cubre": "Los 27 de la UE más AELC. Integración, empleo y educación de personas migrantes.",
       "licencia": "Reuso con atribución",
       "clave_de_acceso": false,
+      "enlace": "https://ec.europa.eu/eurostat",
       "estado": "en uso",
       "sonda": {
         "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/DEMO_R_D3DENS",
-        "params": {
-          "lang": "EN",
-          "geoLevel": "country",
-          "time": "2023"
-        },
+        "params": { "lang": "EN", "geoLevel": "country", "time": "2023" },
         "tipo": "jsonstat",
         "meses_tolerados": null,
         "nota": "La consulta pide 2023 a propósito, para que la sonda sea estable. Medir frescura sobre ella no tendría sentido."
-      },
-      "enlace": "https://ec.europa.eu/eurostat"
+      }
     },
+    {
+      "id": "cepal",
+      "nombre": "CEPAL",
+      "organismo": "CEPALSTAT — Comisión Económica para América Latina y el Caribe",
+      "papel": "regional",
+      "cubre": "33 países de América Latina y el Caribe. Indicadores demográficos, sociales y económicos comparables entre sí.",
+      "licencia": "Reuso con atribución",
+      "clave_de_acceso": false,
+      "enlace": "https://statistics.cepal.org",
+      "estado": "candidata",
+      "sonda": null,
+      "nota": "La contraparte de Eurostat para las Américas. Permite comparar países latinoamericanos entre ellos en vez de contra un promedio mundial que aplana las diferencias. Pendiente descubrir su forma."
+    },
+    {
+      "id": "r4v",
+      "nombre": "R4V",
+      "organismo": "R4V — Plataforma de Coordinación Interagencial para Refugiados y Migrantes de Venezuela (ACNUR y OIM)",
+      "papel": "regional",
+      "cubre": "Personas refugiadas y migrantes de Venezuela en 17 países de acogida de América Latina y el Caribe.",
+      "licencia": "Reuso con atribución",
+      "clave_de_acceso": false,
+      "enlace": "https://www.r4v.info",
+      "estado": "candidata",
+      "sonda": null,
+      "nota": "La cifra canónica de la diáspora venezolana, y la que cita la prensa. Publica en español, así que aquí el trabajo no es traducir sino conectar con el resto. LÍMITE CONOCIDO DE ANTEMANO: sus cifras son las oficiales de cada gobierno de acogida, y cada uno publica con periodicidad distinta — un salto de un mes a otro puede ser un cambio en el sistema de publicación de un país, no un cambio real en las llegadas. Cualquier pieza encima tiene que declararlo. Pendiente comprobar si expone API o solo informes descargables."
+    },
+
     {
       "id": "ssb",
       "nombre": "SSB",
-      "organismo": "Statistisk sentralbyrå (Noruega) — PxWebApi v2",
+      "organismo": "Statistisk sentralbyrå — oficina estadística de Noruega (PxWebApi v2)",
+      "papel": "destino",
       "cubre": "Noruega. Población inmigrante, empleo, precios.",
       "licencia": "CC BY 4.0",
       "clave_de_acceso": false,
+      "enlace": "https://www.ssb.no/en",
       "estado": "en uso",
       "sonda": {
         "url": "https://data.ssb.no/api/pxwebapi/v2/tables/14700/data",
@@ -73,44 +135,73 @@
         "tipo": "jsonstat",
         "meses_tolerados": 4,
         "nota": "Mensual, publicada a mediados del mes siguiente. La 14700 exige ContentsCode: no admite eliminación, a diferencia de VareTjenesteGrp, que se agrega sola al total."
-      },
-      "enlace": "https://www.ssb.no/en"
+      }
     },
     {
-      "id": "acnur",
-      "nombre": "ACNUR",
-      "organismo": "ACNUR / UNHCR — Refugee Data Finder API",
-      "cubre": "Población refugiada, solicitante de asilo y desplazada, por país de origen y de asilo. Serie desde 1951.",
+      "id": "imdi",
+      "nombre": "IMDi",
+      "organismo": "IMDi — Direktoratet for integrering og mangfold (Noruega)",
+      "papel": "destino",
+      "cubre": "Noruega. Integración: asentamiento, programa de introducción, resultados por municipio y por país de origen.",
       "licencia": "Reuso con atribución",
       "clave_de_acceso": false,
+      "enlace": "https://www.imdi.no",
       "estado": "candidata",
       "sonda": null,
-      "nota": "La API es pública y no exige credenciales, y devuelve JSON con filtros por país de origen y de asilo. Es la fuente natural para el desplazamiento venezolano, que el Banco Mundial no cubre. Antes de sondearla hay que descubrir su forma con un script tipo explorar_rpw.py: documentación en api.unhcr.org/docs.",
-      "enlace": "https://www.unhcr.org/refugee-statistics"
+      "nota": "Publica solo en noruego. Es el caso puro del proyecto: datos que existen, son públicos, y nadie que hable español puede leerlos. Pendiente comprobar si expone API o solo tablas descargables."
     },
     {
-      "id": "cepal",
-      "nombre": "CEPAL",
-      "organismo": "CEPALSTAT — Comisión Económica para América Latina y el Caribe",
-      "cubre": "33 países de América Latina y el Caribe. Indicadores demográficos, sociales y económicos comparables entre sí.",
+      "id": "nav",
+      "nombre": "NAV",
+      "organismo": "NAV — Arbeids- og velferdsetaten (Noruega)",
+      "papel": "destino",
+      "cubre": "Noruega. Empleo, desempleo y prestaciones, con desglose por origen.",
       "licencia": "Reuso con atribución",
       "clave_de_acceso": false,
+      "enlace": "https://www.nav.no",
       "estado": "candidata",
       "sonda": null,
-      "nota": "Tiene API de datos abiertos documentada. Es la contraparte regional de Eurostat: permite comparar países latinoamericanos entre ellos sin pasar por una serie global promediada. Pendiente descubrir su forma.",
-      "enlace": "https://statistics.cepal.org"
+      "nota": "Solo en noruego. Complementa a SSB: SSB dice cuántos son, NAV dice cómo les va en el mercado laboral. Pendiente descubrir su forma."
     },
     {
       "id": "datos-colombia",
       "nombre": "Datos Abiertos Colombia",
-      "organismo": "datos.gov.co — portal nacional (Socrata)",
-      "cubre": "Colombia. Registros administrativos, incluida población migrante.",
+      "organismo": "datos.gov.co — portal nacional de datos abiertos (Socrata)",
+      "papel": "destino",
+      "cubre": "Colombia. Registros administrativos, incluida población migrante venezolana.",
       "licencia": "Por conjunto de datos; hay que comprobarla en cada uno",
       "clave_de_acceso": false,
+      "enlace": "https://www.datos.gov.co",
       "estado": "candidata",
       "sonda": null,
-      "nota": "Colombia acoge a la mayor parte de la diáspora venezolana, así que sus registros administrativos dicen cosas que ninguna serie internacional recoge. Cada conjunto de datos tiene su propia licencia y su propia calidad: no se puede tratar el portal como una sola fuente.",
-      "enlace": "https://www.datos.gov.co"
+      "nota": "Colombia acoge a la mayor parte de la diáspora venezolana, así que sus registros administrativos dicen cosas que ninguna serie internacional recoge. Aviso: el portal no es una sola fuente. Cada conjunto de datos tiene su propia licencia, su propia calidad y su propia periodicidad, y hay que declararlas por separado."
+    },
+    {
+      "id": "ine-espana",
+      "nombre": "INE España",
+      "organismo": "INE — Instituto Nacional de Estadística (España)",
+      "papel": "destino",
+      "cubre": "España. Padrón, población extranjera por nacionalidad, flujos migratorios.",
+      "licencia": "Reuso con atribución",
+      "clave_de_acceso": false,
+      "enlace": "https://www.ine.es",
+      "estado": "candidata",
+      "sonda": null,
+      "nota": "Principal destino europeo de la diáspora venezolana. Publica en español, así que el aporte aquí no es traducir sino comparar: poner la cifra española junto a la colombiana y la estadounidense en una misma vara."
+    },
+
+    {
+      "id": "ine-venezuela",
+      "nombre": "INE Venezuela",
+      "organismo": "INE — Instituto Nacional de Estadística (Venezuela)",
+      "papel": "origen",
+      "cubre": "Venezuela. Población y estadísticas oficiales del país de origen.",
+      "licencia": "Sin licencia de reuso declarada",
+      "clave_de_acceso": false,
+      "enlace": "https://www.ine.gov.ve",
+      "estado": "candidata",
+      "sonda": null,
+      "nota": "Se registra aquí precisamente porque su publicación es escasa e irregular, y porque Venezuela lleva años sin reportar a varios organismos multilaterales. La ausencia no es un obstáculo para el proyecto: es una serie en sí misma, y documentar qué dejó de publicarse y cuándo es una pieza tan válida como cualquier cifra."
     }
   ]
 }
