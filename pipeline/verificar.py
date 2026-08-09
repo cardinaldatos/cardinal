@@ -1,52 +1,41 @@
-"""Comprueba que las tres APIs responden, que los parsers funcionan y que
-los datos siguen frescos.
+"""Comprueba que las fuentes del registro responden, que los parsers
+funcionan y que los datos siguen frescos.
 
 Responder no basta: la tabla 03013 de SSB siguió respondiendo durante meses
 después de dejar de actualizarse, y esta comprobación salía en verde sobre
-una fuente congelada. Por eso ahora cada sonda declara cuántos meses de
+una fuente congelada. Por eso cada sonda declara cuántos meses de
 antigüedad tolera.
+
+CAMBIO DE HOY: la lista de fuentes ya no vive aquí. Está en
+data/fuentes.json, que es el mismo archivo que publica la página de método.
+Antes había que editar este script, el README, el workflow y la web para
+añadir una fuente, y hasta que se editaran los cuatro, tres de ellos
+mentían. Ahora este script no sabe cuántas fuentes hay: las cuenta.
+
+Una fuente sin sonda no es un fallo. Es una candidata: nos interesa pero
+todavía no hemos descubierto su forma. Se listan al final para que no se
+olviden.
 
 Córrelo antes de construir nada encima:  python pipeline/verificar.py
 """
 
+import json
 import re
 import sys
 from datetime import date
 
-from comun import pedir, jsonstat_a_filas
+from comun import RAIZ, pedir, jsonstat_a_filas
 
-# nombre, url, params, tipo, meses_tolerados
-# meses_tolerados = None  ->  la sonda fija un periodo concreto, no aplica
-PRUEBAS = [
-    (
-        "Banco Mundial",
-        "https://api.worldbank.org/v2/country/MEX/indicator/BX.TRF.PWKR.DT.GD.ZS",
-        {"format": "json", "mrv": 1},
-        "banco_mundial",
-        30,  # anual, con rezago largo de publicación
-    ),
-    (
-        "Eurostat",
-        "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/DEMO_R_D3DENS",
-        {"lang": "EN", "geoLevel": "country", "time": "2023"},
-        "jsonstat",
-        None,  # la consulta pide 2023 a propósito; medir frescura no tendría sentido
-    ),
-    (
-        "SSB",
-        "https://data.ssb.no/api/pxwebapi/v2/tables/14700/data",
-        {
-            "lang": "en",
-            "outputFormat": "json-stat2",
-            "valueCodes[Tid]": "top(2)",
-            # La 14700 exige ContentsCode: no admite eliminación, a diferencia
-            # de VareTjenesteGrp, que se agrega sola al total.
-            "valueCodes[ContentsCode]": "KpiIndMnd",
-        },
-        "jsonstat",
-        4,  # mensual, publicada a mediados del mes siguiente
-    ),
-]
+REGISTRO = RAIZ / "data" / "fuentes.json"
+
+
+def cargar_registro():
+    """Lee data/fuentes.json y separa las que tienen sonda de las que no."""
+    datos = json.loads(REGISTRO.read_text(encoding="utf-8"))
+    fuentes = datos["fuentes"]
+    con_sonda = [f for f in fuentes if f.get("sonda")]
+    sin_sonda = [f for f in fuentes if not f.get("sonda")]
+    return fuentes, con_sonda, sin_sonda
 
 
 def antiguedad_meses(codigo):
@@ -80,28 +69,44 @@ def periodo_jsonstat(js, filas):
     return max(periodos) if periodos else None
 
 
+def sondear(fuente):
+    """Pide una fuente y devuelve (periodo, resumen). Lanza si algo falla."""
+    sonda = fuente["sonda"]
+    js = pedir(sonda["url"], sonda.get("params"))
+
+    if sonda["tipo"] == "jsonstat":
+        filas = jsonstat_a_filas(js)
+        if not filas:
+            raise ValueError("respuesta sin filas")
+        return periodo_jsonstat(js, filas), f"{len(filas)} filas", filas[0]
+
+    if sonda["tipo"] == "banco_mundial":
+        datos = js[1] if len(js) > 1 and js[1] else []
+        if not datos:
+            raise ValueError("respuesta sin registros")
+        return datos[0].get("date"), f"{len(datos)} registros", datos[0]
+
+    raise ValueError(f"tipo de sonda desconocido: {sonda['tipo']!r}")
+
+
 def main():
+    fuentes, con_sonda, sin_sonda = cargar_registro()
+
+    print(f"Registro: {len(fuentes)} fuentes declaradas, "
+          f"{len(con_sonda)} con sonda.")
+    print("=" * 60)
+
     fallos = 0
     avisos = 0
 
-    for nombre, url, params, tipo, meses_max in PRUEBAS:
-        try:
-            js = pedir(url, params)
+    for fuente in con_sonda:
+        nombre = fuente["nombre"]
+        meses_max = fuente["sonda"].get("meses_tolerados")
 
-            if tipo == "jsonstat":
-                filas = jsonstat_a_filas(js)
-                if not filas:
-                    raise ValueError("respuesta sin filas")
-                periodo = periodo_jsonstat(js, filas)
-                print(f"OK     {nombre}: {len(filas)} filas")
-                print(f"       ejemplo: {filas[0]}")
-            else:
-                datos = js[1] if len(js) > 1 and js[1] else []
-                if not datos:
-                    raise ValueError("respuesta sin registros")
-                periodo = datos[0].get("date")
-                print(f"OK     {nombre}: {len(datos)} registros")
-                print(f"       ejemplo: {datos[0]}")
+        try:
+            periodo, resumen, ejemplo = sondear(fuente)
+            print(f"OK     {nombre}: {resumen}")
+            print(f"       ejemplo: {ejemplo}")
 
             if meses_max is None:
                 print("       frescura: no aplica (la consulta fija el periodo)")
@@ -123,15 +128,26 @@ def main():
             fallos += 1
             print(f"FALLO  {nombre}: {type(e).__name__} — {e}")
 
+    if sin_sonda:
+        print()
+        print(f"Sin sonda todavía ({len(sin_sonda)}):")
+        for f in sin_sonda:
+            print(f"  {f['nombre']} — {f['estado']}: {f['cubre']}")
+        print("  No se comprueban porque aún no sabemos qué forma tienen.")
+        print("  El siguiente paso de cada una es un script de exploración.")
+
     print()
     if fallos:
-        print(f"{fallos} de {len(PRUEBAS)} fuentes fallaron. Arréglalo antes de seguir.")
+        print(f"{fallos} de {len(con_sonda)} fuentes sondeadas fallaron. "
+              f"Arréglalo antes de seguir.")
         sys.exit(1)
     if avisos:
-        print(f"Las tres fuentes responden, pero hay {avisos} aviso(s) de frescura.")
+        print(f"Todas las fuentes sondeadas responden, pero hay "
+              f"{avisos} aviso(s) de frescura.")
         print("Revisa si la tabla sigue viva antes de construir una pieza encima.")
         sys.exit(1)
-    print("Las tres fuentes responden y los datos están frescos. El pipeline está vivo.")
+    print("Todas las fuentes sondeadas responden y sus datos están frescos. "
+          "El pipeline está vivo.")
 
 
 if __name__ == "__main__":
