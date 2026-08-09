@@ -1,0 +1,105 @@
+{
+  "_nota": "Registro de fuentes de Cardinal Datos. Es el único sitio donde se declara qué fuentes existen. Lo leen pipeline/verificar.py (para sondearlas) y sitio/src/pages/metodo.astro (para publicarlas). Añadir una fuente = añadir un objeto aquí. No hay ningún número de fuentes escrito a mano en ninguna parte: si mañana hay once, los textos lo dicen solos.",
+
+  "_estados": {
+    "en uso": "Ya sostiene al menos una pieza publicada.",
+    "sondeada": "Responde y la entendemos, pero todavía no hay pieza encima.",
+    "candidata": "Nos interesa. Falta descubrir su forma con un script de exploración, como pipeline/explorar_rpw.py hizo con RPW. Sin sonda todavía."
+  },
+
+  "_campos_sonda": {
+    "url": "endpoint que se pide para comprobar que sigue viva",
+    "params": "parámetros de la consulta de prueba",
+    "tipo": "parser que sabe leerla: 'jsonstat' o 'banco_mundial'",
+    "meses_tolerados": "cuántos meses de antigüedad admite el último dato antes de dar aviso. null = la consulta fija un periodo concreto y medir frescura no tiene sentido."
+  },
+
+  "fuentes": [
+    {
+      "id": "banco-mundial",
+      "nombre": "Banco Mundial",
+      "organismo": "Banco Mundial — World Development Indicators",
+      "cubre": "Remesas, migración y empleo. Cobertura casi mundial.",
+      "licencia": "CC BY 4.0",
+      "clave_de_acceso": false,
+      "estado": "en uso",
+      "sonda": {
+        "url": "https://api.worldbank.org/v2/country/MEX/indicator/BX.TRF.PWKR.DT.GD.ZS",
+        "params": { "format": "json", "mrv": 1 },
+        "tipo": "banco_mundial",
+        "meses_tolerados": 30,
+        "nota": "Anual, con rezago largo de publicación."
+      }
+    },
+    {
+      "id": "eurostat",
+      "nombre": "Eurostat",
+      "organismo": "Eurostat — API Statistics (JSON-stat 2.0)",
+      "cubre": "Los 27 de la UE más AELC. Integración, empleo y educación de personas migrantes.",
+      "licencia": "Reuso con atribución",
+      "clave_de_acceso": false,
+      "estado": "en uso",
+      "sonda": {
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/DEMO_R_D3DENS",
+        "params": { "lang": "EN", "geoLevel": "country", "time": "2023" },
+        "tipo": "jsonstat",
+        "meses_tolerados": null,
+        "nota": "La consulta pide 2023 a propósito, para que la sonda sea estable. Medir frescura sobre ella no tendría sentido."
+      }
+    },
+    {
+      "id": "ssb",
+      "nombre": "SSB",
+      "organismo": "Statistisk sentralbyrå (Noruega) — PxWebApi v2",
+      "cubre": "Noruega. Población inmigrante, empleo, precios.",
+      "licencia": "CC BY 4.0",
+      "clave_de_acceso": false,
+      "estado": "en uso",
+      "sonda": {
+        "url": "https://data.ssb.no/api/pxwebapi/v2/tables/14700/data",
+        "params": {
+          "lang": "en",
+          "outputFormat": "json-stat2",
+          "valueCodes[Tid]": "top(2)",
+          "valueCodes[ContentsCode]": "KpiIndMnd"
+        },
+        "tipo": "jsonstat",
+        "meses_tolerados": 4,
+        "nota": "Mensual, publicada a mediados del mes siguiente. La 14700 exige ContentsCode: no admite eliminación, a diferencia de VareTjenesteGrp, que se agrega sola al total."
+      }
+    },
+    {
+      "id": "acnur",
+      "nombre": "ACNUR",
+      "organismo": "ACNUR / UNHCR — Refugee Data Finder API",
+      "cubre": "Población refugiada, solicitante de asilo y desplazada, por país de origen y de asilo. Serie desde 1951.",
+      "licencia": "Reuso con atribución",
+      "clave_de_acceso": false,
+      "estado": "candidata",
+      "sonda": null,
+      "nota": "La API es pública y no exige credenciales, y devuelve JSON con filtros por país de origen y de asilo. Es la fuente natural para el desplazamiento venezolano, que el Banco Mundial no cubre. Antes de sondearla hay que descubrir su forma con un script tipo explorar_rpw.py: documentación en api.unhcr.org/docs."
+    },
+    {
+      "id": "cepal",
+      "nombre": "CEPAL",
+      "organismo": "CEPALSTAT — Comisión Económica para América Latina y el Caribe",
+      "cubre": "33 países de América Latina y el Caribe. Indicadores demográficos, sociales y económicos comparables entre sí.",
+      "licencia": "Reuso con atribución",
+      "clave_de_acceso": false,
+      "estado": "candidata",
+      "sonda": null,
+      "nota": "Tiene API de datos abiertos documentada. Es la contraparte regional de Eurostat: permite comparar países latinoamericanos entre ellos sin pasar por una serie global promediada. Pendiente descubrir su forma."
+    },
+    {
+      "id": "datos-colombia",
+      "nombre": "Datos Abiertos Colombia",
+      "organismo": "datos.gov.co — portal nacional (Socrata)",
+      "cubre": "Colombia. Registros administrativos, incluida población migrante.",
+      "licencia": "Por conjunto de datos; hay que comprobarla en cada uno",
+      "clave_de_acceso": false,
+      "estado": "candidata",
+      "sonda": null,
+      "nota": "Colombia acoge a la mayor parte de la diáspora venezolana, así que sus registros administrativos dicen cosas que ninguna serie internacional recoge. Cada conjunto de datos tiene su propia licencia y su propia calidad: no se puede tratar el portal como una sola fuente."
+    }
+  ]
+}
