@@ -1,15 +1,34 @@
 ---
 // Layout base de todas las páginas.
 //
-// Nuevo hoy: la cabecera del sitio. Vive fuera de cualquier .pieza, así
-// que lleva su propio fondo tinta fijo — no depende de si la página de
-// abajo es data-fondo="oscuro" o "claro". Por eso el isotipo de fondo
-// oscuro (el mismo archivo real de 01 — Identidad) funciona aquí sin
-// necesitar una segunda variante de color.
+// La cabecera vive fuera de cualquier .pieza, así que lleva su propio
+// fondo tinta fijo — no depende de si la página de abajo es
+// data-fondo="oscuro" o "claro". Por eso el isotipo de fondo oscuro (el
+// mismo archivo real de 01 — Identidad) funciona aquí sin necesitar una
+// segunda variante de color.
+//
+// Nuevo hoy:
+//   1. <link rel="alternate" type="application/rss+xml">. Es lo que hace
+//      que un lector de feeds encuentre /rss.xml al pegarle solo el
+//      dominio, sin que nadie tenga que saber la ruta exacta.
+//   2. Enlace a /metodo/ en la cabecera. El método deja de estar
+//      escondido dentro del repositorio.
+//   3. <link rel="canonical">. El sitio responde en cardinaldatos.org,
+//      www.cardinaldatos.org y cardinaldatos.com. Los dos últimos
+//      redirigen al primero con un 301 en Cloudflare, pero la etiqueta
+//      canónica es el cinturón de seguridad: le dice al buscador cuál es
+//      la dirección buena aunque alguien llegue por otra. La URL se
+//      construye desde Astro.site, que sale de astro.config.mjs — el
+//      dominio no se escribe en este archivo.
 
 import "../styles/sistema.css";
 
-const { titulo, descripcion = "Estadísticas públicas sobre migración y diáspora, en español." } = Astro.props;
+const {
+  titulo,
+  descripcion = "Estadísticas públicas sobre migración y diáspora, en español.",
+} = Astro.props;
+
+const canonica = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
@@ -20,6 +39,14 @@ const { titulo, descripcion = "Estadísticas públicas sobre migración y diásp
     <title>{titulo ? `${titulo} — Cardinal Datos` : "Cardinal Datos"}</title>
     <meta name="description" content={descripcion} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonica} />
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Cardinal Datos"
+      href="/rss.xml"
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -44,14 +71,15 @@ const { titulo, descripcion = "Estadísticas públicas sobre migración y diásp
         <span>Cardinal Datos</span>
       </a>
 
-      <a
-        href="https://www.instagram.com/cardinaldatos"
-        class="chrome-ig"
-        target="_blank"
-        rel="noopener"
-      >
-        Síguenos en Instagram ↗
-      </a>
+      <nav class="chrome-nav">
+        <a href="/metodo/">Método</a>
+        <a href="/rss.xml">RSS</a>
+        <a
+          href="https://www.instagram.com/cardinaldatos"
+          target="_blank"
+          rel="noopener">Instagram ↗</a
+        >
+      </nav>
     </header>
 
     <slot />
@@ -96,7 +124,13 @@ const { titulo, descripcion = "Estadísticas públicas sobre migración y diásp
     letter-spacing: -0.01em;
   }
 
-  .chrome-ig {
+  .chrome-nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .chrome-nav a {
     font-family: var(--fuente-cifra);
     font-size: 12.5px;
     letter-spacing: 0.04em;
@@ -105,13 +139,26 @@ const { titulo, descripcion = "Estadísticas públicas sobre migración y diásp
     white-space: nowrap;
   }
 
-  .chrome-ig:hover {
+  .chrome-nav a:hover {
     color: var(--rojo);
+  }
+
+  .chrome-nav a:focus-visible {
+    outline: 2px solid var(--rojo);
+    outline-offset: 3px;
   }
 
   @media (max-width: 480px) {
     .chrome-marca span {
       display: none;
+    }
+
+    .chrome-nav {
+      gap: 12px;
+    }
+
+    .chrome-nav a {
+      font-size: 12px;
     }
   }
 </style>
