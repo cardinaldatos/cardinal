@@ -1,19 +1,17 @@
 {
   "_nota": "Registro de fuentes de Cardinal Datos. Es el único sitio donde se declara qué fuentes existen. Lo leen pipeline/verificar.py (para sondearlas) y sitio/src/pages/metodo.astro (para publicarlas). Añadir una fuente = añadir un objeto aquí. No hay ningún número de fuentes escrito a mano en ninguna parte: si mañana hay once, los textos lo dicen solos.",
-
   "_estados": {
     "en uso": "Ya sostiene al menos una pieza publicada.",
     "sondeada": "Responde y la entendemos, pero todavía no hay pieza encima.",
     "candidata": "Nos interesa. Falta descubrir su forma con un script de exploración, como pipeline/explorar_rpw.py hizo con RPW. Sin sonda todavía."
   },
-
   "_campos_sonda": {
     "url": "endpoint que se pide para comprobar que sigue viva",
     "params": "parámetros de la consulta de prueba",
     "tipo": "parser que sabe leerla: 'jsonstat' o 'banco_mundial'",
-    "meses_tolerados": "cuántos meses de antigüedad admite el último dato antes de dar aviso. null = la consulta fija un periodo concreto y medir frescura no tiene sentido."
+    "meses_tolerados": "cuántos meses de antigüedad admite el último dato antes de dar aviso. null = la consulta fija un periodo concreto y medir frescura no tiene sentido.",
+    "_enlace": "página pública del organismo, para citarlo desde el sitio"
   },
-
   "fuentes": [
     {
       "id": "banco-mundial",
@@ -25,11 +23,15 @@
       "estado": "en uso",
       "sonda": {
         "url": "https://api.worldbank.org/v2/country/MEX/indicator/BX.TRF.PWKR.DT.GD.ZS",
-        "params": { "format": "json", "mrv": 1 },
+        "params": {
+          "format": "json",
+          "mrv": 1
+        },
         "tipo": "banco_mundial",
         "meses_tolerados": 30,
         "nota": "Anual, con rezago largo de publicación."
-      }
+      },
+      "enlace": "https://data.worldbank.org"
     },
     {
       "id": "eurostat",
@@ -41,11 +43,16 @@
       "estado": "en uso",
       "sonda": {
         "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/DEMO_R_D3DENS",
-        "params": { "lang": "EN", "geoLevel": "country", "time": "2023" },
+        "params": {
+          "lang": "EN",
+          "geoLevel": "country",
+          "time": "2023"
+        },
         "tipo": "jsonstat",
         "meses_tolerados": null,
         "nota": "La consulta pide 2023 a propósito, para que la sonda sea estable. Medir frescura sobre ella no tendría sentido."
-      }
+      },
+      "enlace": "https://ec.europa.eu/eurostat"
     },
     {
       "id": "ssb",
@@ -66,7 +73,8 @@
         "tipo": "jsonstat",
         "meses_tolerados": 4,
         "nota": "Mensual, publicada a mediados del mes siguiente. La 14700 exige ContentsCode: no admite eliminación, a diferencia de VareTjenesteGrp, que se agrega sola al total."
-      }
+      },
+      "enlace": "https://www.ssb.no/en"
     },
     {
       "id": "acnur",
@@ -77,7 +85,8 @@
       "clave_de_acceso": false,
       "estado": "candidata",
       "sonda": null,
-      "nota": "La API es pública y no exige credenciales, y devuelve JSON con filtros por país de origen y de asilo. Es la fuente natural para el desplazamiento venezolano, que el Banco Mundial no cubre. Antes de sondearla hay que descubrir su forma con un script tipo explorar_rpw.py: documentación en api.unhcr.org/docs."
+      "nota": "La API es pública y no exige credenciales, y devuelve JSON con filtros por país de origen y de asilo. Es la fuente natural para el desplazamiento venezolano, que el Banco Mundial no cubre. Antes de sondearla hay que descubrir su forma con un script tipo explorar_rpw.py: documentación en api.unhcr.org/docs.",
+      "enlace": "https://www.unhcr.org/refugee-statistics"
     },
     {
       "id": "cepal",
@@ -88,7 +97,8 @@
       "clave_de_acceso": false,
       "estado": "candidata",
       "sonda": null,
-      "nota": "Tiene API de datos abiertos documentada. Es la contraparte regional de Eurostat: permite comparar países latinoamericanos entre ellos sin pasar por una serie global promediada. Pendiente descubrir su forma."
+      "nota": "Tiene API de datos abiertos documentada. Es la contraparte regional de Eurostat: permite comparar países latinoamericanos entre ellos sin pasar por una serie global promediada. Pendiente descubrir su forma.",
+      "enlace": "https://statistics.cepal.org"
     },
     {
       "id": "datos-colombia",
@@ -99,7 +109,8 @@
       "clave_de_acceso": false,
       "estado": "candidata",
       "sonda": null,
-      "nota": "Colombia acoge a la mayor parte de la diáspora venezolana, así que sus registros administrativos dicen cosas que ninguna serie internacional recoge. Cada conjunto de datos tiene su propia licencia y su propia calidad: no se puede tratar el portal como una sola fuente."
+      "nota": "Colombia acoge a la mayor parte de la diáspora venezolana, así que sus registros administrativos dicen cosas que ninguna serie internacional recoge. Cada conjunto de datos tiene su propia licencia y su propia calidad: no se puede tratar el portal como una sola fuente.",
+      "enlace": "https://www.datos.gov.co"
     }
   ]
 }
