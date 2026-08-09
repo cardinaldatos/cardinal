@@ -15,7 +15,7 @@ pegada en una conversación anterior — el repositorio cambia y esa copia
 envejece sin avisar.
 
 
-**36 archivos indexados.**
+**37 archivos indexados.**
 
 
 ## Raíz
@@ -30,6 +30,10 @@ envejece sin avisar.
 - [explorar-rpw.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-rpw.yml) — 1 KB
 - [instagram.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/instagram.yml) — 979 B
 - [mapa.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/mapa.yml) — 1 KB
+
+## `data/`
+
+- [fuentes.json](https://github.com/cardinaldatos/cardinal/blob/main/data/fuentes.json) — 5 KB
 
 ## `data/remesas-costo-latam/`
 
