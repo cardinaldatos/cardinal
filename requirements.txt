@@ -1,1 +1,4 @@
-requests>=2.31
+# Versión exacta, no un rango: el CI instala siempre lo mismo y una
+# versión comprometida publicada mañana no entra sola. Dependabot
+# propone las subidas de versión por pull request.
+requests==2.32.4
