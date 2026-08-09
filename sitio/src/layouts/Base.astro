@@ -13,7 +13,14 @@
 //      dominio, sin que nadie tenga que saber la ruta exacta.
 //   2. Enlace a /metodo/ en la cabecera. El método deja de estar
 //      escondido dentro del repositorio.
-//   3. <link rel="canonical">. El sitio responde en cardinaldatos.org,
+//   3. El pie del sitio. Igual que la cabecera, vive fuera de cualquier
+//      .pieza y lleva su propio fondo tinta fijo. Es institucional: dice
+//      qué es el proyecto y bajo qué reglas trabaja, y NO nombra fuentes.
+//      Nombrarlas aquí obligaría a editarlo cada vez que el registro
+//      cambia, y daría por cerrada una lista que no lo está. El pie de
+//      fuentes concreto —esta cifra, de esta fuente, de este año— vive
+//      dentro de cada pieza, que es donde significa algo.
+//   4. <link rel="canonical">. El sitio responde en cardinaldatos.org,
 //      www.cardinaldatos.org y cardinaldatos.com. Los dos últimos
 //      redirigen al primero con un 301 en Cloudflare, pero la etiqueta
 //      canónica es el cinturón de seguridad: le dice al buscador cuál es
@@ -83,6 +90,36 @@ const canonica = new URL(Astro.url.pathname, Astro.site).href;
     </header>
 
     <slot />
+
+    <footer class="chrome-footer">
+      <div class="chrome-footer-marco">
+        <p class="chrome-footer-marca">Cardinal Datos</p>
+
+        <p class="chrome-footer-texto">
+          Estadísticas públicas sobre migración y diáspora, en español.
+          Proyecto colectivo. Cada pieza declara su fuente, su año y su
+          método: si una cifra no se puede rastrear hasta un archivo
+          público, no se publica.
+        </p>
+
+        <p class="chrome-footer-texto">
+          Los datos originales pertenecen a los organismos que los publican
+          y conservan cada uno su licencia. Consúltala antes de
+          republicarlos.
+        </p>
+
+        <nav class="chrome-footer-enlaces">
+          <a href="/">Portada</a>
+          <a href="/metodo/">Método y fuentes</a>
+          <a href="/rss.xml">Feed RSS</a>
+          <a
+            href="https://www.instagram.com/cardinaldatos"
+            target="_blank"
+            rel="noopener">Instagram ↗</a
+          >
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>
 
@@ -144,6 +181,61 @@ const canonica = new URL(Astro.url.pathname, Astro.site).href;
   }
 
   .chrome-nav a:focus-visible {
+    outline: 2px solid var(--rojo);
+    outline-offset: 3px;
+  }
+
+  .chrome-footer {
+    background: var(--tinta);
+    border-top: 1px solid #2e363d;
+    padding: 34px 24px 42px;
+  }
+
+  .chrome-footer-marco {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .chrome-footer-marca {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    color: var(--papel);
+    margin: 0 0 10px;
+  }
+
+  .chrome-footer-texto {
+    font-size: 11.5px;
+    line-height: 1.65;
+    color: var(--pizarra);
+    margin: 0 0 10px;
+    max-width: 54ch;
+  }
+
+  .chrome-footer-enlaces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #2e363d;
+  }
+
+  .chrome-footer-enlaces a {
+    font-family: var(--fuente-cifra);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--pizarra);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .chrome-footer-enlaces a:hover {
+    color: var(--rojo);
+  }
+
+  .chrome-footer-enlaces a:focus-visible {
     outline: 2px solid var(--rojo);
     outline-offset: 3px;
   }
