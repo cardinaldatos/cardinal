@@ -1,0 +1,43 @@
+name: Actualizar mapa
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    # MAPA.md se ignora como disparador: si no, cada actualización del mapa
+    # provocaría otra ejecución. (GitHub además no encadena workflows a
+    # partir de commits hechos con GITHUB_TOKEN, así que es cinturón y
+    # tirantes — pero el cinturón es gratis.)
+    paths-ignore:
+      - "MAPA.md"
+
+# Sin este permiso, el push del paso final es denegado aunque todo lo
+# demás funcione.
+permissions:
+  contents: write
+
+jobs:
+  mapa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # mapa.py solo usa la biblioteca estándar: no hace falta instalar
+      # requirements.txt. Así este workflow sigue funcionando aunque el
+      # pipeline gane dependencias nuevas.
+      - name: Generar MAPA.md
+        run: cd pipeline && python mapa.py
+
+      - name: Confirmar si cambió
+        run: |
+          git config user.name "cardinal-bot"
+          git config user.email "actions@github.com"
+          git add MAPA.md
+          git diff --staged --quiet && echo "El mapa ya estaba al día." || {
+            git commit -m "Actualizar MAPA.md"
+            git push
+          }
