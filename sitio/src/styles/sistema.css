@@ -19,6 +19,7 @@
    - El rojo nunca como fondo de bloques grandes.
 
    ESTRUCTURA
+   0. Tipografía autoalojada
    1. Paleta y tipografía (global)
    2. Fondo claro y fondo oscuro (por pieza)
    3. Base
@@ -27,6 +28,81 @@
    6. Cifras
    7. Componentes de dato
    ========================================================================== */
+
+/* ==========================================================================
+   0. TIPOGRAFÍA AUTOALOJADA
+
+   Las fuentes se sirven desde /public, no desde Google Fonts. Motivo: cada
+   visita a Google Fonts entrega la IP del lector a un tercero. Autoalojadas,
+   nadie fuera de este dominio ve quién lee el sitio — y para una audiencia
+   de diáspora eso no es un detalle cosmético. De paso, el sitio deja de
+   depender de que un servicio externo responda, y el CSP puede prescindir
+   de fonts.googleapis.com y fonts.gstatic.com.
+
+   Los archivos son los mismos pesos que antes se pedían por URL:
+   Archivo 400/600/700, IBM Plex Sans 400/500/600, IBM Plex Mono 400/500.
+   font-display: swap — el texto se ve de inmediato con la fuente de
+   respaldo y cambia a la definitiva al cargar, sin bloquear el render.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/archivo-v25-latin-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/archivo-v25-latin-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/archivo-v25-latin-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/ibm-plex-sans-v23-latin-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/ibm-plex-sans-v23-latin-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/ibm-plex-sans-v23-latin-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/ibm-plex-mono-v20-latin-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/ibm-plex-mono-v20-latin-500.woff2') format('woff2');
+}
 
 
 /* ==========================================================================
