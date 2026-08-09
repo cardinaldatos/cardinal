@@ -1,4 +1,6 @@
 ---
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import Base from "../layouts/Base.astro";
 import { piezasPorFecha } from "../datos/piezas.js";
 
@@ -6,6 +8,26 @@ import { piezasPorFecha } from "../datos/piezas.js";
 // el mismo archivo que leen el feed RSS y la página de método. Añadir una
 // pieza allí la hace aparecer en las tres a la vez.
 const PIEZAS = piezasPorFecha();
+
+// El pie tampoco tiene su propia lista de fuentes. Antes nombraba cinco
+// organismos escritos a mano, dos de los cuales no sostenían ninguna
+// pieza: prometía cobertura que no existía y, a la vez, daba la lista por
+// cerrada. Ahora lee data/fuentes.json, el mismo registro que sondea
+// pipeline/verificar.py y que publica /metodo/.
+const CARPETA_DATOS = path.join(process.cwd(), "..", "data");
+
+let fuentes = [];
+try {
+  const registro = JSON.parse(
+    await readFile(path.join(CARPETA_DATOS, "fuentes.json"), "utf-8")
+  );
+  fuentes = registro.fuentes ?? [];
+} catch {
+  fuentes = [];
+}
+
+const enUso = fuentes.filter((f) => f.estado === "en uso");
+const abiertas = fuentes.filter((f) => f.estado !== "en uso");
 ---
 
 <Base titulo={null}>
@@ -64,9 +86,31 @@ const PIEZAS = piezasPorFecha();
       </div>
 
       <div class="pie">
-        <b>Cardinal Datos.</b> Proyecto colectivo. Las fuentes originales
-        pertenecen a sus organismos: Banco Mundial, Eurostat, SSB, IMDi y NAV.
-        El método de cada pieza es público.
+        <b>Cardinal Datos.</b> Proyecto colectivo. Publicamos cifras sobre
+        migración y diáspora que existen en fuentes públicas pero casi nunca
+        en español.
+        <br /><br />
+        Las piezas de hoy se apoyan en{" "}
+        {
+          enUso.map((f, i) => (
+            <>
+              {i > 0 && (i === enUso.length - 1 ? " y " : ", ")}
+              <a href={f.enlace} target="_blank" rel="noopener">
+                {f.nombre}
+              </a>
+            </>
+          ))
+        }. El registro completo tiene {fuentes.length} fuentes, ordenadas por
+        lo que aporta cada una: series <b>globales</b> que miden todos los
+        países con la misma vara, series <b>regionales</b> que comparan entre
+        pares, registros de los países <b>de destino</b> donde vive la
+        diáspora, y lo que publica el país <b>de origen</b> sobre su propia
+        gente fuera. Las {abiertas.length} que aún no hemos abierto están
+        listadas igual: el trabajo pendiente también se declara.
+        <br /><br />
+        Los datos originales pertenecen a sus organismos y conservan su
+        licencia. El <a href="/metodo/">método y el registro completo</a> son
+        públicos.
       </div>
     </div>
   </div>
@@ -133,5 +177,15 @@ const PIEZAS = piezasPorFecha();
 
   .sep {
     color: var(--pizarra);
+  }
+
+  .pie a {
+    color: var(--texto-2);
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 3px;
+  }
+
+  .pie a:hover {
+    color: var(--rojo);
   }
 </style>
