@@ -15,7 +15,7 @@ pegada en una conversación anterior — el repositorio cambia y esa copia
 envejece sin avisar.
 
 
-**43 archivos indexados.**
+**51 archivos indexados.**
 
 
 ## Raíz
@@ -75,7 +75,15 @@ envejece sin avisar.
 ## `sitio/public/`
 
 - [_headers](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/_headers) — 542 B
+- [archivo-v25-latin-600.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/archivo-v25-latin-600.woff2) — 13 KB
+- [archivo-v25-latin-700.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/archivo-v25-latin-700.woff2) — 14 KB
+- [archivo-v25-latin-regular.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/archivo-v25-latin-regular.woff2) — 14 KB
 - [favicon.svg](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/favicon.svg) — 554 B
+- [ibm-plex-mono-v20-latin-500.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-mono-v20-latin-500.woff2) — 15 KB
+- [ibm-plex-mono-v20-latin-regular.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-mono-v20-latin-regular.woff2) — 14 KB
+- [ibm-plex-sans-v23-latin-500.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-sans-v23-latin-500.woff2) — 24 KB
+- [ibm-plex-sans-v23-latin-600.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-sans-v23-latin-600.woff2) — 24 KB
+- [ibm-plex-sans-v23-latin-regular.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-sans-v23-latin-regular.woff2) — 22 KB
 
 ## `sitio/src/components/`
 
