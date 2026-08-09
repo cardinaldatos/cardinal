@@ -15,7 +15,7 @@ pegada en una conversación anterior — el repositorio cambia y esa copia
 envejece sin avisar.
 
 
-**42 archivos indexados.**
+**43 archivos indexados.**
 
 
 ## Raíz
@@ -71,6 +71,7 @@ envejece sin avisar.
 
 ## `sitio/public/`
 
+- [_headers](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/_headers) — 542 B
 - [favicon.svg](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/favicon.svg) — 554 B
 
 ## `sitio/src/components/`
