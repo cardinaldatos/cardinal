@@ -8,6 +8,12 @@ on:
       - "sitio/**"
       - ".github/workflows/desplegar.yml"
 
+# Este workflow no escribe en el repositorio: compila y despliega con el
+# token de Cloudflare, que va aparte. Sin permiso de escritura, aunque una
+# dependencia comprometida se ejecutara aquí, no podría tocar el código.
+permissions:
+  contents: read
+
 jobs:
   desplegar:
     runs-on: ubuntu-latest
@@ -20,8 +26,13 @@ jobs:
         with:
           node-version: "24"
 
+      # `npm ci` en vez de `npm install`: instala EXACTAMENTE lo que dice
+      # package-lock.json, y falla si el lockfile no existe o no cuadra
+      # con package.json. Es lo que hace el despliegue reproducible.
+      # REQUIERE que sitio/package-lock.json exista: correr antes el
+      # workflow "Generar lockfiles" una vez.
       - name: Instalar dependencias
-        run: cd sitio && npm install
+        run: cd sitio && npm ci
 
       - name: Compilar
         run: cd sitio && npm run build
