@@ -1,0 +1,485 @@
+---
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import Base from "../layouts/Base.astro";
+import { piezasPorFecha } from "../datos/piezas.js";
+
+/* ==========================================================================
+   Página de método
+
+   Hasta hoy, metodo.md solo existía dentro de data/, es decir: dentro del
+   repositorio. Quien leyera una pieza no tenía forma de comprobar de dónde
+   salía la cifra sin buscar el repo. Esta página publica esos archivos tal
+   cual los escribe pipeline/comun.py — no una versión redactada aparte,
+   que se desincronizaría a la primera.
+
+   Los archivos se leen aquí, en el frontmatter, durante `astro build`.
+   Eso es código de Node corriendo en tu máquina o en el runner de GitHub,
+   no en el navegador de nadie. Por eso puede salir de sitio/ y llegar a
+   data/, que vive un nivel más arriba. Es exactamente lo que ya hace
+   remesas-costo-latam.astro con limpio.json.
+   ========================================================================== */
+
+const CARPETA_DATOS = path.join(process.cwd(), "..", "data");
+
+/* ---- Conversor de Markdown, deliberadamente mínimo ----------------------
+   No es un parser de Markdown general y no debe serlo. Solo entiende la
+   forma exacta que produce escribir_metodo() en pipeline/comun.py:
+   encabezados con # y ##, negritas con **, código con acentos graves, y
+   párrafos separados por línea en blanco. Si algún día el generador
+   cambia de forma, esto hay que ampliarlo a conciencia — no añadir una
+   librería que acepte cualquier cosa, incluido HTML de terceros.        */
+
+function escaparHtml(s) {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function enLinea(s) {
+  // Se escapa PRIMERO y se aplican las marcas después, para que el texto
+  // del archivo nunca pueda inyectar etiquetas.
+  return escaparHtml(s)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+}
+
+function markdownAHtml(md) {
+  // Se recorre línea a línea, no bloque a bloque. En metodo.md el texto
+  // que sigue a un "## Definición" va pegado, sin línea en blanco de por
+  // medio; agrupando por bloques, ese párrafo acababa dentro del propio
+  // encabezado.
+  const salida = [];
+  let buffer = [];
+
+  const cerrarParrafo = () => {
+    if (buffer.length) {
+      salida.push(`<p>${buffer.join("<br />")}</p>`);
+      buffer = [];
+    }
+  };
+
+  for (const bruto of md.trim().split("\n")) {
+    const linea = bruto.trim();
+
+    if (!linea) {
+      cerrarParrafo();
+      continue;
+    }
+
+    if (linea.startsWith("## ")) {
+      cerrarParrafo();
+      salida.push(`<h3>${enLinea(linea.slice(3))}</h3>`);
+      continue;
+    }
+
+    // El "# Método — slug" del archivo se descarta: el título de cada
+    // ficha ya lo pone esta página, y repetirlo duplicaría el encabezado.
+    if (linea.startsWith("# ")) {
+      cerrarParrafo();
+      continue;
+    }
+
+    buffer.push(enLinea(linea));
+  }
+
+  cerrarParrafo();
+  return salida.join("\n");
+}
+
+/* ---- Lectura de los archivos ------------------------------------------ */
+
+const fichas = [];
+
+for (const pieza of piezasPorFecha()) {
+  if (!pieza.metodo) {
+    fichas.push({ pieza, html: null, motivo: "sin-pipeline" });
+    continue;
+  }
+  try {
+    const md = await readFile(
+      path.join(CARPETA_DATOS, pieza.metodo, "metodo.md"),
+      "utf-8"
+    );
+    fichas.push({ pieza, html: markdownAHtml(md), motivo: null });
+  } catch {
+    // Falta el archivo. No rompemos la compilación: lo declaramos.
+    fichas.push({ pieza, html: null, motivo: "falta-archivo" });
+  }
+}
+
+const conMetodo = fichas.filter((f) => f.html).length;
+
+/* ---- Registro de fuentes ----------------------------------------------
+   Se lee del mismo data/fuentes.json que sondea pipeline/verificar.py. La
+   web no mantiene su propia lista: si mañana el registro tiene once
+   fuentes, esta página dice once sin que nadie la edite.               */
+
+let fuentes = [];
+try {
+  const registro = JSON.parse(
+    await readFile(path.join(CARPETA_DATOS, "fuentes.json"), "utf-8")
+  );
+  fuentes = registro.fuentes ?? [];
+} catch {
+  fuentes = [];
+}
+
+const enUso = fuentes.filter((f) => f.estado === "en uso");
+const exploradas = fuentes.filter((f) => f.estado === "sondeada");
+const candidatas = fuentes.filter((f) => f.estado === "candidata");
+const sondeadas = fuentes.filter((f) => f.sonda).length;
+---
+
+<Base
+  titulo="Método"
+  descripcion="Cómo se obtiene, se limpia y se comprueba cada cifra que publica Cardinal Datos. El método de cada pieza, tal como lo escribe el pipeline."
+>
+  <div class="pieza" data-fondo="oscuro">
+    <div class="marco">
+      <p class="cejilla">Cardinal Datos · Método</p>
+
+      <h1 class="titular">
+        De dónde<br /><em>sale cada cifra</em>
+      </h1>
+
+      <p class="bajada">
+        Esta página no resume el método: publica el archivo que genera el
+        propio pipeline, sin intermediarios. Si una pieza cambia de fuente o
+        de límites, aquí se ve en la siguiente compilación.
+      </p>
+
+      <div class="bloque">
+        <h2>La regla de oro</h2>
+        <p class="intro">
+          Toda cifra publicada tiene que rastrearse hasta un archivo
+          descargado por un script. Si se copió de un PDF, no entra.
+        </p>
+
+        <div class="paso">
+          <span class="paso-n">1</span>
+          <span class="paso-t">
+            Un script pide los datos al API del organismo y guarda la
+            respuesta sin tocar, en <code>crudo.json</code>. Nadie edita ese
+            archivo a mano.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">2</span>
+          <span class="paso-t">
+            El mismo script limpia esa respuesta y produce
+            <code>limpio.json</code>. Las celdas vacías no se rellenan ni se
+            estiman: los huecos se conservan y se declaran.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">3</span>
+          <span class="paso-t">
+            Se escribe <code>metodo.md</code> con la fuente, la consulta
+            exacta, la definición del indicador y los límites conocidos. Es
+            lo que se lee más abajo.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">4</span>
+          <span class="paso-t">
+            La web, las imágenes de Instagram y cualquier otra superficie
+            leen ese mismo <code>limpio.json</code>. Un solo origen: si dos
+            piezas dieran cifras distintas, sería un fallo, no un matiz.
+          </span>
+        </div>
+
+        <p class="intro nota-frescura">
+          Aparte, una comprobación semanal pregunta a cada fuente sondeada
+          si sigue respondiendo <em>y</em> si sus datos siguen frescos.
+          Responder no basta: una tabla puede seguir contestando meses
+          después de dejar de actualizarse.
+        </p>
+      </div>
+
+      <div class="bloque">
+        <h2>Las fuentes</h2>
+        <p class="intro">
+          {fuentes.length} fuentes declaradas, {sondeadas} con comprobación
+          automática. Esta lista no está cerrada: se amplía cada vez que
+          alguien escribe el script que descubre una fuente nueva.
+        </p>
+
+        {
+          enUso.length > 0 && (
+            <>
+              <p class="grupo-eti">En uso</p>
+              {enUso.map((f) => (
+                <div class="fuente">
+                  <strong>{f.organismo}</strong>
+                  <span>{f.cubre}</span>
+                  <span class="fuente-meta">
+                    {f.licencia}
+                    {f.clave_de_acceso ? " · requiere clave de acceso" : " · sin clave de acceso"}
+                  </span>
+                </div>
+              ))}
+            </>
+          )
+        }
+
+        {
+          exploradas.length > 0 && (
+            <>
+              <p class="grupo-eti">Sondeadas, sin pieza todavía</p>
+              {exploradas.map((f) => (
+                <div class="fuente">
+                  <strong>{f.organismo}</strong>
+                  <span>{f.cubre}</span>
+                </div>
+              ))}
+            </>
+          )
+        }
+
+        {
+          candidatas.length > 0 && (
+            <>
+              <p class="grupo-eti">Candidatas</p>
+              <p class="intro">
+                Nos interesan y todavía no las hemos abierto. Se publican aquí
+                para que el trabajo pendiente sea visible, no para prometer
+                una fecha.
+              </p>
+              {candidatas.map((f) => (
+                <div class="fuente">
+                  <strong>{f.organismo}</strong>
+                  <span>{f.cubre}</span>
+                  {f.nota && <span class="fuente-meta">{f.nota}</span>}
+                </div>
+              ))}
+            </>
+          )
+        }
+      </div>
+
+      <div class="bloque">
+        <h2>El método de cada pieza</h2>
+        <p class="intro">
+          {conMetodo} de {fichas.length} piezas publicadas tienen método
+          reproducible. Las que no, lo dicen.
+        </p>
+
+        {
+          fichas.map(({ pieza, html, motivo }) => (
+            <article class="ficha">
+              <p class="cejilla origen">
+                {pieza.fuente} · {pieza.anio}
+              </p>
+              <h3 class="ficha-titulo">
+                <a href={`/${pieza.slug}/`}>{pieza.titulo}</a>
+              </h3>
+
+              {html ? (
+                <div class="metodo-cuerpo" set:html={html} />
+              ) : (
+                <p class="pendiente">
+                  {motivo === "sin-pipeline"
+                    ? "Esta pieza todavía no tiene método reproducible: sus cifras se transcribieron a mano desde la publicación del organismo. Hasta que un script las reconstruya desde el API, la pieza sigue en construcción y no debe citarse como dato verificado."
+                    : "Falta el archivo de método de esta pieza. Es un fallo del pipeline, no una decisión editorial."}
+                </p>
+              )}
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="bloque">
+        <h2>Qué no hacemos</h2>
+        <p class="intro">
+          Declarar los límites vale tanto como declarar la fuente.
+        </p>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            No completamos series incompletas con estimaciones propias.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            No comparamos países de años distintos sin decirlo en la pieza.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            No convertimos un promedio en una tendencia cuando la serie
+            tiene pocos puntos de origen.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            No borramos un país porque no tenga dato. La ausencia se publica.
+          </span>
+        </div>
+      </div>
+
+      <div class="pie">
+        <b>Cardinal Datos.</b> Las fuentes originales pertenecen a sus
+        organismos: Banco Mundial, Eurostat, SSB, IMDi y NAV. Consulta sus
+        condiciones de reuso antes de republicar los datos de origen.
+        <br />
+        <a href="/rss.xml">Feed RSS</a> · <a href="/">Portada</a>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style is:global>
+  /* is:global porque el cuerpo del método se inyecta con set:html y los
+     estilos con ámbito de Astro no alcanzan al HTML generado. */
+
+  .paso {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 10px;
+    align-items: start;
+    border-top: 1px solid var(--linea);
+    padding: 13px 0;
+  }
+
+  .paso-n {
+    font-family: var(--fuente-cifra);
+    font-size: 12px;
+    color: var(--rojo);
+    padding-top: 2px;
+  }
+
+  .paso-t {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--texto-2);
+  }
+
+  .nota-frescura {
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: var(--superficie);
+    border-left: 2px solid var(--acento);
+  }
+
+  .nota-frescura em {
+    font-style: normal;
+    color: var(--texto);
+  }
+
+  .grupo-eti {
+    font-family: var(--fuente-cifra);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--pizarra);
+    margin: 22px 0 2px;
+  }
+
+  .fuente {
+    border-top: 1px solid var(--linea);
+    padding: 13px 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  .fuente strong {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 13.5px;
+    letter-spacing: -0.01em;
+  }
+
+  .fuente span {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--texto-2);
+  }
+
+  .fuente .fuente-meta {
+    font-size: 11.5px;
+    color: var(--pizarra);
+  }
+
+  .ficha {
+    border-top: 1px solid var(--linea);
+    padding: 18px 0 4px;
+  }
+
+  .ficha .origen {
+    margin-bottom: 8px;
+  }
+
+  .ficha-titulo {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 17px;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .ficha-titulo a {
+    color: inherit;
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 4px;
+  }
+
+  .ficha-titulo a:hover {
+    text-decoration-color: var(--rojo);
+  }
+
+  .pendiente {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--texto-2);
+    margin: 0 0 14px;
+    padding: 12px 14px;
+    background: var(--superficie);
+    border-left: 2px solid var(--rojo);
+  }
+
+  .metodo-cuerpo p {
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: var(--texto-2);
+    margin: 0 0 12px;
+    max-width: 52ch;
+  }
+
+  .metodo-cuerpo h3 {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 13.5px;
+    letter-spacing: -0.01em;
+    color: var(--texto);
+    margin: 18px 0 8px;
+  }
+
+  .metodo-cuerpo strong {
+    color: var(--texto);
+    font-weight: 600;
+  }
+
+  .metodo-cuerpo code,
+  .paso-t code,
+  .bloque .intro code {
+    font-family: var(--fuente-cifra);
+    font-size: 0.92em;
+    color: var(--texto);
+    word-break: break-all;
+  }
+
+  .pie a {
+    color: var(--texto-2);
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 3px;
+  }
+
+  .pie a:hover {
+    color: var(--rojo);
+  }
+</style>
