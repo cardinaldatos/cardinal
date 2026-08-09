@@ -23,10 +23,13 @@ envejece sin avisar.
 - [README.md](https://github.com/cardinaldatos/cardinal/blob/main/README.md) — 1 KB
 - [requirements.txt](https://github.com/cardinaldatos/cardinal/blob/main/requirements.txt) — 206 B
 
+## `.github/`
+
+- [dependabot.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/dependabot.yml) — 1 KB
+
 ## `.github/workflows/`
 
 - [datos.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/datos.yml) — 711 B
-- [dependabot.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/dependabot.yml) — 1 KB
 - [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 2 KB
 - [explorar-rpw.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-rpw.yml) — 1 KB
 - [generar-lockfiles.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/generar-lockfiles.yml) — 2 KB
