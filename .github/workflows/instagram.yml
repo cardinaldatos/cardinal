@@ -3,6 +3,10 @@ name: Generar Instagram
 on:
   workflow_dispatch:
 
+# Solo lee el repo y sube un artifact; no necesita escribir.
+permissions:
+  contents: read
+
 jobs:
   generar:
     runs-on: ubuntu-latest
@@ -13,8 +17,11 @@ jobs:
         with:
           node-version: "24"
 
+      # `npm ci` instala exactamente lo fijado en package-lock.json.
+      # REQUIERE que instagram/package-lock.json exista: correr antes el
+      # workflow "Generar lockfiles" una vez.
       - name: Instalar dependencias
-        run: cd instagram && npm install
+        run: cd instagram && npm ci
 
       - name: Instalar navegador de Playwright
         run: cd instagram && npx playwright install --with-deps chromium
