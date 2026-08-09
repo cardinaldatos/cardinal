@@ -27,6 +27,14 @@
 //      la dirección buena aunque alguien llegue por otra. La URL se
 //      construye desde Astro.site, que sale de astro.config.mjs — el
 //      dominio no se escribe en este archivo.
+//   5. Tipografía autoalojada. Ya no se carga desde Google Fonts: los
+//      @font-face viven en sistema.css y los woff2 en /public. El
+//      navegador de cada lector deja de contactar con fonts.gstatic.com,
+//      así que nadie fuera de este dominio ve quién lee el sitio. Aquí
+//      solo se precargan las dos fuentes que aparecen de inmediato —el
+//      titular en Archivo 700 y el texto en IBM Plex Sans 400—; las demás
+//      cargan cuando el CSS las pide. Precargar de más retrasaría justo lo
+//      que se quiere acelerar.
 
 import "../styles/sistema.css";
 
@@ -55,11 +63,19 @@ const canonica = new URL(Astro.url.pathname, Astro.site).href;
       href="/rss.xml"
     />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="preload"
+      href="/archivo-v25-latin-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/ibm-plex-sans-v23-latin-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
   </head>
 
