@@ -14,5 +14,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - name: Comprobar las tres APIs
+
+      # El script lee data/fuentes.json y sondea las que tengan sonda. No
+      # hay que tocar este workflow al añadir una fuente nueva.
+      - name: Sondear las fuentes del registro
         run: cd pipeline && python verificar.py
