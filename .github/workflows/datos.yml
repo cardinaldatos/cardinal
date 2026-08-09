@@ -5,6 +5,11 @@ on:
   schedule:
     - cron: "0 9 * * 1"
 
+# Este workflow solo lee: sondea las fuentes y termina. Sin permiso de
+# escritura, nada que corra aquí puede modificar el repositorio.
+permissions:
+  contents: read
+
 jobs:
   verificar:
     runs-on: ubuntu-latest
