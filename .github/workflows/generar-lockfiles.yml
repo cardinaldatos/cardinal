@@ -1,0 +1,50 @@
+name: Generar lockfiles
+
+# WORKFLOW DE UN SOLO USO.
+#
+# Hoy ni sitio/ ni instagram/ tienen package-lock.json, así que cada
+# ejecución de CI resuelve las dependencias de cero contra lo último
+# publicado en npm: los despliegues no son reproducibles y una versión
+# comprometida publicada mañana se instalaría sola. El lockfile congela
+# el árbol exacto de dependencias; `npm ci` instala exactamente eso.
+#
+# Este workflow existe porque el mantenimiento se hace desde la web de
+# GitHub, sin terminal donde correr `npm install` localmente. Se lanza a
+# mano desde la pestaña Actions, genera los dos lockfiles y los confirma.
+# Después de usarlo se puede borrar este archivo, o dejarlo: solo corre
+# si alguien lo lanza a propósito.
+
+on:
+  workflow_dispatch:
+
+# Necesita escribir porque su único trabajo es confirmar los lockfiles.
+permissions:
+  contents: write
+
+jobs:
+  lockfiles:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      # --package-lock-only resuelve el árbol y escribe el lockfile sin
+      # descargar ni instalar nada: es rápido y no deja node_modules.
+      - name: Generar lockfile del sitio
+        run: cd sitio && npm install --package-lock-only
+
+      - name: Generar lockfile de instagram
+        run: cd instagram && npm install --package-lock-only
+
+      - name: Confirmar los lockfiles
+        run: |
+          git config user.name "cardinal-bot"
+          git config user.email "actions@github.com"
+          git add sitio/package-lock.json instagram/package-lock.json
+          git diff --staged --quiet && echo "Ya existían y están al día." || {
+            git commit -m "Fijar dependencias: lockfiles de sitio e instagram"
+            git push
+          }
