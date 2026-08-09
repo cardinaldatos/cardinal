@@ -109,4 +109,4 @@ envejece sin avisar.
 
 ## `sitio/src/styles/`
 
-- [sistema.css](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/styles/sistema.css) — 11 KB
+- [sistema.css](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/styles/sistema.css) — 14 KB
