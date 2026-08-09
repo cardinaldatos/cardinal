@@ -1,0 +1,40 @@
+# Dependabot: vigila las dependencias y propone las actualizaciones por
+# pull request, que se revisan y fusionan desde la web de GitHub.
+#
+# Cubre cuatro frentes: los dos npm (sitio e instagram), el pip del
+# pipeline y las propias GitHub Actions de los workflows. Las
+# actualizaciones menores y de parche llegan agrupadas en un solo PR
+# semanal por frente, para no inundar de avisos a una sola mantenedora.
+#
+# Ojo: fusionar un PR que toque sitio/** dispara el despliegue. Es lo
+# esperado: la actualización queda probada en producción de inmediato.
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/sitio"
+    schedule:
+      interval: "weekly"
+    groups:
+      menores:
+        applies-to: version-updates
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "npm"
+    directory: "/instagram"
+    schedule:
+      interval: "weekly"
+    groups:
+      menores:
+        applies-to: version-updates
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
