@@ -33,7 +33,7 @@ envejece sin avisar.
 
 ## `data/`
 
-- [fuentes.json](https://github.com/cardinaldatos/cardinal/blob/main/data/fuentes.json) — 6 KB
+- [fuentes.json](https://github.com/cardinaldatos/cardinal/blob/main/data/fuentes.json) — 11 KB
 
 ## `data/remesas-costo-latam/`
 
