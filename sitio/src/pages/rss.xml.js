@@ -4,7 +4,7 @@
    Un archivo dentro de src/pages/ que NO termina en .astro sino en .js es
    lo que Astro llama un "endpoint": en vez de una página HTML, devuelve el
    texto que tú le digas. Este devuelve XML, y por llamarse rss.xml.js
-   acaba publicado en https://cardinaldatos.workers.dev/rss.xml
+   acaba publicado en https://cardinaldatos.org/rss.xml
 
    Se ejecuta una sola vez, durante `npm run build`. El resultado es un
    archivo estático más dentro de dist/. No hay servidor detrás.
@@ -12,11 +12,16 @@
    Escribimos el XML a mano, sin librería, por dos razones: no añade una
    dependencia que luego haya que mantener, y el formato es lo bastante
    corto como para leerlo entero y entender qué se publica.
+
+   EL DOMINIO NO SE ESCRIBE AQUÍ. Llega en el contexto del endpoint, desde
+   el campo `site` de astro.config.mjs. Un dominio repetido en dos archivos
+   es un dominio que algún día estará desactualizado en uno de los dos, y
+   en un feed eso duele especialmente: el <guid> de cada pieza es su URL,
+   así que si cambia, los lectores de feeds tratan piezas viejas como
+   nuevas y se las vuelven a mostrar a todo el mundo.
    ========================================================================== */
 
 import { piezasPorFecha } from "../datos/piezas.js";
-
-const SITIO = "https://cardinaldatos.workers.dev";
 
 const TITULO = "Cardinal Datos";
 const DESCRIPCION =
@@ -41,7 +46,11 @@ function fechaRss(iso) {
   return new Date(`${iso}T00:00:00Z`).toUTCString();
 }
 
-export function GET() {
+export function GET(context) {
+  // context.site viene de astro.config.mjs y termina en barra. Se la
+  // quitamos para poder componer rutas sin acabar con barras dobles.
+  const SITIO = String(context.site).replace(/\/$/, "");
+
   const piezas = piezasPorFecha();
 
   const items = piezas
