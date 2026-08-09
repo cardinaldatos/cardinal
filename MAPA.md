@@ -15,7 +15,7 @@ pegada en una conversación anterior — el repositorio cambia y esa copia
 envejece sin avisar.
 
 
-**39 archivos indexados.**
+**41 archivos indexados.**
 
 
 ## Raíz
@@ -26,7 +26,7 @@ envejece sin avisar.
 ## `.github/workflows/`
 
 - [datos.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/datos.yml) — 543 B
-- [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 1 KB
+- [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 2 KB
 - [explorar-rpw.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-rpw.yml) — 1 KB
 - [generar-lockfiles.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/generar-lockfiles.yml) — 2 KB
 - [instagram.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/instagram.yml) — 979 B
@@ -49,6 +49,7 @@ envejece sin avisar.
 - [generar-dominio.mjs](https://github.com/cardinaldatos/cardinal/blob/main/instagram/generar-dominio.mjs) — 4 KB
 - [generar-presentacion.mjs](https://github.com/cardinaldatos/cardinal/blob/main/instagram/generar-presentacion.mjs) — 4 KB
 - [generar.mjs](https://github.com/cardinaldatos/cardinal/blob/main/instagram/generar.mjs) — 5 KB
+- [package-lock.json](https://github.com/cardinaldatos/cardinal/blob/main/instagram/package-lock.json) — 2 KB
 - [package.json](https://github.com/cardinaldatos/cardinal/blob/main/instagram/package.json) — 181 B
 
 ## `pipeline/`
@@ -63,6 +64,7 @@ envejece sin avisar.
 
 - [.gitignore](https://github.com/cardinaldatos/cardinal/blob/main/sitio/.gitignore) — 51 B
 - [astro.config.mjs](https://github.com/cardinaldatos/cardinal/blob/main/sitio/astro.config.mjs) — 639 B
+- [package-lock.json](https://github.com/cardinaldatos/cardinal/blob/main/sitio/package-lock.json) — 167 KB
 - [package.json](https://github.com/cardinaldatos/cardinal/blob/main/sitio/package.json) — 304 B
 - [wrangler.jsonc](https://github.com/cardinaldatos/cardinal/blob/main/sitio/wrangler.jsonc) — 712 B
 
