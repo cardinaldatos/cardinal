@@ -1,24 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
+import { piezasPorFecha } from "../datos/piezas.js";
 
-const PIEZAS = [
-  {
-    slug: "remesas-costo-latam",
-    titulo: "Cuánto se queda en el camino",
-    resumen:
-      "Lo que cuesta enviar 200 dólares a diez países de América Latina, y los tres que no aparecen en la estadística.",
-    fuente: "Banco Mundial",
-    anio: "2023",
-  },
-  {
-    slug: "titulo-no-cruza",
-    titulo: "El título no cruza",
-    resumen:
-      "Cuatro de cada diez migrantes de fuera de la UE con título universitario trabajan por debajo de su formación.",
-    fuente: "Eurostat",
-    anio: "2024",
-  },
-];
+// La lista de piezas ya no vive aquí: está en src/datos/piezas.js, que es
+// el mismo archivo que leen el feed RSS y la página de método. Añadir una
+// pieza allí la hace aparecer en las tres a la vez.
+const PIEZAS = piezasPorFecha();
 ---
 
 <Base titulo={null}>
@@ -55,6 +42,25 @@ const PIEZAS = [
             </article>
           ))
         }
+      </div>
+
+      <div class="bloque">
+        <h2>Sigue las piezas nuevas</h2>
+        <p class="intro">
+          Publicamos despacio. Suscríbete al feed y te llegan sin depender de
+          ningún algoritmo.
+        </p>
+        <p class="enlaces">
+          <a href="/rss.xml">Feed RSS</a>
+          <span class="sep">·</span>
+          <a href="/metodo/">Cómo trabajamos</a>
+          <span class="sep">·</span>
+          <a
+            href="https://www.instagram.com/cardinaldatos"
+            target="_blank"
+            rel="noopener">Instagram ↗</a
+          >
+        </p>
       </div>
 
       <div class="pie">
@@ -100,5 +106,32 @@ const PIEZAS = [
     color: var(--texto-2);
     margin: 0;
     max-width: 48ch;
+  }
+
+  .enlaces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: baseline;
+    font-family: var(--fuente-cifra);
+    font-size: 12.5px;
+    margin: 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--linea);
+  }
+
+  .enlaces a {
+    color: var(--texto-2);
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 4px;
+  }
+
+  .enlaces a:hover {
+    color: var(--rojo);
+    text-decoration-color: var(--rojo);
+  }
+
+  .sep {
+    color: var(--pizarra);
   }
 </style>
