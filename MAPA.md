@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**64 archivos indexados, 588053 bytes en total.**
+**64 archivos indexados, 589152 bytes en total.**
 
-**Huella del repositorio: `7c55e9ce34c981ae`**
+**Huella del repositorio: `8c3a2439fa0b8f6a`**
 
 
 ## Raíz
@@ -119,7 +119,7 @@ distintos.
 
 ## `sitio/src/components/`
 
-- [RemesasCostoLatam.jsx](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/components/RemesasCostoLatam.jsx) — 5883 B · `9bcb9a4f`
+- [RemesasCostoLatam.jsx](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/components/RemesasCostoLatam.jsx) — 6982 B · `9cffe0d5`
 - [TituloNoCruza.jsx](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/components/TituloNoCruza.jsx) — 11566 B · `8e85acfd`
 
 ## `sitio/src/datos/`
