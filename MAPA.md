@@ -67,7 +67,7 @@ envejece sin avisar.
 ## `sitio/`
 
 - [.gitignore](https://github.com/cardinaldatos/cardinal/blob/main/sitio/.gitignore) — 51 B
-- [astro.config_1.mjs](https://github.com/cardinaldatos/cardinal/blob/main/sitio/astro.config_1.mjs) — 2 KB
+- [astro.config.mjs](https://github.com/cardinaldatos/cardinal/blob/main/sitio/astro.config.mjs) — 2 KB
 - [package-lock.json](https://github.com/cardinaldatos/cardinal/blob/main/sitio/package-lock.json) — 167 KB
 - [package.json](https://github.com/cardinaldatos/cardinal/blob/main/sitio/package.json) — 304 B
 - [wrangler.jsonc](https://github.com/cardinaldatos/cardinal/blob/main/sitio/wrangler.jsonc) — 712 B
