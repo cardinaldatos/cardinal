@@ -105,7 +105,7 @@ envejece sin avisar.
 
 ## `sitio/src/datos/`
 
-- [correcciones.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/correcciones.js) — 3 KB
+- [correcciones.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/correcciones.js) — 5 KB
 - [piezas.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/piezas.js) — 2 KB
 
 ## `sitio/src/layouts/`
