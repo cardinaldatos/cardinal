@@ -15,7 +15,7 @@ pegada en una conversación anterior — el repositorio cambia y esa copia
 envejece sin avisar.
 
 
-**55 archivos indexados.**
+**58 archivos indexados.**
 
 
 ## Raíz
@@ -47,6 +47,12 @@ envejece sin avisar.
 - [crudo.json](https://github.com/cardinaldatos/cardinal/blob/main/data/remesas-costo-latam/crudo.json) — 28 KB
 - [limpio.json](https://github.com/cardinaldatos/cardinal/blob/main/data/remesas-costo-latam/limpio.json) — 2 KB
 - [metodo.md](https://github.com/cardinaldatos/cardinal/blob/main/data/remesas-costo-latam/metodo.md) — 2 KB
+
+## `data/sobrecualificacion-ue/`
+
+- [crudo.json](https://github.com/cardinaldatos/cardinal/blob/main/data/sobrecualificacion-ue/crudo.json) — 20 KB
+- [limpio.json](https://github.com/cardinaldatos/cardinal/blob/main/data/sobrecualificacion-ue/limpio.json) — 5 KB
+- [metodo.md](https://github.com/cardinaldatos/cardinal/blob/main/data/sobrecualificacion-ue/metodo.md) — 2 KB
 
 ## `instagram/`
 
@@ -92,7 +98,7 @@ envejece sin avisar.
 ## `sitio/src/components/`
 
 - [RemesasCostoLatam.jsx](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/components/RemesasCostoLatam.jsx) — 6 KB
-- [TituloNoCruza.jsx](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/components/TituloNoCruza.jsx) — 8 KB
+- [TituloNoCruza.jsx](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/components/TituloNoCruza.jsx) — 11 KB
 
 ## `sitio/src/datos/`
 
