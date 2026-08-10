@@ -8,11 +8,6 @@
      - src/pages/rss.xml.js    -> el feed RSS
      - src/pages/metodo.astro  -> la página de método público
 
-   Antes, la lista vivía dentro de index.astro. Si hubiéramos añadido el
-   RSS copiándola, la segunda publicación habría quedado desincronizada:
-   pieza nueva en la portada, feed viejo. Es el mismo criterio que ya
-   aplica limpio.json a las tres superficies de datos.
-
    PARA AÑADIR UNA PIEZA: añade un objeto aquí. La portada, el feed y la
    página de método la recogen solas. No hay que tocar nada más.
 
@@ -48,11 +43,11 @@ export const PIEZAS = [
     slug: "titulo-no-cruza",
     titulo: "El título no cruza",
     resumen:
-      "Cuatro de cada diez migrantes de fuera de la UE con título universitario trabajan por debajo de su formación.",
+      "Cuatro de cada diez migrantes de fuera de la UE con título universitario trabajan por debajo de su formación. Y siete países de la UE no publican la cifra.",
     fuente: "Eurostat",
     anio: "2024",
     publicado: "2026-07-28",
-    metodo: null,
+    metodo: "sobrecualificacion-ue",
   },
 ];
 
