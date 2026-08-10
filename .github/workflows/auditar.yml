@@ -1,0 +1,34 @@
+name: Auditoría del repositorio
+
+# Responde a una sola pregunta: ¿hace falta tocar algo?
+#
+# Corre en cada push y cada lunes por la mañana. Lo semanal no es adorno:
+# el repositorio puede estar quieto y aun así dejar de cuadrar, porque las
+# fuentes se mueven debajo. Un fallo que aparece sin que nadie haya tocado
+# nada es exactamente el que hay que enterarse por aviso y no por casualidad.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  auditar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Sin `npm install`: auditar.mjs no tiene dependencias, solo módulos
+      # que vienen con Node. Nada que instalar y nada que actualizar.
+      - name: Auditar
+        run: node auditoria/auditar.mjs
