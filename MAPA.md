@@ -43,7 +43,6 @@ envejece sin avisar.
 
 ## `data/`
 
-- [correcciones.js](https://github.com/cardinaldatos/cardinal/blob/main/data/correcciones.js) — 3 KB
 - [fuentes.json](https://github.com/cardinaldatos/cardinal/blob/main/data/fuentes.json) — 11 KB
 
 ## `data/remesas-costo-latam/`
@@ -106,6 +105,7 @@ envejece sin avisar.
 
 ## `sitio/src/datos/`
 
+- [correcciones.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/correcciones.js) — 3 KB
 - [piezas.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/piezas.js) — 2 KB
 
 ## `sitio/src/layouts/`
