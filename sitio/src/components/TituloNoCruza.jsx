@@ -1,89 +1,68 @@
 import { useState } from "react";
 
 /* ------------------------------------------------------------------
-   DATOS REALES — Eurostat, "Migrant integration statistics –
-   over-qualification". Datos extraídos el 16 de julio de 2025,
-   año de referencia 2024. Encuesta de Población Activa de la UE.
+   DATOS REALES — Eurostat, Encuesta de Población Activa de la UE,
+   conjunto lfsa_eoqgan (sobrecualificación por ciudadanía). Llegan como
+   prop desde titulo-no-cruza.astro, que los lee de
+   data/sobrecualificacion-ue/limpio.json — el archivo que genera
+   pipeline/sobrecualificacion.py.
 
-   Tasa de sobrecualificación: personas empleadas con estudios
-   superiores (ISCED 5–8) que trabajan en ocupaciones de baja o
-   media cualificación (ISCO 4–9).
-
-   PENDIENTE DE FASE 1: reconstruir estas cifras desde la API de
-   Eurostat con un script en pipeline/, como se hizo con remesas.
-   Hasta entonces, esta pieza no sale de "en construcción".
+   Este componente ya no contiene ninguna cifra. Las que tenía escritas
+   a mano desde julio de 2025 resultaron estar desactualizadas: los
+   valores de 2014 seguían siendo correctos, pero Eurostat había
+   revisado los de 2024 (39,6 % pasó a 39,8 %; 30,3 % a 30,2 %). Eran
+   correctas el día que se copiaron y falsas un año después. Por eso
+   ahora se leen de la fuente en cada compilación.
 ------------------------------------------------------------------ */
-
-const GRUPOS = [
-  {
-    id: "nac",
-    corto: "Nacionales",
-    largo: "Ciudadanos del país donde viven",
-    v2014: 21,
-    v2024: 21,
-    nota: "Se ha mantenido estable entre 20 % y 21 % durante una década.",
-  },
-  {
-    id: "ue",
-    corto: "De otro país de la UE",
-    largo: "Ciudadanos de otro Estado miembro",
-    v2014: 34.0,
-    v2024: 30.3,
-    nota: "Su título se reconoce por norma europea, y aun así el desajuste persiste.",
-  },
-  {
-    id: "extra",
-    corto: "De fuera de la UE",
-    largo: "Ciudadanos de un país no comunitario",
-    v2014: 45.9,
-    v2024: 39.6,
-    nota: "El grupo más afectado cada año desde que hay registro. Las mujeres, más que los hombres.",
-  },
-];
-
-const CASOS = [
-  {
-    lugar: "Grecia",
-    texto: "La tasa más alta de la UE para hombres y mujeres de fuera del bloque.",
-  },
-  {
-    lugar: "Chequia y Malta",
-    texto:
-      "Entre los jóvenes de 20 a 34 años de fuera de la UE supera el 50 %. Entre los nacionales de la misma edad, no llega al 15 %.",
-  },
-  {
-    lugar: "Italia, España y Grecia",
-    texto:
-      "Pasados los 35 años, más de la mitad de los trabajadores de fuera de la UE con título universitario siguen en empleos por debajo de su formación.",
-  },
-  {
-    lugar: "Alemania, Irlanda y Chipre",
-    texto:
-      "La excepción: aquí son los ciudadanos de otros países de la UE quienes registran la tasa más alta.",
-  },
-];
 
 /* Coma decimal, siempre. Regla del manual: las cifras hablan español. */
 const coma = (v, decimales = 1) =>
-  v.toLocaleString("es", {
+  Number(v).toLocaleString("es", {
     minimumFractionDigits: decimales,
     maximumFractionDigits: decimales,
   });
 
 const ESCALA_DECADA = 50; // % máximo de las barras de comparación
+const ESCALA_PAIS = 80; // % máximo de las barras por país
 
-export default function TituloNoCruza() {
-  const [grupoId, setGrupoId] = useState("extra");
-  const [anio, setAnio] = useState(2024);
+export default function TituloNoCruza({ datos }) {
+  const GRUPOS = datos.grupos;
+  const PAISES = datos.paises_2024;
+  const SIN_DATO = datos.sin_dato;
 
-  const grupo = GRUPOS.find((g) => g.id === grupoId);
-  const tasa = anio === 2024 ? grupo.v2024 : grupo.v2014;
-  const marcados = Math.round(tasa);
+  const [anioReciente, anioAntiguo] = [
+    datos.anios[datos.anios.length - 1],
+    datos.anios[0],
+  ];
+
+  const [grupoId, setGrupoId] = useState("NEU27_2020_FOR");
+  const [anio, setAnio] = useState(anioReciente);
+  const [orden, setOrden] = useState("brecha");
+
+  const grupo = GRUPOS.find((g) => g.id === grupoId) ?? GRUPOS[0];
+  const tasa = anio === anioReciente ? grupo.v2024 : grupo.v2014;
+  const marcados = tasa === null ? 0 : Math.round(tasa);
+
+  // El orden no es un detalle de presentación: cambia qué historia se
+  // lee. Por tasa, arriba salen los países donde la sobrecualificación
+  // es alta para todo el mundo. Por brecha, los países donde le pasa
+  // específicamente a quien viene de fuera.
+  const paisesOrdenados = [...PAISES].sort((a, b) =>
+    orden === "brecha"
+      ? (b.brecha ?? -1) - (a.brecha ?? -1)
+      : b.extra_ue - a.extra_ue
+  );
+
+  const conBrecha = PAISES.filter((p) => p.brecha !== null);
+  const mayorBrecha = [...conBrecha].sort((a, b) => b.brecha - a.brecha)[0];
+  const mayorTasa = [...PAISES].sort((a, b) => b.extra_ue - a.extra_ue)[0];
 
   return (
     <div className="pieza" data-fondo="claro" style={{ "--acento": "var(--ambar)" }}>
       <div className="marco">
-        <p className="cejilla">Eurostat · Encuesta de Población Activa · 2024</p>
+        <p className="cejilla">
+          Eurostat · Encuesta de Población Activa · {anioReciente}
+        </p>
 
         <h1 className="titular">
           El título<br />
@@ -115,7 +94,7 @@ export default function TituloNoCruza() {
         <div className="campo">
           <span className="etiqueta" id="lbl-anio">Año</span>
           <div className="fichas" role="group" aria-labelledby="lbl-anio">
-            {[2014, 2024].map((a) => (
+            {datos.anios.map((a) => (
               <button
                 key={a}
                 className="ficha"
@@ -160,15 +139,19 @@ export default function TituloNoCruza() {
             </span>
           </div>
 
-          <p className="detalle">{grupo.nota}</p>
+          <p className="detalle">
+            Tasa exacta: {coma(tasa)} % del total de personas empleadas de este
+            grupo con estudios superiores, en el conjunto de la UE.
+          </p>
         </div>
 
         {/* ---------------- DÉCADA ---------------- */}
         <div className="bloque">
           <h2>Diez años después, la brecha sigue</h2>
           <p className="intro">
-            La barra tenue es 2014; la de color, 2024. Las tasas de los
-            migrantes bajaron, pero ninguna se acercó a la de los nacionales.
+            La barra tenue es {anioAntiguo}; la de color, {anioReciente}. Las
+            tasas de los migrantes bajaron, pero ninguna se acercó a la de los
+            nacionales.
           </p>
 
           {GRUPOS.map((g) => (
@@ -190,38 +173,122 @@ export default function TituloNoCruza() {
                 />
               </div>
               <p className="barra-pie">
-                {g.v2014 === g.v2024
+                {Math.abs(g.v2014 - g.v2024) < 0.05
                   ? "Sin cambio apreciable"
-                  : `Bajó ${coma(g.v2014 - g.v2024)} puntos en diez años`}
+                  : g.v2024 < g.v2014
+                    ? `Bajó ${coma(g.v2014 - g.v2024)} puntos en diez años`
+                    : `Subió ${coma(g.v2024 - g.v2014)} puntos en diez años`}
               </p>
             </div>
           ))}
         </div>
 
-        {/* ---------------- CASOS ---------------- */}
+        {/* ---------------- PAÍSES ---------------- */}
         <div className="bloque">
           <h2>Dónde se nota más</h2>
           <p className="intro">
-            La media europea esconde diferencias grandes entre países.
+            La media europea esconde diferencias grandes. Cambia el orden y
+            cambia la historia: por tasa salen arriba los países donde el
+            desajuste es alto para todo el mundo; por brecha, aquellos donde le
+            ocurre sobre todo a quien viene de fuera.
           </p>
-          <div>
-            {CASOS.map((c) => (
-              <div className="caso" key={c.lugar}>
-                <strong>{c.lugar}</strong>
-                <span>{c.texto}</span>
-              </div>
-            ))}
+
+          <div className="campo">
+            <span className="etiqueta" id="lbl-orden">Ordenar por</span>
+            <div className="fichas" role="group" aria-labelledby="lbl-orden">
+              <button
+                className="ficha"
+                aria-pressed={orden === "brecha"}
+                onClick={() => setOrden("brecha")}
+              >
+                Brecha con los nacionales
+              </button>
+              <button
+                className="ficha"
+                aria-pressed={orden === "tasa"}
+                onClick={() => setOrden("tasa")}
+              >
+                Tasa más alta
+              </button>
+            </div>
           </div>
+
+          {paisesOrdenados.map((p) => (
+            <div className="barra-fila" key={p.geo}>
+              <div className="barra-cab">
+                <span>{p.pais}</span>
+                <span className="n">{coma(p.extra_ue)} %</span>
+              </div>
+              <div className="pista">
+                <div
+                  className="relleno tenue"
+                  style={{
+                    width:
+                      p.nacionales === null
+                        ? 0
+                        : (p.nacionales / ESCALA_PAIS) * 100 + "%",
+                  }}
+                />
+                <div
+                  className="relleno acento encima"
+                  style={{ width: (p.extra_ue / ESCALA_PAIS) * 100 + "%" }}
+                />
+              </div>
+              <p className="barra-pie">
+                {p.nacionales === null
+                  ? "Sin dato de los nacionales para comparar"
+                  : `Nacionales del mismo país: ${coma(p.nacionales)} % · ${
+                      p.brecha > 0
+                        ? `${coma(p.brecha)} puntos de diferencia`
+                        : "sin diferencia apreciable"
+                    }`}
+              </p>
+            </div>
+          ))}
+
+          <p className="detalle">
+            La barra tenue es la tasa de los nacionales de ese mismo país; la de
+            color, la de los ciudadanos de fuera de la UE.{" "}
+            {mayorTasa && mayorBrecha && (
+              <>
+                {mayorTasa.pais} registra la tasa más alta ({coma(mayorTasa.extra_ue)} %)
+                {mayorTasa.geo === mayorBrecha.geo
+                  ? " y también la mayor diferencia frente a sus propios nacionales."
+                  : `, y ${mayorBrecha.pais} la mayor diferencia frente a sus propios nacionales (${coma(mayorBrecha.brecha)} puntos).`}
+              </>
+            )}
+          </p>
         </div>
 
+        {/* ---------------- HALLAZGO: LOS QUE FALTAN ---------------- */}
+        {SIN_DATO.length > 0 && (
+          <div className="bloque">
+            <h2>
+              {SIN_DATO.length} países de la UE no están en esta comparación
+            </h2>
+            <p className="detalle">
+              {SIN_DATO.map((p) => p.pais).join(", ")} no publican valor para{" "}
+              {anioReciente} en esta serie. No significa que allí no exista
+              sobrecualificación: la Encuesta de Población Activa es una muestra,
+              y cuando el número de personas migrantes con título universitario
+              es demasiado pequeño para dar una cifra fiable, Eurostat no la
+              publica. La ausencia se declara aquí en lugar de rellenarse.
+            </p>
+          </div>
+        )}
+
         <div className="pie">
-          <b>Fuente:</b> Eurostat, «Migrant integration statistics –
-          over-qualification», datos de 2024 extraídos el 16 de julio de 2025.
-          Base: Encuesta de Población Activa de la UE. Se considera
-          sobrecualificada a la persona empleada con estudios superiores
-          (ISCED 5–8) que ocupa un puesto de baja o media cualificación
-          (ISCO 4–9). La tasa de los nacionales aparece redondeada a 21 %:
-          Eurostat la describe estable entre 20 % y 21 % en toda la serie.
+          <b>Fuente:</b> Eurostat, Encuesta de Población Activa de la UE
+          (EU-LFS), conjunto {datos.conjunto}. Se considera sobrecualificada a
+          la persona empleada con estudios superiores (ISCED 5–8) que ocupa un
+          puesto de baja o media cualificación (ISCO 4–9). Franja de edad{" "}
+          {datos.edad}: de 20 a 64 años. Otras franjas dan cifras distintas y no
+          son comparables entre sí. La clasificación es por ciudadanía, no por
+          país de nacimiento; Eurostat publica una serie paralela por país de
+          nacimiento cuyos valores no son intercambiables con estos. Los nombres
+          de país están traducidos por nosotros; el código original de la fuente
+          queda en el método. El método completo, con sus límites declarados,
+          está publicado.
         </div>
       </div>
     </div>
