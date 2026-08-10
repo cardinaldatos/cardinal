@@ -1,0 +1,40 @@
+name: Explorar Eurostat
+
+# Lanza el descubrimiento de lfsa_eoqgan (sobrecualificación por ciudadanía),
+# el paso previo a escribir el script definitivo de la pieza «El título no
+# cruza». Se lanza a mano desde la pestaña Actions.
+#
+# A diferencia de explorar-rpw.yml, este NO confirma nada al repositorio:
+# lo que produce es material de diagnóstico, no datos publicables. Los JSON
+# quedan como artifact descargable y el hallazgo importante —qué franja de
+# edad usa el artículo— se lee directamente en el log de la ejecución.
+# Por eso basta con permiso de lectura.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  explorar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Descubrir la forma del conjunto
+        run: cd pipeline && python explorar_eurostat.py
+
+      - name: Guardar los JSON para inspeccionar
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eurostat-descubrimiento
+          path: data/eurostat-descubrimiento/
+          if-no-files-found: warn
