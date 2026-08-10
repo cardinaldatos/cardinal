@@ -15,7 +15,7 @@ pegada en una conversación anterior — el repositorio cambia y esa copia
 envejece sin avisar.
 
 
-**59 archivos indexados.**
+**60 archivos indexados.**
 
 
 ## Raíz
@@ -41,6 +41,7 @@ envejece sin avisar.
 
 ## `data/`
 
+- [correcciones.js](https://github.com/cardinaldatos/cardinal/blob/main/data/correcciones.js) — 3 KB
 - [fuentes.json](https://github.com/cardinaldatos/cardinal/blob/main/data/fuentes.json) — 11 KB
 
 ## `data/remesas-costo-latam/`
