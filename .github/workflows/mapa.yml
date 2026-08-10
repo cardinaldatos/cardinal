@@ -4,12 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    # MAPA.md se ignora como disparador: si no, cada actualización del mapa
-    # provocaría otra ejecución. (GitHub además no encadena workflows a
-    # partir de commits hechos con GITHUB_TOKEN, así que es cinturón y
-    # tirantes — pero el cinturón es gratis.)
+    # Las dos salidas del script se ignoran como disparador: si no, cada
+    # actualización del mapa provocaría otra ejecución. (GitHub además no
+    # encadena workflows a partir de commits hechos con GITHUB_TOKEN, así
+    # que es cinturón y tirantes — pero el cinturón es gratis.)
     paths-ignore:
       - "MAPA.md"
+      - "sitio/public/mapa.txt"
 
 # Sin este permiso, el push del paso final es denegado aunque todo lo
 # demás funcione.
@@ -29,15 +30,20 @@ jobs:
       # mapa.py solo usa la biblioteca estándar: no hace falta instalar
       # requirements.txt. Así este workflow sigue funcionando aunque el
       # pipeline gane dependencias nuevas.
-      - name: Generar MAPA.md
+      - name: Generar el mapa
         run: cd pipeline && python mapa.py
 
       - name: Confirmar si cambió
         run: |
           git config user.name "cardinal-bot"
           git config user.email "actions@github.com"
-          git add MAPA.md
+          # Las DOS salidas. mapa.py escribe MAPA.md para GitHub y
+          # sitio/public/mapa.txt para que Cloudflare lo sirva desde
+          # cardinaldatos.org/mapa.txt. Recoger solo la primera deja la
+          # copia del sitio congelada en lo que hubiera antes, que es peor
+          # que no tenerla: parece autorizada y miente.
+          git add -- MAPA.md sitio/public/mapa.txt
           git diff --staged --quiet && echo "El mapa ya estaba al día." || {
-            git commit -m "Actualizar MAPA.md"
+            git commit -m "Actualizar mapa"
             git push
           }
