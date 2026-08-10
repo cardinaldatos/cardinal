@@ -21,7 +21,7 @@ envejece sin avisar.
 ## Raíz
 
 - [README.md](https://github.com/cardinaldatos/cardinal/blob/main/README.md) — 5 KB
-- [requirements.txt](https://github.com/cardinaldatos/cardinal/blob/main/requirements.txt) — 206 B
+- [requirements.txt](https://github.com/cardinaldatos/cardinal/blob/main/requirements.txt) — 647 B
 
 ## `.github/`
 
