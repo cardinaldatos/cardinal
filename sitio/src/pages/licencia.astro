@@ -1,0 +1,312 @@
+---
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import Base from "../layouts/Base.astro";
+
+/* ==========================================================================
+   Página de licencia
+
+   El objetivo declarado en EDITORIAL.md es que un periodista pueda citar y
+   republicar sin tener que preguntar. Eso exige que las condiciones estén
+   escritas en una página, no solo en un archivo LICENSE dentro del repo:
+   quien republica no entra al repositorio.
+
+   Las licencias de los organismos se leen de data/fuentes.json, el mismo
+   registro que usa la página de método. Si mañana entra una fuente con
+   otra licencia, aparece aquí sola.
+   ========================================================================== */
+
+const CARPETA_DATOS = path.join(process.cwd(), "..", "data");
+const CORREO = "hola@cardinaldatos.org";
+
+let fuentes = [];
+try {
+  const registro = JSON.parse(
+    await readFile(path.join(CARPETA_DATOS, "fuentes.json"), "utf-8")
+  );
+  fuentes = registro.fuentes ?? [];
+} catch {
+  // Si el registro no se puede leer, la página se compila igual: el resto
+  // de las condiciones no dependen de él.
+  fuentes = [];
+}
+
+const conLicencia = fuentes.filter((f) => f.licencia);
+
+// Ejemplos de atribución. Van como cadenas para que Astro los escape y se
+// vean como texto, no como marcado.
+const EJEMPLO_TEXTO =
+  "«Cuánto se queda en el camino», Cardinal Datos, 2026. CC BY 4.0. cardinaldatos.org/remesas-costo-latam/";
+
+const EJEMPLO_HTML =
+  '<a href="https://cardinaldatos.org/remesas-costo-latam/">«Cuánto se queda en el camino»</a>' +
+  ' — Cardinal Datos, <a href="https://creativecommons.org/licenses/by/4.0/deed.es">CC BY 4.0</a>';
+---
+
+<Base
+  titulo="Licencia"
+  descripcion="Qué se puede republicar de Cardinal Datos, con qué condiciones y cómo citarlo. Contenido bajo CC BY 4.0; código bajo licencia MIT."
+>
+  <div class="pieza" data-fondo="oscuro">
+    <div class="marco">
+      <p class="cejilla">Cardinal Datos · Licencia</p>
+
+      <h1 class="titular">
+        Puedes usar esto.<br /><em>Solo cita</em>
+      </h1>
+
+      <p class="bajada">
+        Que este trabajo circule vale más que la visita que se pierde. No
+        hay que pedir permiso ni escribir para preguntar: las condiciones
+        están aquí y son las mismas para todo el mundo.
+      </p>
+
+      <div class="bloque">
+        <h2>El contenido: CC BY 4.0</h2>
+        <p class="intro">
+          Textos, piezas, gráficos, imágenes publicadas y los archivos que
+          produce nuestro pipeline en <code>data/</code> —
+          <code>limpio.json</code> y <code>metodo.md</code> — están bajo{" "}
+          
+            href="https://creativecommons.org/licenses/by/4.0/deed.es"
+            target="_blank"
+            rel="noopener"
+          >Creative Commons Atribución 4.0 Internacional</a>.
+        </p>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            Puedes copiar, republicar, traducir y adaptar, también con fines
+            comerciales.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            La única condición es citar a Cardinal Datos, enlazar a la pieza
+            original y decir si la modificaste.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            No hay que avisarnos, aunque nos gusta enterarnos.
+          </span>
+        </div>
+      </div>
+
+      <div class="bloque">
+        <h2>Cómo citar</h2>
+        <p class="intro">
+          Cualquiera de estas dos formas cumple. En texto plano:
+        </p>
+        <p class="ejemplo">{EJEMPLO_TEXTO}</p>
+        <p class="intro">En una página web:</p>
+        <p class="ejemplo">{EJEMPLO_HTML}</p>
+        <p class="detalle">
+          Si republicas una cifra suelta, cita también el organismo de
+          origen: el dato es suyo, la lectura es nuestra. Cada pieza declara
+          cuál es en su pie y en <a href="/metodo/">la página de método</a>.
+        </p>
+      </div>
+
+      <div class="bloque">
+        <h2>El código: MIT</h2>
+        <p class="intro">
+          Los scripts del pipeline, el sitio y los generadores de imágenes
+          están bajo licencia MIT. Puedes reutilizarlos, incluso para montar
+          un proyecto parecido en otro país o en otro idioma; nos parecería
+          una buena noticia.
+        </p>
+        <p class="detalle">
+          El archivo <code>LICENSE</code> del repositorio es el texto que
+          manda. Esta página lo resume, no lo sustituye.
+        </p>
+      </div>
+
+      <div class="bloque">
+        <h2>Lo que no cubre</h2>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>El nombre y el isotipo de Cardinal Datos.</strong> Son
+            marca, no contenido. Se pueden usar para identificarnos al
+            citarnos; no para firmar algo que no hicimos nosotros ni para
+            dar a entender que respaldamos un trabajo ajeno.
+          </span>
+        </div>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>Los datos originales de los organismos.</strong> Lo que
+            está bajo CC BY 4.0 es nuestro trabajo sobre ellos: la
+            selección, la limpieza, la lectura y el texto. Cada fuente
+            conserva su propia licencia.
+          </span>
+        </div>
+
+        {
+          conLicencia.length > 0 && (
+            <>
+              <p class="intro licencias-intro">
+                Las {conLicencia.length} fuentes del registro y la licencia
+                que declara cada una:
+              </p>
+              {conLicencia.map((f) => (
+                <div class="fuente">
+                  <strong>
+                    {f.enlace ? (
+                      <a href={f.enlace} target="_blank" rel="noopener">
+                        {f.organismo}
+                      </a>
+                    ) : (
+                      f.organismo
+                    )}
+                  </strong>
+                  <span class="fuente-meta">{f.licencia}</span>
+                </div>
+              ))}
+            </>
+          )
+        }
+      </div>
+
+      <div class="bloque">
+        <h2>Si vas a republicar una pieza entera</h2>
+        <p class="intro">
+          Las piezas son interactivas y no se pegan en otro sitio como un
+          bloque de texto. Hay tres caminos, en orden de menos a más
+          trabajo:
+        </p>
+
+        <div class="paso">
+          <span class="paso-n">1</span>
+          <span class="paso-t">
+            Una captura de pantalla más el enlace a la pieza. Cumple la
+            atribución y es lo más rápido.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">2</span>
+          <span class="paso-t">
+            Rehacer el gráfico con tus propias herramientas a partir de
+            nuestro <code>limpio.json</code>, que es público y está enlazado
+            desde el método de cada pieza.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">3</span>
+          <span class="paso-t">
+            Escribirnos a{" "}
+            <a class="correo" href={`mailto:${CORREO}`}>{CORREO}</a> si
+            necesitas otra cosa: un corte distinto de los datos, una versión
+            del gráfico a otra medida o el archivo en otro formato.
+          </span>
+        </div>
+      </div>
+
+      <div class="pie">
+        <b>Cardinal Datos.</b> Si encuentras un error en algo que ya
+        republicaste o estás por republicar, avísanos:{" "}
+        <a href="/correcciones/">la página de correcciones</a> explica cómo,
+        y el registro de lo corregido está ahí mismo.
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .correo,
+  .pie a,
+  .intro a,
+  .detalle a,
+  .paso-t a,
+  .fuente strong a {
+    color: inherit;
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 3px;
+  }
+
+  .correo:hover,
+  .pie a:hover,
+  .intro a:hover,
+  .detalle a:hover,
+  .paso-t a:hover,
+  .fuente strong a:hover {
+    text-decoration-color: var(--rojo);
+  }
+
+  .paso {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 10px;
+    align-items: start;
+    border-top: 1px solid var(--linea);
+    padding: 13px 0;
+  }
+
+  .paso-n {
+    font-family: var(--fuente-cifra);
+    font-size: 12px;
+    color: var(--rojo);
+    padding-top: 2px;
+  }
+
+  .paso-t {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--texto-2);
+  }
+
+  .paso-t strong {
+    color: var(--texto);
+    font-weight: 600;
+  }
+
+  .paso-t code,
+  .intro code,
+  .detalle code {
+    font-family: var(--fuente-cifra);
+    font-size: 0.92em;
+    color: var(--texto);
+  }
+
+  .ejemplo {
+    font-family: var(--fuente-cifra);
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: var(--texto-2);
+    background: var(--superficie);
+    border-left: 2px solid var(--acento);
+    padding: 12px 14px;
+    margin: 0 0 16px;
+    word-break: break-word;
+    max-width: 52ch;
+  }
+
+  .licencias-intro {
+    margin-top: 22px;
+  }
+
+  .fuente {
+    border-top: 1px solid var(--linea);
+    padding: 11px 0;
+    display: grid;
+    gap: 3px;
+  }
+
+  .fuente strong {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 13.5px;
+    letter-spacing: -0.01em;
+  }
+
+  .fuente .fuente-meta {
+    font-size: 11.5px;
+    color: var(--pizarra);
+  }
+</style>
