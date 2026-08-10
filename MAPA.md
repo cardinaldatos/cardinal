@@ -15,7 +15,7 @@ pegada en una conversación anterior — el repositorio cambia y esa copia
 envejece sin avisar.
 
 
-**52 archivos indexados.**
+**53 archivos indexados.**
 
 
 ## Raíz
@@ -60,6 +60,7 @@ envejece sin avisar.
 ## `pipeline/`
 
 - [comun.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/comun.py) — 3 KB
+- [explorar_eurostat.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/explorar_eurostat.py) — 7 KB
 - [explorar_rpw.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/explorar_rpw.py) — 4 KB
 - [mapa.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/mapa.py) — 4 KB
 - [remesas.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/remesas.py) — 8 KB
