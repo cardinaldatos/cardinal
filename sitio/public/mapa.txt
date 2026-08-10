@@ -1,76 +1,4 @@
-"""Genera MAPA.md: el índice de enlaces a todos los archivos del repositorio.
-
-Existe por una razón concreta. Cuando le pides ayuda a un asistente que no
-tiene acceso al repositorio, este trabaja sobre lo que le pegaste — y si el
-repositorio cambió desde entonces, sus propuestas revierten trabajo sin que
-nadie lo note. Un índice de enlaces siempre al día convierte eso en algo
-comprobable: cada archivo se puede abrir y leer antes de reescribirlo.
-
-Lo corre .github/workflows/mapa.yml en cada push a main. No hay que
-ejecutarlo a mano, pero se puede:  cd pipeline && python mapa.py
-
-No lleva fecha de generación a propósito. Con una fecha dentro, el archivo
-cambiaría en cada ejecución y ensuciaría el historial con commits que no
-dicen nada — y peor: ese commit dispararía otra vez el workflow, que
-volvería a cambiar la fecha, en bucle. Sin ella, solo hay commit cuando de
-verdad se añadió, movió o borró un archivo.
-
-Pero el mapa sí necesita poder fecharse de algún modo, porque el problema
-que resuelve es exactamente ese: saber si lo que estás leyendo es la
-versión de ahora. La solución es fecharlo por CONTENIDO en vez de por
-reloj. Cada archivo lleva su tamaño exacto en bytes y los ocho primeros
-dígitos de su SHA-256, y la cabecera lleva una huella del árbol completo.
-Todo eso es determinista: dos ejecuciones sobre el mismo árbol producen
-un archivo idéntico, así que la propiedad de no ensuciar el historial se
-mantiene intacta.
-
-Por qué bytes exactos y no «11 KB». Porque el redondeo esconde justo lo
-que importa. Un archivo cacheado por GitHub que difiera en 300 bytes se
-declara «11 KB» igual que el bueno, y quien lo lea no se entera. Con el
-byte exacto y la huella, cualquier discrepancia salta al primer cotejo.
-
-SEGUNDA SALIDA: sitio/public/mapa.txt
-
-GitHub sirve páginas de archivo desde una caché que puede tener días de
-retraso, y no hay parámetro que la salte. El mismo mapa se escribe en
-sitio/public/, así que se despliega con el sitio y queda accesible en
-https://cardinaldatos.org/mapa.txt — otra infraestructura, otra caché, y
-una que sí controlamos. Esa copia es la de referencia cuando la de GitHub
-resulte sospechosa.
-"""
-
-import hashlib
-import os
-from pathlib import Path
-
-RAIZ = Path(__file__).resolve().parent.parent
-
-# Carpetas que no se indexan: son dependencias, compilados o salidas
-# generadas. Los enlaces a esas rutas no sirven de referencia y, en el caso
-# de node_modules, serían decenas de miles.
-CARPETAS_FUERA = {
-    ".git",
-    ".github/workflows/__pycache__",
-    "node_modules",
-    "dist",
-    ".astro",
-    ".wrangler",
-    ".venv",
-    "__pycache__",
-    "salida",          # imágenes generadas de Instagram
-}
-
-ARCHIVOS_FUERA = {".DS_Store", ".gitkeep"}
-
-# El propio mapa no se indexa a sí mismo.
-NOMBRE_SALIDA = "MAPA.md"
-
-# Copia servida por el sitio. Tampoco se indexa: su contenido es el propio
-# mapa, así que indexarla haría que su tamaño y su huella dependieran de sí
-# mismos. No hay valor que satisfaga esa ecuación.
-COPIA_SITIO = Path("sitio") / "public" / "mapa.txt"
-
-CABECERA = """# Mapa del repositorio
+# Mapa del repositorio
 
 Índice de todos los archivos del proyecto, con enlace directo a cada uno.
 Lo genera `pipeline/mapa.py` en cada push a `main`: no se edita a mano.
@@ -103,129 +31,122 @@ La huella cumple la misma función sin ese precio: depende solo del
 contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
-"""
+
+**66 archivos indexados, 609565 bytes en total.**
+
+**Huella del repositorio: `bf01af1bb285d674`**
 
 
-def repositorio():
-    """Devuelve 'usuario/repo'. En Actions viene dado; fuera, se asume."""
-    return os.environ.get("GITHUB_REPOSITORY", "cardinaldatos/cardinal")
+## Raíz
 
+- [EDITORIAL.md](https://github.com/cardinaldatos/cardinal/blob/main/EDITORIAL.md) — 7112 B · `97b52c5b`
+- [LICENCIA.md](https://github.com/cardinaldatos/cardinal/blob/main/LICENCIA.md) — 1681 B · `d5db826d`
+- [LICENSE](https://github.com/cardinaldatos/cardinal/blob/main/LICENSE) — 1071 B · `e1eb27d6`
+- [README.md](https://github.com/cardinaldatos/cardinal/blob/main/README.md) — 5161 B · `cc19219a`
+- [requirements.txt](https://github.com/cardinaldatos/cardinal/blob/main/requirements.txt) — 647 B · `4a8ba3b1`
 
-def rama():
-    return os.environ.get("GITHUB_REF_NAME", "main")
+## `.github/`
 
+- [dependabot.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/dependabot.yml) — 1161 B · `c85acf93`
 
-def dentro_de_carpeta_excluida(ruta_rel):
-    partes = set(ruta_rel.parts)
-    return bool(partes & CARPETAS_FUERA)
+## `.github/workflows/`
 
+- [auditar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/auditar.yml) — 914 B · `d2777324`
+- [datos.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/datos.yml) — 711 B · `81fce6a0`
+- [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 1629 B · `fcb2d13f`
+- [explorar-eurostat.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-eurostat.yml) — 1211 B · `4307763c`
+- [explorar-rpw.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-rpw.yml) — 1405 B · `7cf29f41`
+- [generar-lockfiles.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/generar-lockfiles.yml) — 1810 B · `b72b52c7`
+- [instagram.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/instagram.yml) — 1254 B · `bc4211cd`
+- [mapa.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/mapa.yml) — 1691 B · `571b93a4`
+- [sobrecualificacion.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/sobrecualificacion.yml) — 1466 B · `1581c3f5`
 
-def recolectar():
-    """Todas las rutas relativas indexables, ordenadas."""
-    rutas = []
-    for actual, carpetas, archivos in os.walk(RAIZ):
-        actual = Path(actual)
+## `auditoria/`
 
-        # Poda: no descender en las carpetas excluidas.
-        carpetas[:] = [c for c in carpetas if c not in CARPETAS_FUERA]
+- [auditar.mjs](https://github.com/cardinaldatos/cardinal/blob/main/auditoria/auditar.mjs) — 17278 B · `321512df`
 
-        for archivo in archivos:
-            if archivo in ARCHIVOS_FUERA or archivo == NOMBRE_SALIDA:
-                continue
-            ruta_rel = (actual / archivo).relative_to(RAIZ)
-            if dentro_de_carpeta_excluida(ruta_rel):
-                continue
-            if ruta_rel == COPIA_SITIO:
-                continue
-            rutas.append(ruta_rel)
+## `data/`
 
-    return sorted(rutas, key=lambda r: (str(r.parent) != ".", str(r).lower()))
+- [fuentes.json](https://github.com/cardinaldatos/cardinal/blob/main/data/fuentes.json) — 11357 B · `517f3e2f`
 
+## `data/remesas-costo-latam/`
 
-def agrupar(rutas):
-    """Agrupa por carpeta, con la raíz primero."""
-    grupos = {}
-    for r in rutas:
-        grupos.setdefault(str(r.parent), []).append(r)
+- [crudo.json](https://github.com/cardinaldatos/cardinal/blob/main/data/remesas-costo-latam/crudo.json) — 28174 B · `966aacb4`
+- [limpio.json](https://github.com/cardinaldatos/cardinal/blob/main/data/remesas-costo-latam/limpio.json) — 1974 B · `fd324ade`
+- [metodo.md](https://github.com/cardinaldatos/cardinal/blob/main/data/remesas-costo-latam/metodo.md) — 2241 B · `9284fa0b`
 
-    orden = sorted(grupos, key=lambda c: (c != ".", c.lower()))
-    return [(c, grupos[c]) for c in orden]
+## `data/sobrecualificacion-ue/`
 
+- [crudo.json](https://github.com/cardinaldatos/cardinal/blob/main/data/sobrecualificacion-ue/crudo.json) — 20451 B · `a0c61d4d`
+- [limpio.json](https://github.com/cardinaldatos/cardinal/blob/main/data/sobrecualificacion-ue/limpio.json) — 4672 B · `9dff95fb`
+- [metodo.md](https://github.com/cardinaldatos/cardinal/blob/main/data/sobrecualificacion-ue/metodo.md) — 2387 B · `231b52de`
 
-def medir(ruta):
-    """Tamaño exacto en bytes y SHA-256 del archivo.
+## `instagram/`
 
-    Se lee por bloques porque sitio/package-lock.json pasa de 160 KB y no
-    hay razón para cargarlo entero en memoria.
-    """
-    h = hashlib.sha256()
-    tamano = 0
-    with open(RAIZ / ruta, "rb") as f:
-        for bloque in iter(lambda: f.read(65536), b""):
-            h.update(bloque)
-            tamano += len(bloque)
-    return tamano, h.hexdigest()
+- [comun.mjs](https://github.com/cardinaldatos/cardinal/blob/main/instagram/comun.mjs) — 3118 B · `95fe0b3a`
+- [generar-carrusel.mjs](https://github.com/cardinaldatos/cardinal/blob/main/instagram/generar-carrusel.mjs) — 10682 B · `0940b19c`
+- [generar-dominio.mjs](https://github.com/cardinaldatos/cardinal/blob/main/instagram/generar-dominio.mjs) — 4602 B · `23da1a6f`
+- [generar-presentacion.mjs](https://github.com/cardinaldatos/cardinal/blob/main/instagram/generar-presentacion.mjs) — 4124 B · `b021af18`
+- [generar.mjs](https://github.com/cardinaldatos/cardinal/blob/main/instagram/generar.mjs) — 5162 B · `96a33264`
+- [package-lock.json](https://github.com/cardinaldatos/cardinal/blob/main/instagram/package-lock.json) — 1638 B · `5adb1fe1`
+- [package.json](https://github.com/cardinaldatos/cardinal/blob/main/instagram/package.json) — 181 B · `4319fcbe`
 
+## `pipeline/`
 
-def huella_del_arbol(fichas):
-    """Huella de todo el repositorio, a partir de rutas y huellas.
+- [comun.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/comun.py) — 2844 B · `32449e7b`
+- [explorar_eurostat.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/explorar_eurostat.py) — 6983 B · `b1addaa8`
+- [explorar_rpw.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/explorar_rpw.py) — 3701 B · `d736855d`
+- [mapa.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/mapa.py) — 8623 B · `15b7827a`
+- [remesas.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/remesas.py) — 7749 B · `b16d28e8`
+- [sobrecualificacion.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/sobrecualificacion.py) — 10439 B · `fbce478a`
+- [verificar.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/verificar.py) — 5321 B · `75e99f59`
 
-    Se alimenta de la ruta Y del contenido de cada archivo, en orden fijo,
-    con separadores que no pueden aparecer en una ruta. Así, mover un
-    archivo sin tocarlo también cambia la huella: la estructura es parte
-    de lo que se está fechando.
-    """
-    h = hashlib.sha256()
-    for ruta in sorted(fichas, key=lambda r: r.as_posix()):
-        h.update(ruta.as_posix().encode("utf-8"))
-        h.update(b"\x00")
-        h.update(fichas[ruta][1].encode("ascii"))
-        h.update(b"\x00")
-    return h.hexdigest()[:16]
+## `sitio/`
 
+- [.gitignore](https://github.com/cardinaldatos/cardinal/blob/main/sitio/.gitignore) — 51 B · `239f7736`
+- [astro.config.mjs](https://github.com/cardinaldatos/cardinal/blob/main/sitio/astro.config.mjs) — 1924 B · `bb64dcd4`
+- [package-lock.json](https://github.com/cardinaldatos/cardinal/blob/main/sitio/package-lock.json) — 170831 B · `fdb93016`
+- [package.json](https://github.com/cardinaldatos/cardinal/blob/main/sitio/package.json) — 304 B · `b25f2971`
+- [wrangler.jsonc](https://github.com/cardinaldatos/cardinal/blob/main/sitio/wrangler.jsonc) — 712 B · `27f8df91`
 
-def construir():
-    rutas = recolectar()
-    fichas = {r: medir(r) for r in rutas}
-    base = f"https://github.com/{repositorio()}/blob/{rama()}"
+## `sitio/public/`
 
-    total_bytes = sum(t for t, _ in fichas.values())
+- [_headers](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/_headers) — 494 B · `905caf01`
+- [archivo-v25-latin-600.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/archivo-v25-latin-600.woff2) — 13820 B · `d9e8c29f`
+- [archivo-v25-latin-700.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/archivo-v25-latin-700.woff2) — 14508 B · `abada6cd`
+- [archivo-v25-latin-regular.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/archivo-v25-latin-regular.woff2) — 14700 B · `07f91601`
+- [favicon.svg](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/favicon.svg) — 554 B · `a443f6d4`
+- [ibm-plex-mono-v20-latin-500.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-mono-v20-latin-500.woff2) — 14888 B · `01d28544`
+- [ibm-plex-mono-v20-latin-regular.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-mono-v20-latin-regular.woff2) — 14708 B · `08949f72`
+- [ibm-plex-sans-v23-latin-500.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-sans-v23-latin-500.woff2) — 24184 B · `0717336f`
+- [ibm-plex-sans-v23-latin-600.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-sans-v23-latin-600.woff2) — 24252 B · `8960851d`
+- [ibm-plex-sans-v23-latin-regular.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-sans-v23-latin-regular.woff2) — 22588 B · `3b646991`
 
-    lineas = [CABECERA]
-    lineas.append(f"**{len(rutas)} archivos indexados, {total_bytes} bytes en total.**\n")
-    lineas.append(f"**Huella del repositorio: `{huella_del_arbol(fichas)}`**\n")
+## `sitio/src/components/`
 
-    for carpeta, archivos in agrupar(rutas):
-        titulo = "Raíz" if carpeta == "." else f"`{carpeta}/`"
-        lineas.append(f"\n## {titulo}\n")
-        for r in archivos:
-            tamano, digest = fichas[r]
-            lineas.append(
-                f"- [{r.name}]({base}/{r.as_posix()}) — {tamano} B · `{digest[:8]}`"
-            )
+- [RemesasCostoLatam.jsx](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/components/RemesasCostoLatam.jsx) — 6982 B · `9cffe0d5`
+- [TituloNoCruza.jsx](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/components/TituloNoCruza.jsx) — 12866 B · `e52ca96d`
 
-    return "\n".join(lineas) + "\n"
+## `sitio/src/datos/`
 
+- [correcciones.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/correcciones.js) — 5815 B · `b95bec47`
+- [piezas.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/piezas.js) — 2394 B · `40de157e`
 
-def main():
-    contenido = construir()
+## `sitio/src/layouts/`
 
-    destino = RAIZ / NOMBRE_SALIDA
-    destino.write_text(contenido, encoding="utf-8")
-    print(f"Escrito: {NOMBRE_SALIDA}")
+- [Base.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/layouts/Base.astro) — 10079 B · `15457e14`
 
-    # La copia del sitio solo se escribe si la carpeta existe. Si algún día
-    # sitio/public/ se mueve, esto avisa en el registro del workflow en vez
-    # de reventar la ejecución entera.
-    copia = RAIZ / COPIA_SITIO
-    if copia.parent.is_dir():
-        copia.write_text(contenido, encoding="utf-8")
-        print(f"Escrito: {COPIA_SITIO.as_posix()}")
-    else:
-        print(f"AVISO: no existe {COPIA_SITIO.parent.as_posix()}, no se escribió la copia del sitio")
+## `sitio/src/pages/`
 
-    print(contenido.count("\n- "), "enlaces")
+- [404.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/404.astro) — 703 B · `447837d4`
+- [correcciones.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/correcciones.astro) — 10089 B · `cb2076c3`
+- [index.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/index.astro) — 2915 B · `2eae7121`
+- [licencia.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/licencia.astro) — 9549 B · `7b0d4a5f`
+- [metodo.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/metodo.astro) — 15104 B · `a00c0e1f`
+- [remesas-costo-latam.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/remesas-costo-latam.astro) — 1504 B · `ac1b74da`
+- [rss.xml.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/rss.xml.js) — 3670 B · `563d5b71`
+- [titulo-no-cruza.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/titulo-no-cruza.astro) — 2884 B · `cb97e016`
 
+## `sitio/src/styles/`
 
-if __name__ == "__main__":
-    main()
+- [sistema.css](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/styles/sistema.css) — 13868 B · `0093224e`
