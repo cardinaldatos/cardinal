@@ -1,4 +1,11 @@
 # Versión exacta, no un rango: el CI instala siempre lo mismo y una
 # versión comprometida publicada mañana no entra sola. Dependabot
 # propone las subidas de versión por pull request.
-requests==2.32.4
+#
+# 2.33.0 corrige un aviso de seguridad de 2.32.4 (reutilización insegura
+# de archivos temporales en extract_zipped_paths). Este pipeline no usa
+# esa función —solo requests.get() contra APIs públicas— y corre en un
+# runner efímero sin otros usuarios, así que el escenario del ataque no
+# aplica aquí. Se actualiza igual: mantener el árbol limpio hace que la
+# próxima alerta se note en vez de perderse entre ruido acumulado.
+requests==2.33.0
