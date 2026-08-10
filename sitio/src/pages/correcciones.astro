@@ -1,0 +1,353 @@
+---
+import Base from "../layouts/Base.astro";
+import { PIEZAS } from "../datos/piezas.js";
+import { correccionesPorFecha, NIVELES } from "../datos/correcciones.js";
+
+/* ==========================================================================
+   Página de correcciones
+
+   Existe antes de hacer falta. Un registro de correcciones que aparece el
+   día del primer error vale mucho menos que uno que ya estaba ahí: el
+   primero parece una reacción, el segundo es una política.
+
+   Todo lo que se ve aquí sale de src/datos/correcciones.js y de
+   piezas.js. Esta página no escribe a mano ningún número ni ningún
+   título: si el registro está vacío, lo dice; si tiene tres entradas,
+   dice tres.
+   ========================================================================== */
+
+const CORREO = "correcciones@cardinaldatos.org";
+
+const registro = correccionesPorFecha();
+const niveles = Object.entries(NIVELES);
+
+const tituloDePieza = (slug) =>
+  PIEZAS.find((p) => p.slug === slug)?.titulo ?? null;
+
+// Fecha en palabras. Se fija UTC para que el día no se corra según dónde
+// compile el runner.
+const fechaLarga = (iso) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString("es", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+---
+
+<Base
+  titulo="Correcciones"
+  descripcion="Cómo avisar de un error en una pieza de Cardinal Datos, qué hacemos al confirmarlo y el registro público de todo lo corregido."
+>
+  <div class="pieza" data-fondo="oscuro">
+    <div class="marco">
+      <p class="cejilla">Cardinal Datos · Correcciones</p>
+
+      <h1 class="titular">
+        Si hay un error,<br /><em>queremos saberlo</em>
+      </h1>
+
+      <p class="bajada">
+        La confianza no consiste en no equivocarse: consiste en tener un
+        mecanismo cuando pasa. Este es el nuestro, y el registro de lo que
+        se ha corregido hasta hoy.
+      </p>
+
+      <div class="bloque">
+        <h2>Cómo avisar</h2>
+        <p class="intro">
+          Escribe a <a class="correo" href={`mailto:${CORREO}`}>{CORREO}</a>.
+          Con que llegue basta; el formato da igual.
+        </p>
+
+        <p class="ayuda">Si puedes, incluye:</p>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">El enlace de la pieza y la cifra o la frase concreta.</span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">Qué crees que está mal y por qué.</span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            La fuente que lo contradice, si la tienes a mano. No es
+            requisito: un aviso sin fuente también se revisa.
+          </span>
+        </div>
+
+        <p class="detalle">
+          No hace falta que te identifiques ni que expliques quién eres. Un
+          aviso anónimo con el dato correcto vale exactamente igual que uno
+          firmado. Si avisaste y quieres que tu nombre aparezca en el
+          registro, dilo: por defecto no publicamos el nombre de nadie.
+        </p>
+      </div>
+
+      <div class="bloque">
+        <h2>Qué hacemos con el aviso</h2>
+        <p class="intro">
+          Se responde a todos, incluidos los que al final no prosperan.
+        </p>
+
+        <div class="paso">
+          <span class="paso-n">1</span>
+          <span class="paso-t">
+            Acusamos recibo y comprobamos el dato contra el archivo del que
+            salió, en <code>data/</code>, y contra la fuente original.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">2</span>
+          <span class="paso-t">
+            Si el error se confirma, se arregla en el origen. Casi ninguna
+            cifra está escrita en la página: sale de un archivo que produce
+            un script, así que corregirla significa arreglar el script y
+            volver a correrlo. Editar solo el texto visible dejaría el
+            error vivo en el resto de las superficies.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">3</span>
+          <span class="paso-t">
+            La corrección se anota aquí el mismo día en que se aplica, con
+            lo que decía antes y lo que dice ahora. No se edita la pieza en
+            silencio.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">4</span>
+          <span class="paso-t">
+            Si el aviso no prospera, contestamos igual explicando por qué.
+            A veces la respuesta es que la fuente dice eso y el problema
+            está en la fuente; eso también se puede publicar.
+          </span>
+        </div>
+      </div>
+
+      <div class="bloque">
+        <h2>Tres tipos de cambio</h2>
+        <p class="intro">
+          No todo lo que se corrige es un error de dato. Distinguirlos
+          importa: mezclarlos haría ilegible el registro.
+        </p>
+        {
+          niveles.map(([clave, nivel]) => (
+            <div class="nivel">
+              <strong>{nivel.etiqueta}</strong>
+              <span>{nivel.descripcion}</span>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="bloque">
+        <h2>Registro</h2>
+
+        {
+          registro.length === 0 ? (
+            <p class="vacio">
+              Todavía no se ha publicado ninguna corrección. Esta página
+              existe antes de necesitarla: un registro que aparece el día
+              del primer error se lee como una reacción; uno que ya estaba,
+              como una política.
+            </p>
+          ) : (
+            <>
+              <p class="intro">
+                {registro.length}{" "}
+                {registro.length === 1
+                  ? "entrada publicada"
+                  : "entradas publicadas"}, de la más reciente a la más
+                antigua.
+              </p>
+              {registro.map((c) => (
+                <div class="correccion">
+                  <p class="cejilla origen">
+                    {NIVELES[c.nivel]?.etiqueta ?? c.nivel} ·{" "}
+                    {fechaLarga(c.fecha)}
+                  </p>
+
+                  {c.pieza && tituloDePieza(c.pieza) && (
+                    <p class="correccion-pieza">
+                      <a href={`/${c.pieza}/`}>{tituloDePieza(c.pieza)}</a>
+                    </p>
+                  )}
+
+                  <p class="cambio">
+                    <span class="cambio-eti">Decía</span>
+                    <span class="cambio-txt">{c.decia}</span>
+                  </p>
+                  <p class="cambio">
+                    <span class="cambio-eti">Dice ahora</span>
+                    <span class="cambio-txt">{c.dice}</span>
+                  </p>
+
+                  <p class="por-que">{c.por_que}</p>
+
+                  {c.aviso && <p class="aviso">Aviso de {c.aviso}.</p>}
+                </div>
+              ))}
+            </>
+          )
+        }
+      </div>
+
+      <div class="pie">
+        <b>Cardinal Datos.</b> El código y los datos de cada pieza son
+        públicos, así que cualquier cambio queda registrado en el historial
+        del repositorio, se anote aquí o no. Este registro existe para que
+        no haya que buscarlo ahí. El método de cada pieza está en{" "}
+        <a href="/metodo/">la página de método</a>, y las condiciones para
+        republicar, en <a href="/licencia/">la de licencia</a>.
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .correo,
+  .pie a,
+  .correccion-pieza a {
+    color: inherit;
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 3px;
+  }
+
+  .correo:hover,
+  .pie a:hover,
+  .correccion-pieza a:hover {
+    text-decoration-color: var(--rojo);
+  }
+
+  .ayuda {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--texto-2);
+    margin: 14px 0 2px;
+  }
+
+  .paso {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 10px;
+    align-items: start;
+    border-top: 1px solid var(--linea);
+    padding: 13px 0;
+  }
+
+  .paso-n {
+    font-family: var(--fuente-cifra);
+    font-size: 12px;
+    color: var(--rojo);
+    padding-top: 2px;
+  }
+
+  .paso-t {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--texto-2);
+  }
+
+  .paso-t code {
+    font-family: var(--fuente-cifra);
+    font-size: 0.92em;
+    color: var(--texto);
+  }
+
+  .nivel {
+    border-top: 1px solid var(--linea);
+    padding: 13px 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  .nivel strong {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 13.5px;
+    letter-spacing: -0.01em;
+  }
+
+  .nivel span {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--texto-2);
+    max-width: 52ch;
+  }
+
+  .vacio {
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: var(--texto-2);
+    margin: 0;
+    padding: 14px 16px;
+    background: var(--superficie);
+    border-left: 2px solid var(--acento);
+    max-width: 52ch;
+  }
+
+  .correccion {
+    border-top: 1px solid var(--linea);
+    padding: 18px 0 6px;
+  }
+
+  .correccion .origen {
+    margin-bottom: 8px;
+  }
+
+  .correccion-pieza {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    margin: 0 0 12px;
+  }
+
+  .cambio {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 10px;
+    margin: 0 0 8px;
+    align-items: baseline;
+  }
+
+  .cambio-eti {
+    font-family: var(--fuente-cifra);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pizarra);
+  }
+
+  .cambio-txt {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--texto-2);
+  }
+
+  .por-que {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--texto-2);
+    margin: 12px 0 0;
+    padding: 12px 14px;
+    background: var(--superficie);
+    border-left: 2px solid var(--rojo);
+    max-width: 52ch;
+  }
+
+  .aviso {
+    font-size: 11.5px;
+    color: var(--pizarra);
+    margin: 8px 0 0;
+  }
+
+  @media (max-width: 420px) {
+    .cambio {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+  }
+</style>
