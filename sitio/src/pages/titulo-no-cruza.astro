@@ -1,13 +1,29 @@
 ---
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import Base from "../layouts/Base.astro";
 import TituloNoCruza from "../components/TituloNoCruza.jsx";
+
+// data/ vive en la raíz del repo, un nivel por encima de sitio/. Esto se
+// lee en el servidor durante `astro build` (código de Node en el
+// frontmatter), no en el navegador — así que no importa que esté fuera
+// de src/. Es el mismo limpio.json que genera pipeline/sobrecualificacion.py.
+//
+// Hasta hoy esta pieza llevaba las cifras escritas dentro del componente.
+// Ahora sigue el mismo patrón que remesas: un solo origen, y la pieza se
+// reconstruye desde la fuente en cada compilación.
+const rutaDatos = path.join(process.cwd(), "..", "data", "sobrecualificacion-ue", "limpio.json");
+const datos = JSON.parse(await readFile(rutaDatos, "utf-8"));
+
+const extraUE = datos.grupos.find((g) => g.id === "NEU27_2020_FOR");
+const redondeada = extraUE ? Math.round(extraUE.v2024) : null;
 ---
 
 <Base
   titulo="El título no cruza"
-  descripcion="Cuatro de cada diez migrantes de fuera de la UE con título universitario trabajan por debajo de su formación. Datos de Eurostat, 2024."
+  descripcion={`${redondeada} de cada 100 migrantes de fuera de la UE con título universitario trabajan por debajo de su formación. Datos de Eurostat, ${datos.anios[datos.anios.length - 1]}.`}
 >
-  <TituloNoCruza client:load />
+  <TituloNoCruza client:load datos={datos} />
 </Base>
 
 <style is:global>
@@ -33,8 +49,9 @@ import TituloNoCruza from "../components/TituloNoCruza.jsx";
     margin-bottom: 6px;
   }
 
-  /* Barras de la comparación por década: dos rellenos superpuestos.
-     El tenue (2014) detrás, el acento (2024) delante y más fino. */
+  /* Barras de comparación: dos rellenos superpuestos. El tenue detrás
+     (el año antiguo, o la tasa de los nacionales), el acento delante y
+     más fino. */
   .decada {
     margin-bottom: 16px;
   }
@@ -60,6 +77,16 @@ import TituloNoCruza from "../components/TituloNoCruza.jsx";
     font-size: 11px;
     color: var(--pizarra);
     margin: 4px 0 0;
+  }
+
+  /* Las filas por país usan la misma superposición que la década, así
+     que necesitan la pista alta. */
+  .bloque .barra-fila .pista {
+    height: 22px;
+  }
+
+  .bloque .barra-fila {
+    margin-bottom: 14px;
   }
 
   .caso {
