@@ -1,28 +1,23 @@
 {
-  "_nota": "Registro de fuentes de Cardinal Datos. Único sitio donde se declara qué fuentes existen. Lo leen pipeline/verificar.py (para sondearlas), sitio/src/pages/metodo.astro y el pie de la portada. Añadir una fuente = añadir un objeto aquí. Ningún número de fuentes está escrito a mano en ninguna parte.",
-
+  "_nota": "Registro de fuentes de Cardinal Datos. Único sitio donde se declara qué fuentes existen. Lo leen pipeline/verificar.py (para sondearlas), sitio/src/pages/metodo.astro y el pie de la portada. Añadir una fuente = añadir un objeto aquí. Ningún número de fuentes está escrito a mano en ninguna parte. Excepción declarada: este archivo vive en data/, que por lo demás es salida del pipeline, pero se mantiene a mano. Ningún script lo escribe.",
   "_criterio_de_entrada": "Dos preguntas. ¿Habla de personas migrantes o de su diáspora? ¿Está el dato encerrado en un idioma que no es el español, o disperso de forma que nadie puede leerlo? Si las dos son sí, entra. La región no es criterio: Noruega y Colombia entran por lo mismo, por ser países donde vive la diáspora.",
-
   "_papeles": {
     "global": "Compara todos los países con la misma vara. Da la cifra mundial y permite decir «de todos los países, este».",
     "regional": "Compara dentro de un bloque, entre pares. Evita que un país quede medido contra un promedio mundial que no le corresponde.",
     "destino": "Registro administrativo del país que recibe. Dice cosas que ninguna serie internacional recoge, y casi nunca está en español.",
     "origen": "Lo que el país emisor publica sobre su propia gente fuera. Aquí el hueco es la noticia."
   },
-
   "_estados": {
     "en uso": "Ya sostiene al menos una pieza publicada.",
     "sondeada": "Responde y la entendemos, pero todavía no hay pieza encima.",
     "candidata": "Nos interesa. Falta descubrir su forma con un script de exploración, como pipeline/explorar_rpw.py hizo con Remittance Prices Worldwide."
   },
-
   "_campos_sonda": {
     "url": "endpoint que se pide para comprobar que sigue viva",
     "params": "parámetros de la consulta de prueba",
     "tipo": "parser que sabe leerla: 'jsonstat' o 'banco_mundial'",
     "meses_tolerados": "meses de antigüedad admitidos antes de dar aviso. null = la consulta fija un periodo concreto y medir frescura no tiene sentido."
   },
-
   "fuentes": [
     {
       "id": "banco-mundial",
@@ -68,7 +63,6 @@
       "sonda": null,
       "nota": "Más que una fuente, es un agregador con fichas de metodología. Útil sobre todo para saber qué mide realmente cada indicador antes de publicarlo. Pendiente comprobar si expone datos por API o solo por descarga."
     },
-
     {
       "id": "eurostat",
       "nombre": "Eurostat",
@@ -113,7 +107,6 @@
       "sonda": null,
       "nota": "La cifra canónica de la diáspora venezolana, y la que cita la prensa. Publica en español, así que aquí el trabajo no es traducir sino conectar con el resto. LÍMITE CONOCIDO DE ANTEMANO: sus cifras son las oficiales de cada gobierno de acogida, y cada uno publica con periodicidad distinta — un salto de un mes a otro puede ser un cambio en el sistema de publicación de un país, no un cambio real en las llegadas. Cualquier pieza encima tiene que declararlo. Pendiente comprobar si expone API o solo informes descargables."
     },
-
     {
       "id": "ssb",
       "nombre": "SSB",
@@ -123,7 +116,7 @@
       "licencia": "CC BY 4.0",
       "clave_de_acceso": false,
       "enlace": "https://www.ssb.no/en",
-      "estado": "en uso",
+      "estado": "sondeada",
       "sonda": {
         "url": "https://data.ssb.no/api/pxwebapi/v2/tables/14700/data",
         "params": {
@@ -135,7 +128,8 @@
         "tipo": "jsonstat",
         "meses_tolerados": 4,
         "nota": "Mensual, publicada a mediados del mes siguiente. La 14700 exige ContentsCode: no admite eliminación, a diferencia de VareTjenesteGrp, que se agrega sola al total."
-      }
+      },
+      "nota": "Estuvo marcada como «en uso» hasta agosto de 2026, pero ninguna pieza publicada se apoya en ella todavía: la sonda comprueba la tabla 14700, que es de precios. Es el caso exacto de «sondeada» — responde, la entendemos, y falta la pieza encima."
     },
     {
       "id": "imdi",
@@ -189,7 +183,6 @@
       "sonda": null,
       "nota": "Principal destino europeo de la diáspora venezolana. Publica en español, así que el aporte aquí no es traducir sino comparar: poner la cifra española junto a la colombiana y la estadounidense en una misma vara."
     },
-
     {
       "id": "ine-venezuela",
       "nombre": "INE Venezuela",
