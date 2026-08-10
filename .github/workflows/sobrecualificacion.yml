@@ -1,0 +1,49 @@
+name: Construir sobrecualificación
+
+# Construye los datos de la pieza «El título no cruza» desde el API de
+# Eurostat y los confirma al repositorio.
+#
+# Necesita permiso de escritura, a diferencia de explorar-eurostat.yml:
+# aquí sí se producen datos publicables. Sin el commit final, crudo.json,
+# limpio.json y metodo.md solo existirían dentro de esta ejecución, y la
+# web no los encontraría — el checkout descarga el repositorio, no los
+# artifacts.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Construir la pieza
+        run: cd pipeline && python sobrecualificacion.py
+
+      - name: Guardar los JSON para descargar
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sobrecualificacion-ue
+          path: data/sobrecualificacion-ue/
+          if-no-files-found: warn
+
+      - name: Guardar los datos en el repositorio
+        run: |
+          git config user.name "cardinal-bot"
+          git config user.email "actions@github.com"
+          git add data/sobrecualificacion-ue/
+          git diff --staged --quiet && echo "Sin cambios en los datos." || {
+            git commit -m "Actualizar datos: sobrecualificacion-ue"
+            git push
+          }
