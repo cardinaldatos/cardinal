@@ -15,7 +15,7 @@ pegada en una conversación anterior — el repositorio cambia y esa copia
 envejece sin avisar.
 
 
-**51 archivos indexados.**
+**52 archivos indexados.**
 
 
 ## Raíz
@@ -31,6 +31,7 @@ envejece sin avisar.
 
 - [datos.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/datos.yml) — 711 B
 - [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 2 KB
+- [explorar-eurostat.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-eurostat.yml) — 1 KB
 - [explorar-rpw.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-rpw.yml) — 1 KB
 - [generar-lockfiles.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/generar-lockfiles.yml) — 2 KB
 - [instagram.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/instagram.yml) — 1 KB
