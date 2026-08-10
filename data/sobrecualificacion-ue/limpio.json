@@ -1,0 +1,244 @@
+{
+  "conjunto": "lfsa_eoqgan",
+  "edad": "Y20-64",
+  "anios": [
+    "2014",
+    "2024"
+  ],
+  "agregado": "EU27_2020",
+  "grupos": [
+    {
+      "id": "NAT",
+      "corto": "Nacionales",
+      "largo": "Ciudadanos del país donde viven",
+      "v2014": 20.7,
+      "v2024": 20.3
+    },
+    {
+      "id": "EU27_2020_FOR",
+      "corto": "De otro país de la UE",
+      "largo": "Ciudadanos de otro Estado miembro",
+      "v2014": 34.0,
+      "v2024": 30.2
+    },
+    {
+      "id": "NEU27_2020_FOR",
+      "corto": "De fuera de la UE",
+      "largo": "Ciudadanos de un país no comunitario",
+      "v2014": 45.9,
+      "v2024": 39.8
+    }
+  ],
+  "paises_2024": [
+    {
+      "geo": "EL",
+      "pais": "Grecia",
+      "pais_fuente": "EL",
+      "extra_ue": 76.0,
+      "nacionales": 32.6,
+      "otros_ue": 52.2,
+      "brecha": 43.4
+    },
+    {
+      "geo": "IT",
+      "pais": "Italia",
+      "pais_fuente": "IT",
+      "extra_ue": 60.7,
+      "nacionales": 19.1,
+      "otros_ue": 44.4,
+      "brecha": 41.6
+    },
+    {
+      "geo": "EE",
+      "pais": "Estonia",
+      "pais_fuente": "EE",
+      "extra_ue": 55.5,
+      "nacionales": 17.1,
+      "otros_ue": null,
+      "brecha": 38.4
+    },
+    {
+      "geo": "ES",
+      "pais": "España",
+      "pais_fuente": "ES",
+      "extra_ue": 55.3,
+      "nacionales": 33.6,
+      "otros_ue": 37.9,
+      "brecha": 21.7
+    },
+    {
+      "geo": "CZ",
+      "pais": "Chequia",
+      "pais_fuente": "CZ",
+      "extra_ue": 54.1,
+      "nacionales": 11.1,
+      "otros_ue": 17.0,
+      "brecha": 43.0
+    },
+    {
+      "geo": "PT",
+      "pais": "Portugal",
+      "pais_fuente": "PT",
+      "extra_ue": 48.7,
+      "nacionales": 14.2,
+      "otros_ue": 17.8,
+      "brecha": 34.5
+    },
+    {
+      "geo": "SI",
+      "pais": "Eslovenia",
+      "pais_fuente": "SI",
+      "extra_ue": 47.2,
+      "nacionales": 18.1,
+      "otros_ue": null,
+      "brecha": 29.1
+    },
+    {
+      "geo": "PL",
+      "pais": "Polonia",
+      "pais_fuente": "PL",
+      "extra_ue": 46.3,
+      "nacionales": 19.9,
+      "otros_ue": null,
+      "brecha": 26.4
+    },
+    {
+      "geo": "AT",
+      "pais": "Austria",
+      "pais_fuente": "AT",
+      "extra_ue": 41.2,
+      "nacionales": 24.3,
+      "otros_ue": 34.6,
+      "brecha": 16.9
+    },
+    {
+      "geo": "LV",
+      "pais": "Letonia",
+      "pais_fuente": "LV",
+      "extra_ue": 36.3,
+      "nacionales": 17.7,
+      "otros_ue": null,
+      "brecha": 18.6
+    },
+    {
+      "geo": "FR",
+      "pais": "Francia",
+      "pais_fuente": "FR",
+      "extra_ue": 36.0,
+      "nacionales": 19.9,
+      "otros_ue": 26.1,
+      "brecha": 16.1
+    },
+    {
+      "geo": "DE",
+      "pais": "Alemania",
+      "pais_fuente": "DE",
+      "extra_ue": 33.1,
+      "nacionales": 17.1,
+      "otros_ue": 36.0,
+      "brecha": 16.0
+    },
+    {
+      "geo": "CY",
+      "pais": "Chipre",
+      "pais_fuente": "CY",
+      "extra_ue": 33.1,
+      "nacionales": 26.0,
+      "otros_ue": 41.4,
+      "brecha": 7.1
+    },
+    {
+      "geo": "IE",
+      "pais": "Irlanda",
+      "pais_fuente": "IE",
+      "extra_ue": 32.0,
+      "nacionales": 25.1,
+      "otros_ue": 37.8,
+      "brecha": 6.9
+    },
+    {
+      "geo": "BE",
+      "pais": "Bélgica",
+      "pais_fuente": "BE",
+      "extra_ue": 31.0,
+      "nacionales": 19.7,
+      "otros_ue": 19.2,
+      "brecha": 11.3
+    },
+    {
+      "geo": "FI",
+      "pais": "Finlandia",
+      "pais_fuente": "FI",
+      "extra_ue": 31.0,
+      "nacionales": 15.8,
+      "otros_ue": 18.2,
+      "brecha": 15.2
+    },
+    {
+      "geo": "NL",
+      "pais": "Países Bajos",
+      "pais_fuente": "NL",
+      "extra_ue": 27.7,
+      "nacionales": 13.4,
+      "otros_ue": 18.8,
+      "brecha": 14.3
+    },
+    {
+      "geo": "LT",
+      "pais": "Lituania",
+      "pais_fuente": "LT",
+      "extra_ue": 24.7,
+      "nacionales": 21.9,
+      "otros_ue": null,
+      "brecha": 2.8
+    },
+    {
+      "geo": "SE",
+      "pais": "Suecia",
+      "pais_fuente": "SE",
+      "extra_ue": 24.7,
+      "nacionales": 12.8,
+      "otros_ue": 22.2,
+      "brecha": 11.9
+    },
+    {
+      "geo": "HU",
+      "pais": "Hungría",
+      "pais_fuente": "HU",
+      "extra_ue": 17.7,
+      "nacionales": 14.4,
+      "otros_ue": null,
+      "brecha": 3.3
+    }
+  ],
+  "sin_dato": [
+    {
+      "geo": "BG",
+      "pais": "Bulgaria"
+    },
+    {
+      "geo": "DK",
+      "pais": "Dinamarca"
+    },
+    {
+      "geo": "HR",
+      "pais": "Croacia"
+    },
+    {
+      "geo": "LU",
+      "pais": "Luxemburgo"
+    },
+    {
+      "geo": "MT",
+      "pais": "Malta"
+    },
+    {
+      "geo": "RO",
+      "pais": "Rumanía"
+    },
+    {
+      "geo": "SK",
+      "pais": "Eslovaquia"
+    }
+  ]
+}

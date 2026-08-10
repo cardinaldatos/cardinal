@@ -1,0 +1,783 @@
+[
+  {
+    "consulta": "agregado_ue",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfsa_eoqgan",
+    "params": {
+      "format": "JSON",
+      "lang": "EN",
+      "geo": "EU27_2020",
+      "sex": "T",
+      "unit": "PC",
+      "age": "Y20-64",
+      "time": [
+        "2014",
+        "2024"
+      ]
+    },
+    "respuesta": {
+      "version": "2.0",
+      "class": "dataset",
+      "label": "Over-qualification rates by citizenship",
+      "source": "ESTAT",
+      "updated": "2026-06-30T11:00:00+0200",
+      "value": {
+        "0": 34.0,
+        "1": 30.2,
+        "4": 39.9,
+        "5": 35.9,
+        "6": 20.7,
+        "7": 20.3,
+        "2": 45.9,
+        "3": 39.8,
+        "12": 27.0,
+        "10": 21.7,
+        "11": 21.5
+      },
+      "status": {
+        "0": "b",
+        "4": "b",
+        "6": "b",
+        "2": "b",
+        "12": "bu",
+        "13": "u",
+        "8": "bu",
+        "9": "u",
+        "10": "b"
+      },
+      "id": [
+        "freq",
+        "citizen",
+        "age",
+        "sex",
+        "unit",
+        "geo",
+        "time"
+      ],
+      "size": [
+        1,
+        7,
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "dimension": {
+        "freq": {
+          "label": "Time frequency",
+          "category": {
+            "index": {
+              "A": 0
+            },
+            "label": {
+              "A": "Annual"
+            }
+          }
+        },
+        "citizen": {
+          "label": "Country of citizenship",
+          "category": {
+            "index": {
+              "EU27_2020_FOR": 0,
+              "NEU27_2020_FOR": 1,
+              "FOR": 2,
+              "NAT": 3,
+              "STLS": 4,
+              "TOTAL": 5,
+              "NRP": 6
+            },
+            "label": {
+              "EU27_2020_FOR": "EU27 countries (from 2020) except reporting country",
+              "NEU27_2020_FOR": "Non-EU27 countries (from 2020) nor reporting country",
+              "FOR": "Foreign country",
+              "NAT": "Reporting country",
+              "STLS": "Stateless",
+              "TOTAL": "Total",
+              "NRP": "No response"
+            }
+          }
+        },
+        "age": {
+          "label": "Age class",
+          "category": {
+            "index": {
+              "Y20-64": 0
+            },
+            "label": {
+              "Y20-64": "From 20 to 64 years"
+            }
+          }
+        },
+        "sex": {
+          "label": "Sex",
+          "category": {
+            "index": {
+              "T": 0
+            },
+            "label": {
+              "T": "Total"
+            }
+          }
+        },
+        "unit": {
+          "label": "Unit of measure",
+          "category": {
+            "index": {
+              "PC": 0
+            },
+            "label": {
+              "PC": "Percentage"
+            }
+          }
+        },
+        "geo": {
+          "label": "Geopolitical entity (reporting)",
+          "category": {
+            "index": {
+              "EU27_2020": 0
+            },
+            "label": {
+              "EU27_2020": "European Union - 27 countries (from 2020)"
+            }
+          }
+        },
+        "time": {
+          "label": "Time",
+          "category": {
+            "index": {
+              "2014": 0,
+              "2024": 1
+            },
+            "label": {
+              "2014": "2014",
+              "2024": "2024"
+            }
+          }
+        }
+      },
+      "extension": {
+        "lang": "EN",
+        "id": "LFSA_EOQGAN",
+        "agencyId": "ESTAT",
+        "version": "1.0",
+        "datastructure": {
+          "id": "LFSA_EOQGAN",
+          "agencyId": "ESTAT",
+          "version": "20.0"
+        },
+        "annotation": [
+          {
+            "type": "CREATED",
+            "date": "2023-04-27T07:57:58+0200"
+          },
+          {
+            "type": "DISSEMINATION_DOI_XML",
+            "title": "<adms:identifier xmlns:adms=\"http://www.w3.org/ns/adms#\" xmlns:skos=\"http://www.w3.org/2004/02/skos/core.html\" xmlns:dct=\"http://purl.org/dc/terms/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><adms:Identifier rdf:about=\"https://doi.org/10.2908/LFSA_EOQGAN\"><skos:notation rdf:datatype=\"http://purl.org/spar/datacite/doi\">10.2908/LFSA_EOQGAN</skos:notation><dct:creator rdf:resource=\"http://publications.europa.eu/resource/authority/corporate-body/ESTAT\"/><dct:issued rdf:datatype=\"http://www.w3.org/2001/XMLSchema#date\">2024-02-06</dct:issued></adms:Identifier></adms:identifier>"
+          },
+          {
+            "type": "DISSEMINATION_EXPLANATORY_LINK",
+            "title": "text-category",
+            "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_LFSQ_20240604.pdf",
+            "text": "Information note"
+          },
+          {
+            "type": "DISSEMINATION_EXPLANATORY_LINK",
+            "title": "text-category",
+            "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_LFSQ_20240604.pdf"
+          },
+          {
+            "type": "DISSEMINATION_EXPLANATORY_LINK",
+            "title": "text-category",
+            "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_LFSQ_20240604.pdf"
+          },
+          {
+            "type": "DISSEMINATION_OBJECT_TYPE",
+            "title": "DATASET"
+          },
+          {
+            "type": "DISSEMINATION_TIMESTAMP_DATA",
+            "date": "2026-06-30T11:00:00+0200"
+          },
+          {
+            "type": "DISSEMINATION_TIMESTAMP_GLOBAL",
+            "date": "2026-06-30T11:00:00+0200"
+          },
+          {
+            "type": "DISSEMINATION_TIMESTAMP_PLANNED",
+            "date": "2026-06-30T11:00:00+0200"
+          },
+          {
+            "type": "ESMS_HTML",
+            "title": "Explanatory texts (metadata)",
+            "href": "https://ec.europa.eu/eurostat/cache/metadata/en/lfsa_esms.htm"
+          },
+          {
+            "type": "ESMS_SDMX",
+            "title": "Explanatory texts (metadata)",
+            "href": "https://ec.europa.eu/eurostat/api/dissemination/files?file=metadata/lfsa_esms.sdmx.zip"
+          },
+          {
+            "type": "OBS_COUNT",
+            "title": "74692"
+          },
+          {
+            "type": "OBS_PERIOD_OVERALL_LATEST",
+            "title": "2025"
+          },
+          {
+            "type": "OBS_PERIOD_OVERALL_OLDEST",
+            "title": "1995"
+          },
+          {
+            "type": "SOURCE_INSTITUTIONS",
+            "text": "Eurostat"
+          },
+          {
+            "type": "UPDATE_DATA",
+            "date": "2026-06-30T11:00:00+0200"
+          },
+          {
+            "type": "UPDATE_STRUCTURE",
+            "date": "2026-04-17T11:00:00+0200"
+          }
+        ],
+        "status": {
+          "label": {
+            "b": "break in time series",
+            "bu": "break in time series, low reliability",
+            "u": "low reliability"
+          }
+        },
+        "positions-with-no-data": {
+          "freq": [],
+          "citizen": [],
+          "age": [],
+          "sex": [],
+          "unit": [],
+          "geo": [],
+          "time": []
+        }
+      }
+    }
+  },
+  {
+    "consulta": "paises_2024",
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfsa_eoqgan",
+    "params": {
+      "format": "JSON",
+      "lang": "EN",
+      "sex": "T",
+      "unit": "PC",
+      "age": "Y20-64",
+      "time": "2024"
+    },
+    "respuesta": {
+      "version": "2.0",
+      "class": "dataset",
+      "label": "Over-qualification rates by citizenship",
+      "source": "ESTAT",
+      "updated": "2026-06-30T11:00:00+0200",
+      "value": {
+        "21": 34.6,
+        "2": 19.2,
+        "31": 18.5,
+        "14": 41.4,
+        "4": 17.0,
+        "6": 36.0,
+        "1": 30.9,
+        "9": 52.2,
+        "10": 37.9,
+        "0": 30.2,
+        "27": 18.2,
+        "11": 26.1,
+        "8": 37.8,
+        "29": 43.8,
+        "13": 44.4,
+        "17": 4.6,
+        "20": 18.8,
+        "30": 39.5,
+        "23": 17.8,
+        "28": 22.2,
+        "97": 36.8,
+        "78": 22.2,
+        "107": 20.6,
+        "90": 36.5,
+        "80": 38.2,
+        "82": 34.2,
+        "77": 36.3,
+        "83": 52.2,
+        "85": 71.3,
+        "86": 48.9,
+        "76": 35.9,
+        "103": 26.9,
+        "87": 33.0,
+        "88": 22.0,
+        "94": 18.1,
+        "84": 34.2,
+        "105": 46.3,
+        "89": 54.9,
+        "92": 23.8,
+        "93": 4.9,
+        "91": 34.9,
+        "96": 22.7,
+        "106": 39.2,
+        "98": 44.3,
+        "99": 43.1,
+        "104": 23.6,
+        "101": 42.8,
+        "135": 24.3,
+        "147": 20.9,
+        "116": 19.7,
+        "117": 20.9,
+        "145": 16.4,
+        "128": 26.0,
+        "118": 11.1,
+        "120": 17.1,
+        "115": 21.3,
+        "121": 17.1,
+        "123": 32.6,
+        "124": 33.6,
+        "114": 20.3,
+        "141": 15.8,
+        "125": 19.9,
+        "126": 12.5,
+        "132": 14.4,
+        "122": 25.1,
+        "143": 12.0,
+        "127": 19.1,
+        "130": 21.9,
+        "131": 4.4,
+        "129": 17.7,
+        "149": 20.1,
+        "134": 13.4,
+        "144": 14.8,
+        "136": 19.9,
+        "137": 14.2,
+        "138": 15.5,
+        "150": 23.3,
+        "142": 12.8,
+        "139": 18.1,
+        "140": 20.2,
+        "59": 41.2,
+        "40": 31.0,
+        "69": 28.6,
+        "52": 33.1,
+        "42": 54.1,
+        "44": 33.1,
+        "39": 40.1,
+        "45": 55.5,
+        "47": 76.0,
+        "48": 55.3,
+        "38": 39.8,
+        "65": 31.0,
+        "49": 36.0,
+        "56": 17.7,
+        "46": 32.0,
+        "67": 49.1,
+        "51": 60.7,
+        "54": 24.7,
+        "53": 36.3,
+        "58": 27.7,
+        "68": 39.0,
+        "60": 46.3,
+        "61": 48.7,
+        "66": 24.7,
+        "63": 47.2,
+        "265": 36.3,
+        "167": 71.8,
+        "211": 26.8,
+        "223": 20.8,
+        "192": 20.0,
+        "193": 20.9,
+        "221": 17.6,
+        "204": 28.1,
+        "194": 12.8,
+        "196": 19.2,
+        "195": 15.3,
+        "191": 22.6,
+        "197": 22.2,
+        "199": 33.0,
+        "200": 35.0,
+        "190": 21.5,
+        "217": 16.4,
+        "201": 20.7,
+        "202": 12.6,
+        "208": 14.5,
+        "198": 27.3,
+        "219": 16.0,
+        "203": 21.0,
+        "206": 22.0,
+        "207": 4.7,
+        "205": 19.7,
+        "225": 20.0,
+        "209": 21.3,
+        "210": 14.1,
+        "220": 17.5,
+        "212": 20.5,
+        "213": 16.0,
+        "214": 15.5,
+        "226": 23.2,
+        "218": 13.7,
+        "215": 19.1,
+        "216": 20.4,
+        "227": 36.3
+      },
+      "status": {
+        "3": "bu",
+        "7": "u",
+        "9": "u",
+        "10": "d",
+        "27": "u",
+        "11": "bd",
+        "12": "u",
+        "18": "u",
+        "16": "u",
+        "15": "u",
+        "35": "u",
+        "22": "u",
+        "23": "u",
+        "24": "u",
+        "36": "u",
+        "25": "u",
+        "26": "u",
+        "109": "u",
+        "79": "bu",
+        "86": "d",
+        "87": "bd",
+        "88": "u",
+        "94": "u",
+        "111": "u",
+        "100": "u",
+        "112": "u",
+        "102": "u",
+        "117": "b",
+        "124": "d",
+        "125": "bd",
+        "131": "u",
+        "71": "u",
+        "41": "bu",
+        "48": "d",
+        "49": "bd",
+        "50": "u",
+        "56": "u",
+        "55": "u",
+        "73": "u",
+        "62": "u",
+        "74": "u",
+        "64": "u",
+        "230": "u",
+        "229": "u",
+        "228": "u",
+        "236": "u",
+        "244": "u",
+        "243": "u",
+        "263": "u",
+        "248": "u",
+        "173": "u",
+        "154": "u",
+        "158": "u",
+        "153": "u",
+        "152": "u",
+        "179": "u",
+        "163": "bu",
+        "165": "u",
+        "172": "u",
+        "180": "u",
+        "193": "b",
+        "200": "d",
+        "201": "bd"
+      },
+      "id": [
+        "freq",
+        "citizen",
+        "age",
+        "sex",
+        "unit",
+        "geo",
+        "time"
+      ],
+      "size": [
+        1,
+        7,
+        1,
+        1,
+        1,
+        38,
+        1
+      ],
+      "dimension": {
+        "freq": {
+          "label": "Time frequency",
+          "category": {
+            "index": {
+              "A": 0
+            },
+            "label": {
+              "A": "Annual"
+            }
+          }
+        },
+        "citizen": {
+          "label": "Country of citizenship",
+          "category": {
+            "index": {
+              "EU27_2020_FOR": 0,
+              "NEU27_2020_FOR": 1,
+              "FOR": 2,
+              "NAT": 3,
+              "STLS": 4,
+              "TOTAL": 5,
+              "NRP": 6
+            },
+            "label": {
+              "EU27_2020_FOR": "EU27 countries (from 2020) except reporting country",
+              "NEU27_2020_FOR": "Non-EU27 countries (from 2020) nor reporting country",
+              "FOR": "Foreign country",
+              "NAT": "Reporting country",
+              "STLS": "Stateless",
+              "TOTAL": "Total",
+              "NRP": "No response"
+            }
+          }
+        },
+        "age": {
+          "label": "Age class",
+          "category": {
+            "index": {
+              "Y20-64": 0
+            },
+            "label": {
+              "Y20-64": "From 20 to 64 years"
+            }
+          }
+        },
+        "sex": {
+          "label": "Sex",
+          "category": {
+            "index": {
+              "T": 0
+            },
+            "label": {
+              "T": "Total"
+            }
+          }
+        },
+        "unit": {
+          "label": "Unit of measure",
+          "category": {
+            "index": {
+              "PC": 0
+            },
+            "label": {
+              "PC": "Percentage"
+            }
+          }
+        },
+        "geo": {
+          "label": "Geopolitical entity (reporting)",
+          "category": {
+            "index": {
+              "EU27_2020": 0,
+              "EA21": 1,
+              "BE": 2,
+              "BG": 3,
+              "CZ": 4,
+              "DK": 5,
+              "DE": 6,
+              "EE": 7,
+              "IE": 8,
+              "EL": 9,
+              "ES": 10,
+              "FR": 11,
+              "HR": 12,
+              "IT": 13,
+              "CY": 14,
+              "LV": 15,
+              "LT": 16,
+              "LU": 17,
+              "HU": 18,
+              "MT": 19,
+              "NL": 20,
+              "AT": 21,
+              "PL": 22,
+              "PT": 23,
+              "RO": 24,
+              "SI": 25,
+              "SK": 26,
+              "FI": 27,
+              "SE": 28,
+              "IS": 29,
+              "NO": 30,
+              "CH": 31,
+              "UK": 32,
+              "BA": 33,
+              "ME": 34,
+              "MK": 35,
+              "RS": 36,
+              "TR": 37
+            },
+            "label": {
+              "EU27_2020": "European Union - 27 countries (from 2020)",
+              "EA21": "Euro area – 21 countries (from 2026)",
+              "BE": "Belgium",
+              "BG": "Bulgaria",
+              "CZ": "Czechia",
+              "DK": "Denmark",
+              "DE": "Germany",
+              "EE": "Estonia",
+              "IE": "Ireland",
+              "EL": "Greece",
+              "ES": "Spain",
+              "FR": "France",
+              "HR": "Croatia",
+              "IT": "Italy",
+              "CY": "Cyprus",
+              "LV": "Latvia",
+              "LT": "Lithuania",
+              "LU": "Luxembourg",
+              "HU": "Hungary",
+              "MT": "Malta",
+              "NL": "Netherlands",
+              "AT": "Austria",
+              "PL": "Poland",
+              "PT": "Portugal",
+              "RO": "Romania",
+              "SI": "Slovenia",
+              "SK": "Slovakia",
+              "FI": "Finland",
+              "SE": "Sweden",
+              "IS": "Iceland",
+              "NO": "Norway",
+              "CH": "Switzerland",
+              "UK": "United Kingdom",
+              "BA": "Bosnia and Herzegovina",
+              "ME": "Montenegro",
+              "MK": "North Macedonia",
+              "RS": "Serbia",
+              "TR": "Türkiye"
+            }
+          }
+        },
+        "time": {
+          "label": "Time",
+          "category": {
+            "index": {
+              "2024": 0
+            },
+            "label": {
+              "2024": "2024"
+            }
+          }
+        }
+      },
+      "extension": {
+        "lang": "EN",
+        "id": "LFSA_EOQGAN",
+        "agencyId": "ESTAT",
+        "version": "1.0",
+        "datastructure": {
+          "id": "LFSA_EOQGAN",
+          "agencyId": "ESTAT",
+          "version": "20.0"
+        },
+        "annotation": [
+          {
+            "type": "CREATED",
+            "date": "2023-04-27T07:57:58+0200"
+          },
+          {
+            "type": "DISSEMINATION_DOI_XML",
+            "title": "<adms:identifier xmlns:adms=\"http://www.w3.org/ns/adms#\" xmlns:skos=\"http://www.w3.org/2004/02/skos/core.html\" xmlns:dct=\"http://purl.org/dc/terms/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><adms:Identifier rdf:about=\"https://doi.org/10.2908/LFSA_EOQGAN\"><skos:notation rdf:datatype=\"http://purl.org/spar/datacite/doi\">10.2908/LFSA_EOQGAN</skos:notation><dct:creator rdf:resource=\"http://publications.europa.eu/resource/authority/corporate-body/ESTAT\"/><dct:issued rdf:datatype=\"http://www.w3.org/2001/XMLSchema#date\">2024-02-06</dct:issued></adms:Identifier></adms:identifier>"
+          },
+          {
+            "type": "DISSEMINATION_EXPLANATORY_LINK",
+            "title": "text-category",
+            "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_LFSQ_20240604.pdf",
+            "text": "Information note"
+          },
+          {
+            "type": "DISSEMINATION_EXPLANATORY_LINK",
+            "title": "text-category",
+            "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_LFSQ_20240604.pdf"
+          },
+          {
+            "type": "DISSEMINATION_EXPLANATORY_LINK",
+            "title": "text-category",
+            "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_LFSQ_20240604.pdf"
+          },
+          {
+            "type": "DISSEMINATION_OBJECT_TYPE",
+            "title": "DATASET"
+          },
+          {
+            "type": "DISSEMINATION_TIMESTAMP_DATA",
+            "date": "2026-06-30T11:00:00+0200"
+          },
+          {
+            "type": "DISSEMINATION_TIMESTAMP_GLOBAL",
+            "date": "2026-06-30T11:00:00+0200"
+          },
+          {
+            "type": "DISSEMINATION_TIMESTAMP_PLANNED",
+            "date": "2026-06-30T11:00:00+0200"
+          },
+          {
+            "type": "ESMS_HTML",
+            "title": "Explanatory texts (metadata)",
+            "href": "https://ec.europa.eu/eurostat/cache/metadata/en/lfsa_esms.htm"
+          },
+          {
+            "type": "ESMS_SDMX",
+            "title": "Explanatory texts (metadata)",
+            "href": "https://ec.europa.eu/eurostat/api/dissemination/files?file=metadata/lfsa_esms.sdmx.zip"
+          },
+          {
+            "type": "OBS_COUNT",
+            "title": "74692"
+          },
+          {
+            "type": "OBS_PERIOD_OVERALL_LATEST",
+            "title": "2025"
+          },
+          {
+            "type": "OBS_PERIOD_OVERALL_OLDEST",
+            "title": "1995"
+          },
+          {
+            "type": "SOURCE_INSTITUTIONS",
+            "text": "Eurostat"
+          },
+          {
+            "type": "UPDATE_DATA",
+            "date": "2026-06-30T11:00:00+0200"
+          },
+          {
+            "type": "UPDATE_STRUCTURE",
+            "date": "2026-04-17T11:00:00+0200"
+          }
+        ],
+        "status": {
+          "label": {
+            "bu": "break in time series, low reliability",
+            "u": "low reliability",
+            "d": "definition differs (see metadata)",
+            "bd": "break in time series, definition differs (see metadata)",
+            "b": "break in time series"
+          }
+        },
+        "positions-with-no-data": {
+          "freq": [],
+          "citizen": [],
+          "age": [],
+          "sex": [],
+          "unit": [],
+          "geo": [
+            32,
+            34
+          ],
+          "time": []
+        }
+      }
+    }
+  }
+]
