@@ -13,12 +13,20 @@ Sitio: https://cardinaldatos.org · Método y fuentes: https://cardinaldatos.org
 
 ```
 pipeline/     scripts que descargan y limpian los datos
-data/         un subdirectorio por tema: crudo.json, limpio.json, metodo.md
+data/         salida del pipeline: un subdirectorio por tema con
+              crudo.json, limpio.json y metodo.md
 data/fuentes.json   el registro de fuentes: qué usamos y qué queremos usar
 sitio/        la web (Astro, desplegada en Cloudflare)
+sitio/src/datos/    lo que se mantiene a mano: el registro de piezas y el
+                    de correcciones
 instagram/    genera las imágenes del feed a partir de los mismos datos
+auditoria/    comprueba que todo lo anterior siga cuadrando
 MAPA.md       índice de todos los archivos, regenerado solo en cada push
 ```
+
+`data/` y `sitio/src/datos/` se parecen y no son lo mismo. `data/` lo escriben
+los scripts y no se edita a mano; `sitio/src/datos/` es al revés. Un archivo
+escrito a mano no va en `data/`, aunque compile igual.
 
 ## Regla de oro
 
@@ -38,6 +46,11 @@ y el método público. Si dos superficies mostraran cifras distintas, sería un
 fallo, no un matiz. Los huecos —países sin dato, series que faltan— no se
 rellenan ni se estiman: se conservan y se declaran, porque la ausencia es
 parte del hallazgo.
+
+Los huecos tampoco son todos iguales. Que un organismo no publique una serie
+para un país y que la publique sin obtener valor son dos cosas distintas, y
+solo la primera dice algo sobre qué se decide medir. Donde la fuente permite
+distinguirlas, `limpio.json` lo hace.
 
 ## Puesta en marcha
 
@@ -91,13 +104,58 @@ cobertura de más de un país. Las que exigen registro o publican en un solo
 idioma no quedan excluidas —son, de hecho, buena parte del sentido del
 proyecto—, pero cuestan más de mantener y hay que decirlo en su nota.
 
-## Verificación de frescura
+## Correcciones
 
-`pipeline/verificar.py` corre cada semana (y a mano cuando haga falta) y no se
-limita a comprobar que cada fuente responde: comprueba que sus datos siguen
-frescos. Responder no basta —una tabla puede seguir contestando meses después
-de dejar de actualizarse—, así que cada sonda declara cuántos meses de
-antigüedad tolera antes de dar aviso.
+Cuando una cifra publicada resulta estar mal, o cuando el organismo revisa su
+propio dato después de que lo hayamos copiado, queda constancia pública en
+https://cardinaldatos.org/correcciones/ — con lo que decía antes, lo que dice
+ahora y de dónde salió el error.
+
+El registro vive en `sitio/src/datos/correcciones.js` y **solo crece**. No se
+edita una entrada para suavizarla ni se borra una para que la lista se vea
+limpia. El historial de este repositorio deja rastro de cualquier cambio, así
+que reescribir ahí no escondería nada: solo costaría credibilidad.
+
+Corregir una cifra casi nunca significa editar una página. Como ninguna cifra
+está escrita en el HTML, el arreglo es en el script que la produce, y la
+página se corrige sola en la siguiente compilación.
+
+Si ves un error: https://cardinaldatos.org/correcciones/ explica cómo avisar.
+
+## Comprobaciones automáticas
+
+Dos, y las dos corren solas cada semana además de a demanda.
+
+**Frescura de las fuentes.** `pipeline/verificar.py` no se limita a comprobar
+que cada fuente responde: comprueba que sus datos siguen frescos. Responder no
+basta —una tabla puede seguir contestando meses después de dejar de
+actualizarse—, así que cada sonda declara cuántos meses de antigüedad tolera
+antes de dar aviso.
+
+**Coherencia del repositorio.** `auditoria/auditar.mjs` comprueba lo que a un
+ojo humano se le pasa: que cada pieza tenga su página y sus archivos de datos,
+que ninguna carpeta de `data/` quede huérfana, que las fuentes marcadas «en
+uso» sostengan de verdad una pieza publicada, que los enlaces internos lleven a
+algún sitio, que las cifras derivadas cuadren con las de origen, y que no se
+haya colado un número escrito a mano en el texto de una pieza. Corre sin
+dependencias: `node auditoria/auditar.mjs`.
+
+La segunda existe porque la primera no bastaba. Una fuente puede seguir
+respondiendo perfectamente mientras la pieza que la usa lleva un año mostrando
+cifras que el organismo ya revisó.
+
+## Índice del repositorio
+
+`MAPA.md` lista todos los archivos con su enlace, su tamaño exacto en bytes y
+la huella de su contenido. Lo genera `pipeline/mapa.py` en cada push y no se
+edita a mano.
+
+Sirve para trabajar sobre este repositorio sin abrirlo entero, y sobre todo
+para saber si lo que estás leyendo es la versión de ahora: si el tamaño que
+declara GitHub no coincide al byte con el del mapa, estás ante una copia
+cacheada. La misma copia se publica en https://cardinaldatos.org/mapa.txt,
+servida desde otra infraestructura, para cuando la de GitHub resulte
+sospechosa.
 
 ## Publicación
 
@@ -108,7 +166,11 @@ y se instalan con `npm ci`, de modo que cada compilación es reproducible.
 
 ## Licencia
 
-El código de este repositorio y el trabajo editorial de Cardinal Datos se
-publican para su reuso con atribución. **Los datos de origen no son nuestros:**
-pertenecen a los organismos que los publican y conservan cada uno su propia
-licencia, indicada en `data/fuentes.json`. Consúltala antes de republicarlos.
+El código de este repositorio se publica bajo licencia MIT: ver
+[`LICENSE`](LICENSE), y [`LICENCIA.md`](LICENCIA.md) para la explicación en
+español de qué puedes hacer con esto. También está publicada en
+https://cardinaldatos.org/licencia/.
+
+**Los datos de origen no son nuestros:** pertenecen a los organismos que los
+publican y conservan cada uno su propia licencia, indicada en
+`data/fuentes.json`. Consúltala antes de republicarlos.
