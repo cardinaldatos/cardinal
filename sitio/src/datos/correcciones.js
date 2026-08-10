@@ -18,17 +18,17 @@
    sí se edita la pieza. Anota en `por_que` cuál de los dos casos fue.
 
    CAMPOS
-     fecha     día en que se publicó la corrección, AAAA-MM-DD. Es la
-               fecha de la corrección, no la del error.
-     pieza     slug de la pieza afectada, tal como aparece en piezas.js.
-               null si el error estaba en una página que no es una pieza.
-     nivel     una de las claves de NIVELES (abajo).
-     decia     lo que la pieza afirmaba antes, en una frase.
-     dice      lo que afirma ahora, en una frase.
-     por_que   de dónde salió el error y qué se cambió para arreglarlo.
-               Es el campo que más vale: explica el fallo, no lo excusa.
-     aviso     quién avisó, si pidió aparecer. Por defecto va null: no se
-               publica el nombre de nadie sin que lo haya pedido.
+     fecha    día en que se publicó la corrección, AAAA-MM-DD. Es la
+              fecha de la corrección, no la del error.
+     pieza    slug de la pieza afectada, tal como aparece en piezas.js.
+              null si el error estaba en una página que no es una pieza.
+     nivel    una de las claves de NIVELES (abajo).
+     decia    lo que la pieza afirmaba antes, en una frase.
+     dice     lo que afirma ahora, en una frase.
+     por_que  de dónde salió el error y qué se cambió para arreglarlo.
+              Es el campo que más vale: explica el fallo, no lo excusa.
+     aviso    quién avisó, si pidió aparecer. Por defecto va null: no se
+              publica el nombre de nadie sin que lo haya pedido.
 
    EJEMPLO (no borrar: es la plantilla para la primera entrada real)
 
@@ -47,7 +47,41 @@
      },
    ========================================================================== */
 
-export const CORRECCIONES = [];
+export const CORRECCIONES = [
+  {
+    fecha: "2026-08-10",
+    pieza: null,
+    nivel: "correccion",
+    decia:
+      "La página de método decía publicar el archivo de método de cada pieza, tal como lo escribe el pipeline.",
+    dice:
+      "Los publica. Antes no aparecía ninguno: la página solo mostraba el procedimiento general y el registro de fuentes.",
+    por_que:
+      "El código de sitio/src/pages/metodo.astro sí leía cada " +
+      "data/<slug>/metodo.md y lo convertía a HTML en cada compilación, " +
+      "pero la plantilla nunca dibujaba ese resultado: faltaba el bloque " +
+      "que recorre las fichas. El trabajo se hacía y se descartaba. Se " +
+      "añadió el bloque. Ningún dato cambió — lo que faltaba era " +
+      "publicarlo, que es justo lo que esa página existe para hacer.",
+    aviso: null,
+  },
+  {
+    fecha: "2026-08-10",
+    pieza: null,
+    nivel: "correccion",
+    decia:
+      "El registro contaba tres fuentes sosteniendo piezas publicadas.",
+    dice:
+      "Cuenta dos: el Banco Mundial y Eurostat.",
+    por_que:
+      "SSB, la oficina estadística de Noruega, estaba marcada «en uso», " +
+      "estado que el propio registro define como sostener al menos una " +
+      "pieza publicada. Ninguna se apoya en ella todavía. Se reclasificó " +
+      "como «sondeada» en data/fuentes.json. La página no se tocó: cuenta " +
+      "el registro, así que la cifra se corrigió sola.",
+    aviso: null,
+  },
+];
 
 /* Los tres tipos de cambio que se registran. La página los publica desde
    aquí: si mañana se añade un cuarto, aparece solo. */
