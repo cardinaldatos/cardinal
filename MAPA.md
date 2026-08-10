@@ -102,7 +102,7 @@ envejece sin avisar.
 
 ## `sitio/src/datos/`
 
-- [piezas.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/piezas.js) — 3 KB
+- [piezas.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/piezas.js) — 2 KB
 
 ## `sitio/src/layouts/`
 
