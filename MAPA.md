@@ -15,11 +15,12 @@ pegada en una conversación anterior — el repositorio cambia y esa copia
 envejece sin avisar.
 
 
-**58 archivos indexados.**
+**59 archivos indexados.**
 
 
 ## Raíz
 
+- [EDITORIAL.md](https://github.com/cardinaldatos/cardinal/blob/main/EDITORIAL.md) — 7 KB
 - [README.md](https://github.com/cardinaldatos/cardinal/blob/main/README.md) — 5 KB
 - [requirements.txt](https://github.com/cardinaldatos/cardinal/blob/main/requirements.txt) — 647 B
 
