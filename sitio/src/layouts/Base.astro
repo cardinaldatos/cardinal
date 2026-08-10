@@ -8,33 +8,52 @@
 // segunda variante de color.
 //
 // Nuevo hoy:
-//   1. <link rel="alternate" type="application/rss+xml">. Es lo que hace
-//      que un lector de feeds encuentre /rss.xml al pegarle solo el
-//      dominio, sin que nadie tenga que saber la ruta exacta.
-//   2. Enlace a /metodo/ en la cabecera. El método deja de estar
-//      escondido dentro del repositorio.
-//   3. El pie del sitio. Igual que la cabecera, vive fuera de cualquier
-//      .pieza y lleva su propio fondo tinta fijo. Es institucional: dice
-//      qué es el proyecto y bajo qué reglas trabaja, y NO nombra fuentes.
-//      Nombrarlas aquí obligaría a editarlo cada vez que el registro
-//      cambia, y daría por cerrada una lista que no lo está. El pie de
-//      fuentes concreto —esta cifra, de esta fuente, de este año— vive
-//      dentro de cada pieza, que es donde significa algo.
-//   4. <link rel="canonical">. El sitio responde en cardinaldatos.org,
-//      www.cardinaldatos.org y cardinaldatos.com. Los dos últimos
-//      redirigen al primero con un 301 en Cloudflare, pero la etiqueta
-//      canónica es el cinturón de seguridad: le dice al buscador cuál es
-//      la dirección buena aunque alguien llegue por otra. La URL se
-//      construye desde Astro.site, que sale de astro.config.mjs — el
-//      dominio no se escribe en este archivo.
-//   5. Tipografía autoalojada. Ya no se carga desde Google Fonts: los
-//      @font-face viven en sistema.css y los woff2 en /public. El
-//      navegador de cada lector deja de contactar con fonts.gstatic.com,
-//      así que nadie fuera de este dominio ve quién lee el sitio. Aquí
-//      solo se precargan las dos fuentes que aparecen de inmediato —el
-//      titular en Archivo 700 y el texto en IBM Plex Sans 400—; las demás
-//      cargan cuando el CSS las pide. Precargar de más retrasaría justo lo
-//      que se quiere acelerar.
+//   1. Enlaces a /correcciones/ y a /licencia/ en el pie. Las dos páginas
+//      existían pero nada llevaba a ellas: se llegaba solo escribiendo la
+//      dirección a mano, que es tanto como no existir. Van en el pie y no
+//      en la cabecera a propósito — la cabecera es para leer el sitio, el
+//      pie es para saber quién responde y bajo qué condiciones. Meter
+//      cuatro enlaces más arriba estrecharía la barra en móvil sin que
+//      nadie los busque ahí.
+//   2. Una frase en el pie que distingue dos licencias que se confunden
+//      con facilidad: la de los organismos, que rige sus datos, y la
+//      nuestra, que rige lo que hacemos con ellos. Quien quiere
+//      republicar necesita saber que son dos cosas distintas.
+//
+// Anterior:
+//   - <link rel="alternate" type="application/rss+xml">. Es lo que hace
+//     que un lector de feeds encuentre /rss.xml al pegarle solo el
+//     dominio, sin que nadie tenga que saber la ruta exacta.
+//   - Enlace a /metodo/ en la cabecera. El método deja de estar
+//     escondido dentro del repositorio.
+//   - El pie del sitio. Igual que la cabecera, vive fuera de cualquier
+//     .pieza y lleva su propio fondo tinta fijo. Es institucional: dice
+//     qué es el proyecto y bajo qué reglas trabaja, y NO nombra fuentes.
+//     Nombrarlas aquí obligaría a editarlo cada vez que el registro
+//     cambia, y daría por cerrada una lista que no lo está. El pie de
+//     fuentes concreto —esta cifra, de esta fuente, de este año— vive
+//     dentro de cada pieza, que es donde significa algo.
+//   - <link rel="canonical">. El sitio responde en cardinaldatos.org,
+//     www.cardinaldatos.org y cardinaldatos.com. Los dos últimos
+//     redirigen al primero con un 301 en Cloudflare, pero la etiqueta
+//     canónica es el cinturón de seguridad: le dice al buscador cuál es
+//     la dirección buena aunque alguien llegue por otra. La URL se
+//     construye desde Astro.site, que sale de astro.config.mjs — el
+//     dominio no se escribe en este archivo.
+//   - Tipografía autoalojada. Ya no se carga desde Google Fonts: los
+//     @font-face viven en sistema.css y los woff2 en /public. El
+//     navegador de cada lector deja de contactar con fonts.gstatic.com,
+//     así que nadie fuera de este dominio ve quién lee el sitio. Aquí
+//     solo se precargan las dos fuentes que aparecen de inmediato —el
+//     titular en Archivo 700 y el texto en IBM Plex Sans 400—; las demás
+//     cargan cuando el CSS las pide. Precargar de más retrasaría justo lo
+//     que se quiere acelerar.
+//
+// NOTA DE FORMATO: las etiquetas de apertura van completas en su línea,
+// con su «>». Una etiqueta partida en varias líneas deja un fragmento
+// suelto («<a» sin cerrar) que cualquier renderizador de HTML se traga al
+// copiar y pegar, y el archivo llega al repositorio roto sin que se note
+// hasta que falla la compilación.
 
 import "../styles/sistema.css";
 
@@ -56,27 +75,10 @@ const canonica = new URL(Astro.url.pathname, Astro.site).href;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonica} />
 
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title="Cardinal Datos"
-      href="/rss.xml"
-    />
+    <link rel="alternate" type="application/rss+xml" title="Cardinal Datos" href="/rss.xml" />
 
-    <link
-      rel="preload"
-      href="/archivo-v25-latin-700.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/ibm-plex-sans-v23-latin-regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <link rel="preload" href="/archivo-v25-latin-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/ibm-plex-sans-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   </head>
 
   <body>
@@ -97,11 +99,7 @@ const canonica = new URL(Astro.url.pathname, Astro.site).href;
       <nav class="chrome-nav">
         <a href="/metodo/">Método</a>
         <a href="/rss.xml">RSS</a>
-        <a
-          href="https://www.instagram.com/cardinaldatos"
-          target="_blank"
-          rel="noopener">Instagram ↗</a
-        >
+        <a href="https://www.instagram.com/cardinaldatos" target="_blank" rel="noopener">Instagram ↗</a>
       </nav>
     </header>
 
@@ -119,18 +117,23 @@ const canonica = new URL(Astro.url.pathname, Astro.site).href;
 
         <p class="chrome-footer-texto">
           Los datos originales pertenecen a los organismos que los publican.
-          Consulta su licencia antes de republicarlos.
+          Consulta su licencia antes de republicarlos. Nuestro trabajo sobre
+          esos datos —el texto, la selección, los gráficos— se puede
+          republicar citando: las condiciones están en <a href="/licencia/">la página de licencia</a>.
+        </p>
+
+        <p class="chrome-footer-texto">
+          Si encuentras un error, <a href="/correcciones/">avísanos</a>. Lo que
+          se corrige queda anotado ahí, con fecha y con lo que decía antes.
         </p>
 
         <nav class="chrome-footer-enlaces">
           <a href="/">Portada</a>
           <a href="/metodo/">Método y fuentes</a>
+          <a href="/correcciones/">Correcciones</a>
+          <a href="/licencia/">Licencia</a>
           <a href="/rss.xml">Feed RSS</a>
-          <a
-            href="https://www.instagram.com/cardinaldatos"
-            target="_blank"
-            rel="noopener">Instagram ↗</a
-          >
+          <a href="https://www.instagram.com/cardinaldatos" target="_blank" rel="noopener">Instagram ↗</a>
         </nav>
       </div>
     </footer>
@@ -236,6 +239,25 @@ const canonica = new URL(Astro.url.pathname, Astro.site).href;
 
   .chrome-footer-texto:last-of-type {
     margin-bottom: 0;
+  }
+
+  /* Los enlaces dentro del texto del pie: más claros que el párrafo, para
+     que se distingan sin encenderse. El rojo se reserva para el dato
+     central de una pieza; aquí sería ruido. */
+  .chrome-footer-texto a {
+    color: var(--papel);
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.15s;
+  }
+
+  .chrome-footer-texto a:hover {
+    text-decoration-color: var(--papel);
+  }
+
+  .chrome-footer-texto a:focus-visible {
+    outline: 2px solid var(--rojo);
+    outline-offset: 3px;
   }
 
   .chrome-footer-enlaces {
