@@ -50,6 +50,26 @@
 export const CORRECCIONES = [
   {
     fecha: "2026-08-10",
+    pieza: "titulo-no-cruza",
+    nivel: "actualizacion",
+    decia:
+      "La tasa de sobrecualificación de 2024 era 39,6 % para los ciudadanos de fuera de la UE y 30,3 % para los de otro país de la UE.",
+    dice:
+      "Es 39,8 % y 30,2 %, que son los valores vigentes de Eurostat.",
+    por_que:
+      "Eurostat revisó sus cifras de 2024 después de que las copiáramos. " +
+      "La pieza las llevaba escritas a mano dentro del componente desde " +
+      "julio de 2025: eran correctas el día que se copiaron y falsas un " +
+      "año después, sin que nada avisara. Los valores de 2014 no cambiaron. " +
+      "El arreglo de fondo no fue reescribir los números sino quitarlos: " +
+      "pipeline/sobrecualificacion.py descarga la serie y la pieza la lee " +
+      "de data/sobrecualificacion-ue/limpio.json en cada compilación, así " +
+      "que la próxima revisión de la fuente entra sola. Esta pieza era la " +
+      "única que quedaba fuera de la regla de oro.",
+    aviso: null,
+  },
+  {
+    fecha: "2026-08-10",
     pieza: null,
     nivel: "correccion",
     decia:
