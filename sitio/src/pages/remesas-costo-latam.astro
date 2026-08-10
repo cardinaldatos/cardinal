@@ -12,11 +12,20 @@ import RemesasCostoLatam from "../components/RemesasCostoLatam.jsx";
 // superficies.
 const rutaDatos = path.join(process.cwd(), "..", "data", "remesas-costo-latam", "limpio.json");
 const datos = JSON.parse(await readFile(rutaDatos, "utf-8"));
+
+// La descripción llevaba «diez países», «los tres» y «2023» escritos a
+// mano. Es el texto que va al <meta> y el que verá quien comparta el
+// enlace, así que era la cifra publicada que menos posibilidades tenía de
+// que alguien la recalculara. Ahora sale de los mismos datos que la pieza.
+const conDato = datos.con_dato.length;
+const sinDato = datos.sin_dato.length;
+const anioSerie = datos.anio ?? datos.con_dato[0].anio;
+const monto = datos.monto_referencia_usd;
 ---
 
 <Base
   titulo="Cuánto se queda en el camino"
-  descripcion="Lo que cuesta enviar 200 dólares a diez países de América Latina, y los tres que no aparecen en la estadística. Banco Mundial, 2023."
+  descripcion={`Lo que cuesta enviar ${monto} dólares a ${conDato} países de América Latina, y los ${sinDato} que no aparecen en la estadística. Banco Mundial, ${anioSerie}.`}
 >
   <RemesasCostoLatam client:load datos={datos} />
 </Base>
