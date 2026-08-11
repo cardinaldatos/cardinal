@@ -26,6 +26,10 @@ jobs:
         with:
           node-version: "24"
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
       # `npm ci` en vez de `npm install`: instala EXACTAMENTE lo que dice
       # package-lock.json, y falla si el lockfile no existe o no cuadra
       # con package.json. Es lo que hace el despliegue reproducible.
@@ -33,6 +37,38 @@ jobs:
       # workflow "Generar lockfiles" una vez.
       - name: Instalar dependencias
         run: cd sitio && npm ci
+
+      # El mapa se regenera aquí, contra el arbol que se está desplegando,
+      # y ANTES de compilar para que Astro copie sitio/public/ ya al día.
+      #
+      # POR QUÉ HACE FALTA. La copia del mapa que sirve el sitio la
+      # mantenía solo el workflow "Actualizar mapa", que confirma con
+      # GITHUB_TOKEN — y GitHub no encadena workflows a partir de commits
+      # hechos con ese token. Es decir: el bot arreglaba sitio/public/
+      # mapa.txt en el repositorio y ese arreglo no disparaba ningún
+      # despliegue. Cloudflare siguió sirviendo lo primero que se subió a
+      # esa ruta, indefinidamente. No un despliegue por detrás: congelada.
+      #
+      # Y era invisible, porque mapa.py excluye sitio/public/mapa.txt de su
+      # propio índice (indexarla haría que su huella dependiera de sí
+      # misma). El único archivo que nadie verifica era justo el designado
+      # como copia de referencia.
+      #
+      # Regenerarlo aquí lo ata al despliegue en vez de al commit del bot.
+      # No hace falta permiso de escritura: se escribe en el checkout
+      # efímero del runner, no en el repositorio. MAPA.md lo sigue
+      # manteniendo el workflow "Actualizar mapa"; aquí solo se escribe
+      # de paso y se descarta con el runner.
+      #
+      # Queda un desfase residual conocido: este workflow solo se dispara
+      # con cambios en sitio/**, así que un cambio en pipeline/ o en data/
+      # actualiza MAPA.md pero no la copia servida hasta el siguiente
+      # despliegue. Se detecta comparando las dos huellas de repositorio,
+      # que es para lo que están.
+      #
+      # mapa.py solo usa la biblioteca estándar: no instala requirements.
+      - name: Regenerar el mapa antes de compilar
+        run: cd pipeline && python mapa.py
 
       - name: Compilar
         run: cd sitio && npm run build
