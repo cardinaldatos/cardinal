@@ -9,3 +9,16 @@
 # aplica aquí. Se actualiza igual: mantener el árbol limpio hace que la
 # próxima alerta se note en vez de perderse entre ruido acumulado.
 requests==2.33.0
+
+# Para pipeline/og.py, que dibuja sitio/public/og.png: la imagen que
+# aparece cuando alguien comparte un enlace del sitio. Pillow dibuja;
+# fonttools abre los .woff2 que sirve el sitio y los reescribe a
+# TrueType en memoria, porque Pillow no lee woff2; brotli es lo que
+# fonttools usa por debajo para descomprimirlos, y sin él la lectura
+# falla con un error que no dice que falta brotli.
+#
+# Ninguno de los tres los usa el pipeline de datos. Si algún día se
+# separan los requisitos por script, este es el grupo que se va.
+Pillow==12.1.1
+fonttools==4.62.1
+Brotli==1.2.0
