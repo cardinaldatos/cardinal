@@ -19,6 +19,6 @@ requests==2.33.0
 #
 # Ninguno de los tres los usa el pipeline de datos. Si algún día se
 # separan los requisitos por script, este es el grupo que se va.
-Pillow==12.1.1
+Pillow==12.3.0
 fonttools==4.62.1
 Brotli==1.2.0
