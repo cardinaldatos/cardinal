@@ -41,16 +41,16 @@
 //      piezas.js. Añadirle un «T00:00:00Z» sería inventar una hora de
 //      publicación que nadie registró.
 //
-//   5. Todavía NO hay og:image. Una tarjeta sin imagen se ve pobre, pero
-//      una tarjeta que apunta a una imagen inexistente se ve rota, y la
-//      imagen aún no está hecha. Cuando exista, aquí se añaden og:image
-//      con URL absoluta desde Astro.site, sus dimensiones y su alt, y
-//      twitter:card sube de "summary" a "summary_large_image".
+//   5. La imagen es una sola, institucional, y NO lleva cifras. La dibuja
+//      pipeline/og.py en sitio/public/og.png, leyendo los mismos .woff2
+//      que sirve el sitio. Un número quemado en un PNG es una cifra
+//      escrita a mano que la auditoría no puede ver, no se regenera
+//      cuando el organismo revisa la serie, y se sigue compartiendo con
+//      el valor viejo durante años. Si algún día se quieren imágenes por
+//      pieza con su dato, se generan desde su limpio.json.
 //
-//      Aviso para ese día: nada de cifras dentro de la imagen. Un número
-//      quemado en un PNG es una cifra escrita a mano que la auditoría no
-//      puede ver, no se regenera cuando el organismo revisa la serie, y
-//      se sigue compartiendo con el valor viejo durante años.
+//      og:image tiene que ser absoluta o los rastreadores la ignoran sin
+//      avisar. Se construye desde Astro.site, igual que la canónica.
 //
 // Anterior:
 //   - Enlaces a /correcciones/ y a /licencia/ en el pie. Las dos páginas
@@ -116,6 +116,12 @@ const pieza = PIEZAS.find((p) => Astro.url.pathname === `/${p.slug}/`);
 
 const tipoOg = pieza ? "article" : "website";
 const tituloOg = titulo ?? "Cardinal Datos";
+
+// Los rastreadores de Open Graph exigen URL absoluta: una ruta relativa
+// como "/og.png" la ignoran en silencio y la tarjeta sale sin imagen. Se
+// construye desde Astro.site, igual que la canónica, así que el dominio
+// sigue sin escribirse en este archivo.
+const imagenOg = new URL("/og.png", Astro.site).href;
 ---
 
 <!doctype html>
@@ -133,11 +139,17 @@ const tituloOg = titulo ?? "Cardinal Datos";
     <meta property="og:title" content={tituloOg} />
     <meta property="og:description" content={descripcion} />
     <meta property="og:url" content={canonica} />
+    <meta property="og:image" content={imagenOg} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Cardinal Datos — Datos que no se traducen solos. Estadísticas públicas sobre migración y diáspora, en español." />
     {pieza && <meta property="article:published_time" content={pieza.publicado} />}
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={tituloOg} />
     <meta name="twitter:description" content={descripcion} />
+    <meta name="twitter:image" content={imagenOg} />
 
     <link rel="alternate" type="application/rss+xml" title="Cardinal Datos" href="/rss.xml" />
 
