@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**67 archivos indexados, 631391 bytes en total.**
+**68 archivos indexados, 707744 bytes en total.**
 
-**Huella del repositorio: `f9310d203c2c4b86`**
+**Huella del repositorio: `d6e514ba0697d0ec`**
 
 
 ## Raíz
@@ -122,6 +122,7 @@ distintos.
 - [ibm-plex-sans-v23-latin-500.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-sans-v23-latin-500.woff2) — 24184 B · `0717336f`
 - [ibm-plex-sans-v23-latin-600.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-sans-v23-latin-600.woff2) — 24252 B · `8960851d`
 - [ibm-plex-sans-v23-latin-regular.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-sans-v23-latin-regular.woff2) — 22588 B · `3b646991`
+- [og.png](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/og.png) — 76353 B · `1e4fa6ff`
 
 ## `sitio/src/components/`
 
