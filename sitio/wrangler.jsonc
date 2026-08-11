@@ -1,0 +1,36 @@
+{
+  // "name" es el nombre del Worker en tu cuenta de Cloudflare. Dos cosas
+  // que conviene tener claras, porque confundirlas ya costó un enredo:
+  //
+  //   1. NO tiene nada que ver con el dominio del sitio. El dominio se
+  //      asigna aparte, en el panel: Worker -> Settings -> Domains &
+  //      Routes -> Custom Domain. Llamar al Worker "www" no hace que el
+  //      sitio responda en www, y llamarlo "cardinal" no impide que
+  //      responda en cardinaldatos.org. Lo único que este nombre decide
+  //      es el subdominio de pruebas <name>.cardinaldatos.workers.dev.
+  //
+  //   2. Cambiar este valor NO renombra el Worker que ya existe: crea uno
+  //      nuevo y deja el viejo en pie, sirviendo lo de antes. Así se
+  //      acaba con dos sitios y sin saber cuál responde. Si algún día hay
+  //      que cambiarlo, primero se mira qué Workers existen en el panel.
+  //
+  // Estado actual: el Worker se llama "cardinal", como el repositorio, y
+  // el dominio canónico cardinaldatos.org está asignado como Custom
+  // Domain. www.cardinaldatos.org y cardinaldatos.com llegan por regla de
+  // redirección 301 al canónico, no por un Worker propio.
+  "name": "cardinal",
+
+  "compatibility_date": "2026-08-05",
+
+  // Sin "main": no hay código de Worker. Cloudflare sirve los archivos
+  // directamente desde el directorio.
+  "assets": {
+    "directory": "./dist",
+
+    // Astro genera carpetas con index.html (trailingSlash: always).
+    "html_handling": "auto-trailing-slash",
+
+    // Usa nuestro 404.html para rutas que no existen.
+    "not_found_handling": "404-page"
+  }
+}
