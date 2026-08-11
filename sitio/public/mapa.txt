@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**67 archivos indexados, 707032 bytes en total.**
+**68 archivos indexados, 708634 bytes en total.**
 
-**Huella del repositorio: `a902677988437a86`**
+**Huella del repositorio: `4589d7acb06209e3`**
 
 
 ## Raíz
@@ -108,6 +108,7 @@ distintos.
 - [astro.config.mjs](https://github.com/cardinaldatos/cardinal/blob/main/sitio/astro.config.mjs) — 1924 B · `bb64dcd4`
 - [package-lock.json](https://github.com/cardinaldatos/cardinal/blob/main/sitio/package-lock.json) — 170831 B · `fdb93016`
 - [package.json](https://github.com/cardinaldatos/cardinal/blob/main/sitio/package.json) — 304 B · `b25f2971`
+- [wrangler.jsonc](https://github.com/cardinaldatos/cardinal/blob/main/sitio/wrangler.jsonc) — 1602 B · `c5165c4d`
 
 ## `sitio/public/`
 
