@@ -49,6 +49,31 @@
 
 export const CORRECCIONES = [
   {
+    fecha: "2026-08-11",
+    pieza: null,
+    nivel: "incidencia",
+    decia:
+      "El sitio no respondía: cardinaldatos.org no resolvía a ninguna dirección.",
+    dice:
+      "Responde con normalidad. Ningún dato, cifra ni texto cambió.",
+    por_que:
+      "El sitio lo sirve un Worker de Cloudflare, y el dominio se le " +
+      "asigna aparte, en el panel. El Worker se llamaba «www», y ese " +
+      "nombre se confundió con el dominio: no tiene relación con él, solo " +
+      "decide el subdominio de pruebas. Al intentar corregirlo cambiándole " +
+      "el nombre, Cloudflare no movió el Worker existente sino que creó " +
+      "uno nuevo, y quedaron dos. Al borrar el sobrante se fue con él el " +
+      "registro DNS del dominio, que un dominio asignado a un Worker crea " +
+      "y elimina junto con ese Worker. Sin registro DNS el nombre deja de " +
+      "existir para internet: no es que el sitio devolviera un error, es " +
+      "que no había a dónde llamar. Se volvió a desplegar y a asignar el " +
+      "dominio. Los registros de correo quedaron intactos, así que los " +
+      "avisos enviados a correcciones@ durante la caída sí llegaron. " +
+      "Queda anotado en sitio/wrangler.jsonc qué decide y qué no decide " +
+      "el nombre de un Worker, que es el malentendido de origen.",
+    aviso: null,
+  },
+  {
     fecha: "2026-08-10",
     pieza: "titulo-no-cruza",
     nivel: "actualizacion",
@@ -115,6 +140,11 @@ export const NIVELES = {
     etiqueta: "Aclaración",
     descripcion:
       "El dato era correcto, pero estaba explicado de forma confusa o incompleta. La cifra no cambia.",
+  },
+  incidencia: {
+    etiqueta: "Interrupción",
+    descripcion:
+      "El sitio dejó de estar disponible. Ningún dato cambia: lo que falló fue el acceso, y queda registrado porque un lector que no pudo leer una pieza merece saber por qué.",
   },
   actualizacion: {
     etiqueta: "Actualización de la fuente",
