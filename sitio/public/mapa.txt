@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**66 archivos indexados, 622585 bytes en total.**
+**66 archivos indexados, 623347 bytes en total.**
 
-**Huella del repositorio: `9cb71d522b278610`**
+**Huella del repositorio: `1f3d243e086bc623`**
 
 
 ## Raíz
@@ -134,7 +134,7 @@ distintos.
 
 ## `sitio/src/layouts/`
 
-- [Base.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/layouts/Base.astro) — 13564 B · `2dcef817`
+- [Base.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/layouts/Base.astro) — 14326 B · `ece1855b`
 
 ## `sitio/src/pages/`
 
