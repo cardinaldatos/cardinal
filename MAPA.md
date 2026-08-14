@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**71 archivos indexados, 726512 bytes en total.**
+**70 archivos indexados, 709234 bytes en total.**
 
-**Huella del repositorio: `939ee1419c1ee42d`**
+**Huella del repositorio: `12efbcb89abdd6c9`**
 
 
 ## Raíz
@@ -60,10 +60,6 @@ distintos.
 - [instagram.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/instagram.yml) — 1254 B · `bc4211cd`
 - [mapa.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/mapa.yml) — 1691 B · `571b93a4`
 - [sobrecualificacion.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/sobrecualificacion.yml) — 1466 B · `1581c3f5`
-
-## `auditoria/`
-
-- [auditar.mjs](https://github.com/cardinaldatos/cardinal/blob/main/auditoria/auditar.mjs) — 17278 B · `321512df`
 
 ## `data/`
 
