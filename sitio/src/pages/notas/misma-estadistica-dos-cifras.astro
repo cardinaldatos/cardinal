@@ -1,0 +1,199 @@
+---
+import Base from "../../layouts/Base.astro";
+import { NOTAS } from "../../datos/notas.js";
+import { PIEZAS } from "../../datos/piezas.js";
+
+/* ==========================================================================
+   Nota — La misma estadística, dos cifras distintas
+
+   El titular, el resumen y la fecha NO se escriben en esta página: salen
+   de src/datos/notas.js, igual que las piezas salen de piezas.js. Así el
+   listado, el feed y esta página no pueden decir cosas distintas.
+
+   SIN CIFRAS EN EL CUERPO, A PROPÓSITO. Esta nota habla de un indicador
+   que Eurostat revisa hacia atrás — es literalmente uno de sus límites
+   declarados. Escribir aquí los porcentajes sería fijar en texto plano
+   unos números que la fuente cambia, y en unos meses la nota estaría
+   desmintiendo a la pieza que enlaza. El lector que quiere el número lo
+   encuentra a un clic, en la pieza, donde se recalcula en cada
+   compilación.
+   ========================================================================== */
+
+const nota = NOTAS.find((n) => n.slug === "misma-estadistica-dos-cifras");
+const pieza = PIEZAS.find((p) => p.slug === nota.pieza);
+---
+
+<Base titulo={nota.titulo} descripcion={nota.resumen}>
+  <div class="pieza" data-fondo="oscuro">
+    <div class="marco">
+      <p class="cejilla">Cardinal Datos · Nota</p>
+
+      <h1 class="titular">
+        La misma estadística,<br /><em>dos cifras distintas</em>
+      </h1>
+
+      <p class="bajada">{nota.resumen}</p>
+
+      <div class="bloque">
+        <p class="cuerpo">
+          Cada cierto tiempo circula un titular parecido: tal proporción de
+          personas migrantes con título universitario trabaja en empleos
+          por debajo de su formación. El dato es real y viene de Eurostat,
+          la oficina estadística de la Unión Europea. Lo que casi nunca
+          aparece es que esa misma estadística, el mismo año y el mismo
+          país, tiene varias respuestas correctas a la vez.
+        </p>
+
+        <p class="cuerpo">
+          El indicador se llama tasa de sobrecualificación y mide una cosa
+          concreta: entre las personas empleadas que tienen estudios
+          superiores, cuántas trabajan en ocupaciones clasificadas como de
+          cualificación baja o media. No mide si a alguien le reconocieron
+          el título, ni si sufre discriminación, ni si le falta el idioma
+          del país. Mide el desajuste entre lo que alguien estudió y en qué
+          trabaja. Las causas quedan fuera.
+        </p>
+
+        <h2>La casilla que no se menciona</h2>
+
+        <p class="cuerpo">
+          Para consultar ese indicador hay que elegir una franja de edad, y
+          Eurostat ofrece varias. No es un detalle de trámite: cada franja
+          devuelve un número distinto, y la diferencia entre unas y otras
+          puede ser de varios puntos porcentuales. Suficiente para cambiar
+          el tono de un titular.
+        </p>
+
+        <p class="cuerpo">
+          Tiene sentido que difieran. Una franja amplia, que va de los
+          veinte a los sesenta y cuatro años, incluye a gente que lleva
+          décadas en el país de destino y a quien acaba de llegar. Una
+          franja joven retrata sobre todo el arranque de una carrera
+          laboral. Son poblaciones distintas viviendo momentos distintos, y
+          no hay ninguna razón para que coincidan.
+        </p>
+
+        <p class="cuerpo">
+          El problema no es que existan varias franjas. El problema es que
+          el titular no dice cuál usó. Y sin eso, dos notas de prensa
+          pueden dar cifras que no cuadran entre sí sin que ninguna esté
+          mintiendo: simplemente consultaron casillas distintas.
+        </p>
+
+        <h2>Por qué esto importa al leer cualquier estadística</h2>
+
+        <p class="cuerpo">
+          La franja de edad es un caso de algo más general. Casi todo
+          indicador oficial exige elegir: qué edades, qué años, qué
+          definición de la categoría que se está midiendo. En este mismo
+          indicador hay otra bifurcación con consecuencias mayores: las
+          personas se pueden clasificar por ciudadanía o por país de
+          nacimiento. Eurostat publica las dos series y no son
+          intercambiables. Alguien nacido fuera que se nacionalizó cuenta
+          en un lado y no en el otro.
+        </p>
+
+        <p class="cuerpo">
+          Ninguna de esas elecciones es neutra, y ninguna es incorrecta.
+          Lo incorrecto es no declararlas, porque entonces el lector no
+          tiene forma de saber qué está comparando cuando compara dos
+          cifras.
+        </p>
+
+        <p class="cuerpo">
+          Por eso cada pieza de Cardinal publica la consulta exacta que
+          hizo, con sus parámetros, y no solo el resultado. No es
+          transparencia decorativa: es la única manera de que alguien pueda
+          comprobar si dos cifras son comparables o no.
+        </p>
+      </div>
+
+      {
+        pieza && (
+          <div class="bloque">
+            <h2>La pieza de la que salió esta nota</h2>
+            <article class="entrada">
+              <p class="cejilla origen">{pieza.fuente} · Datos de {pieza.anio}</p>
+              <h3><a href={`/${pieza.slug}/`}>{pieza.titulo}</a></h3>
+              <p class="resumen">{pieza.resumen}</p>
+            </article>
+            <p class="enlaces">
+              <a href="/metodo/">Cómo se hizo</a>
+              <a href="/notas/">Todas las notas</a>
+              <a href="/rss.xml">Feed RSS</a>
+            </p>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</Base>
+
+<style>
+  .cuerpo {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--texto-2);
+    margin: 0 0 16px;
+    max-width: 52ch;
+  }
+
+  .entrada {
+    border-top: 1px solid var(--linea);
+    padding: 18px 0 6px;
+  }
+
+  .origen {
+    margin-bottom: 8px;
+  }
+
+  .entrada h3 {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 17px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .entrada h3 a {
+    color: inherit;
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 4px;
+  }
+
+  .entrada h3 a:hover {
+    text-decoration-color: var(--rojo);
+  }
+
+  .resumen {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--texto-2);
+    margin: 0;
+    max-width: 48ch;
+  }
+
+  .enlaces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    align-items: baseline;
+    font-family: var(--fuente-cifra);
+    font-size: 12.5px;
+    margin: 0;
+    padding-top: 14px;
+    margin-top: 18px;
+    border-top: 1px solid var(--linea);
+  }
+
+  .enlaces a {
+    color: var(--texto-2);
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 4px;
+  }
+
+  .enlaces a:hover {
+    color: var(--rojo);
+    text-decoration-color: var(--rojo);
+  }
+</style>
