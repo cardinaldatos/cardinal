@@ -34,12 +34,11 @@ distintos.
 
 **71 archivos indexados, 727394 bytes en total.**
 
-**Huella del repositorio: `ea418476d3a8af71`**
+**Huella del repositorio: `45118ebb23c3fd91`**
 
 
 ## Raíz
 
-- [auditar (1).mjs](https://github.com/cardinaldatos/cardinal/blob/main/auditar (1).mjs) — 18160 B · `966a51ed`
 - [EDITORIAL.md](https://github.com/cardinaldatos/cardinal/blob/main/EDITORIAL.md) — 7112 B · `97b52c5b`
 - [LICENCIA.md](https://github.com/cardinaldatos/cardinal/blob/main/LICENCIA.md) — 1681 B · `d5db826d`
 - [LICENSE](https://github.com/cardinaldatos/cardinal/blob/main/LICENSE) — 1071 B · `e1eb27d6`
@@ -61,6 +60,10 @@ distintos.
 - [instagram.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/instagram.yml) — 1254 B · `bc4211cd`
 - [mapa.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/mapa.yml) — 1691 B · `571b93a4`
 - [sobrecualificacion.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/sobrecualificacion.yml) — 1466 B · `1581c3f5`
+
+## `auditoria/`
+
+- [auditar.mjs](https://github.com/cardinaldatos/cardinal/blob/main/auditoria/auditar.mjs) — 18160 B · `966a51ed`
 
 ## `data/`
 
