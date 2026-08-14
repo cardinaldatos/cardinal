@@ -1,0 +1,45 @@
+name: Explorar ACNUR
+
+# Lanza el descubrimiento del API de ACNUR (Refugee Data Finder), el paso
+# previo a escribir el script definitivo de la pieza sobre desplazamiento
+# venezolano. Se lanza a mano desde la pestaña Actions.
+#
+# Como explorar-eurostat.yml, este NO confirma nada al repositorio: lo que
+# produce es material de diagnóstico, no datos publicables. Los JSON quedan
+# como artifact descargable y el informe —las cinco preguntas y la prueba
+# de la hipótesis— se lee directamente en el log de la ejecución. Por eso
+# basta con permiso de lectura, y por eso data/acnur-descubrimiento/ existe
+# solo dentro del runner y nunca aparece en el mapa.
+#
+# Si algún día este workflow necesitara `contents: write`, hay que pararse
+# a pensarlo: con permiso de escritura, la carpeta de descubrimiento entra
+# al repositorio y la auditoría la marca como carpeta huérfana en data/.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  explorar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Descubrir la forma del API
+        run: cd pipeline && python explorar_acnur.py
+
+      - name: Guardar los JSON para inspeccionar
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: acnur-descubrimiento
+          path: data/acnur-descubrimiento/
+          if-no-files-found: warn
