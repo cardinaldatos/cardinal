@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**73 archivos indexados, 758606 bytes en total.**
+**74 archivos indexados, 760114 bytes en total.**
 
-**Huella del repositorio: `b44a6c864e6b0420`**
+**Huella del repositorio: `5a61e7ebca9b8f63`**
 
 
 ## Raíz
@@ -54,6 +54,7 @@ distintos.
 - [auditar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/auditar.yml) — 914 B · `d2777324`
 - [datos.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/datos.yml) — 711 B · `81fce6a0`
 - [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 3505 B · `370b58cd`
+- [explorar-acnur.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-acnur.yml) — 1508 B · `f442a4bc`
 - [explorar-eurostat.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-eurostat.yml) — 1211 B · `4307763c`
 - [explorar-rpw.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-rpw.yml) — 1405 B · `7cf29f41`
 - [generar-lockfiles.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/generar-lockfiles.yml) — 1810 B · `b72b52c7`
