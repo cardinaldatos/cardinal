@@ -86,6 +86,23 @@ def sondear(fuente):
             raise ValueError("respuesta sin registros")
         return datos[0].get("date"), f"{len(datos)} registros", datos[0]
 
+    # ACNUR necesita su propia rama por dos razones. Una: envuelve las filas
+    # en un objeto con clave "items", no las devuelve peladas ni en el par
+    # [metadatos, datos] del Banco Mundial. Dos: el periodo es una columna
+    # más de cada fila, no una dimensión declarada como en JSON-stat, y las
+    # filas no vienen ordenadas por año — de ahí el max() en vez de leer la
+    # primera. Leer la primera daría por bueno cualquier año de la serie y
+    # la sonda saldría en verde sobre una fuente congelada, que es justo lo
+    # que este script existe para evitar.
+    if sonda["tipo"] == "acnur":
+        items = js.get("items") if isinstance(js, dict) else js
+        if not items:
+            raise ValueError("respuesta sin filas")
+        anios = [f.get("year") for f in items if f.get("year")]
+        if not anios:
+            raise ValueError("filas sin columna 'year'")
+        return str(max(anios)), f"{len(items)} filas", items[0]
+
     raise ValueError(f"tipo de sonda desconocido: {sonda['tipo']!r}")
 
 
