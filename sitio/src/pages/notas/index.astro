@@ -1,0 +1,158 @@
+---
+import Base from "../../layouts/Base.astro";
+import { notasPorFecha } from "../../datos/notas.js";
+import { PIEZAS } from "../../datos/piezas.js";
+
+/* ==========================================================================
+   Listado de notas
+
+   Se llama index.astro dentro de src/pages/notas/, así que responde en
+   /notas/ — y las notas individuales viven a su lado, en esa misma
+   carpeta, como /notas/<slug>/.
+
+   El listado no mantiene su propia lista: lee src/datos/notas.js, igual
+   que la portada lee piezas.js. Añadir una nota al registro la hace
+   aparecer aquí y en el feed sin tocar esta página.
+
+   El vínculo con su pieza se resuelve contra PIEZAS, no se escribe a
+   mano: si una nota apunta a un slug que no existe, no se dibuja el
+   enlace en vez de generar un enlace roto.
+   ========================================================================== */
+
+const notas = notasPorFecha().map((n) => ({
+  nota: n,
+  pieza: n.pieza ? PIEZAS.find((p) => p.slug === n.pieza) : null,
+}));
+---
+
+<Base titulo="Notas" descripcion="Lo que se aprende haciendo las piezas: cómo se mide un indicador, por qué un organismo revisa sus cifras, qué decisiones hay detrás de una consulta.">
+  <div class="pieza" data-fondo="oscuro">
+    <div class="marco">
+      <p class="cejilla">Cardinal Datos · Notas</p>
+
+      <h1 class="titular">
+        Lo que se aprende<br /><em>por el camino</em>
+      </h1>
+
+      <p class="bajada">
+        Las piezas publican datos. Estas notas explican lo que hubo que
+        entender para publicarlos: cómo se define un indicador, por qué una
+        cifra oficial cambia después de salir, qué se decidió al hacer una
+        consulta.
+      </p>
+
+      <div class="bloque">
+        <p class="intro">
+          Una nota no trae datos nuevos y no lleva cifras en el cuerpo: los
+          números viven en las piezas, donde se recalculan desde la fuente
+          en cada compilación. Aquí se explica la mecánica, que es lo que no
+          caduca.
+        </p>
+
+        {
+          notas.map(({ nota, pieza }) => (
+            <article class="entrada">
+              <p class="cejilla origen">Nota</p>
+              <h3><a href={`/notas/${nota.slug}/`}>{nota.titulo}</a></h3>
+              <p class="resumen">{nota.resumen}</p>
+              {pieza && (
+                <p class="vinculo">
+                  Sale de <a href={`/${pieza.slug}/`}>{pieza.titulo}</a>
+                </p>
+              )}
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="bloque">
+        <h2>Sigue lo que se publica</h2>
+        <p class="intro">
+          Las notas y las piezas van en el mismo feed. Publicamos despacio y
+          sin depender de ningún algoritmo.
+        </p>
+        <p class="enlaces">
+          <a href="/rss.xml">Suscribirse al feed</a>
+          <a href="/metodo/">Método y fuentes</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .entrada {
+    border-top: 1px solid var(--linea);
+    padding: 18px 0 6px;
+  }
+
+  .origen {
+    margin-bottom: 8px;
+  }
+
+  .entrada h3 {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 17px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .entrada h3 a {
+    color: inherit;
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 4px;
+  }
+
+  .entrada h3 a:hover {
+    text-decoration-color: var(--rojo);
+  }
+
+  .resumen {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--texto-2);
+    margin: 0;
+    max-width: 48ch;
+  }
+
+  .vinculo {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--pizarra);
+    margin: 8px 0 0;
+  }
+
+  .vinculo a {
+    color: var(--texto-2);
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 3px;
+  }
+
+  .vinculo a:hover {
+    color: var(--rojo);
+  }
+
+  .enlaces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    align-items: baseline;
+    font-family: var(--fuente-cifra);
+    font-size: 12.5px;
+    margin: 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--linea);
+  }
+
+  .enlaces a {
+    color: var(--texto-2);
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 4px;
+  }
+
+  .enlaces a:hover {
+    color: var(--rojo);
+    text-decoration-color: var(--rojo);
+  }
+</style>
