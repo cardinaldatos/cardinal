@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**69 archivos indexados, 713303 bytes en total.**
+**70 archivos indexados, 720156 bytes en total.**
 
-**Huella del repositorio: `4c7c00f982a7b0f7`**
+**Huella del repositorio: `e068437ce756e7da`**
 
 
 ## Raíz
@@ -149,6 +149,10 @@ distintos.
 - [remesas-costo-latam.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/remesas-costo-latam.astro) — 1504 B · `ac1b74da`
 - [rss.xml.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/rss.xml.js) — 3670 B · `563d5b71`
 - [titulo-no-cruza.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/titulo-no-cruza.astro) — 2884 B · `cb97e016`
+
+## `sitio/src/pages/notas/`
+
+- [misma-estadistica-dos-cifras.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/notas/misma-estadistica-dos-cifras.astro) — 6853 B · `5ff76493`
 
 ## `sitio/src/styles/`
 
