@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**74 archivos indexados, 769469 bytes en total.**
+**74 archivos indexados, 775548 bytes en total.**
 
-**Huella del repositorio: `60fe2264b9b135c6`**
+**Huella del repositorio: `86319f9be0162fc1`**
 
 
 ## Raíz
@@ -95,7 +95,7 @@ distintos.
 ## `pipeline/`
 
 - [comun.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/comun.py) — 2844 B · `32449e7b`
-- [explorar_acnur.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/explorar_acnur.py) — 26128 B · `0b12a97c`
+- [explorar_acnur.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/explorar_acnur.py) — 32207 B · `8ec66e71`
 - [explorar_comun.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/explorar_comun.py) — 11786 B · `5231a2e7`
 - [explorar_eurostat.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/explorar_eurostat.py) — 6983 B · `b1addaa8`
 - [explorar_rpw.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/explorar_rpw.py) — 3701 B · `d736855d`
