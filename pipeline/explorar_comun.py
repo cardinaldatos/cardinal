@@ -20,7 +20,8 @@ uno al lado del otro y comparar:
   5. Cuál es la licencia, comprobada en la fuente y no en su portada.
 
 Este módulo no sabe nada de ninguna fuente en concreto. Solo pone el
-formato del informe, el pedir-sin-reventar y el cálculo del rezago.
+formato del informe, el pedir-sin-reventar, el cálculo del rezago y la
+clasificación de celdas.
 
 Va aparte de `comun.py` a propósito. `comun.py` son los parsers de los
 scripts de producción: lo que sostiene una pieza publicada. No conviene
@@ -31,6 +32,7 @@ cuelgan las cifras que ya están en el sitio.
 Este archivo no se corre solo. Lo importan los tres exploradores.
 """
 
+import re
 from datetime import date
 
 from comun import guardar, pedir
@@ -44,6 +46,12 @@ PREGUNTAS = {
     4: "Cómo representa la ausencia: nulo, cero, o el país no aparece",
     5: "Licencia, comprobada en la fuente y no en su portada",
 }
+
+# Cadenas con las que un organismo escribe «aquí no hay dato». No son
+# todas iguales entre fuentes y por eso están juntas en un solo sitio:
+# ACNUR usa la cadena vacía, Eurostat usa dos puntos, otras usan guion.
+# Ninguna es un cero.
+MARCAS_DE_VACIO = {"", "-", "–", ":", "..", "...", "n/a", "N/A", "NA", "null"}
 
 # Qué preguntas quedaron respondidas. Lo llena cada script con responde()
 # y lo lee cierre() al final. Es estado de módulo a propósito: cada
@@ -95,6 +103,11 @@ def apartado(texto):
     print(f"  · {texto}")
 
 
+def aviso(texto):
+    """Algo que el script detectó y que puede invalidar lo que sigue."""
+    print(f"    AVISO: {texto}")
+
+
 def responde(n, resumen):
     """Deja constancia de que una pregunta quedó respondida, y con qué.
 
@@ -113,6 +126,20 @@ def sin_responder(n, motivo):
     print(f"  => SIN RESPONDER {n}: {motivo}")
 
 
+def _resumir_error(texto, limite=180):
+    """Recorta el cuerpo de un error para que no inunde el log.
+
+    Un 404 de este API devuelve una página HTML entera. Volcarla completa
+    hace que un fallo esperado ocupe más renglones que un hallazgo, y el
+    informe se vuelve ilegible justo donde hay que leerlo.
+    """
+    texto = str(texto)
+    if "<html" in texto.lower() or "<!doctype" in texto.lower():
+        texto = re.sub(r"<[^>]*>", " ", texto)
+    texto = " ".join(texto.split())
+    return texto[:limite] + ("…" if len(texto) > limite else "")
+
+
 def intentar(slug, etiqueta, url, params=None, timeout=60):
     """Pide y guarda, sin reventar el script si una ruta no existe.
 
@@ -123,7 +150,7 @@ def intentar(slug, etiqueta, url, params=None, timeout=60):
     try:
         js = pedir(url, params, timeout=timeout)
     except Exception as e:
-        print(f"    FALLO  {etiqueta}: {type(e).__name__} — {e}")
+        print(f"    FALLO  {etiqueta}: {type(e).__name__} — {_resumir_error(e)}")
         return None
     guardar(slug, f"{etiqueta}.json", js)
     return js
@@ -136,6 +163,11 @@ def rezago_en_meses(anio, mes=12, hoy=None):
     anual de 2024 no está «rezagado veinte meses» en enero de 2025, está
     recién cerrado. Medirlo desde el inicio infla el rezago de toda serie
     anual en once meses y hace parecer lenta a una fuente que no lo es.
+
+    Un resultado negativo no es un dato raro: es un error de método. Dice
+    que el año que se está midiendo todavía no ha cerrado, o sea que se
+    tomó por «último año con dato» un año que el catálogo lista pero que
+    no tiene nada dentro. Quien llame a esta función tiene que mirarlo.
     """
     hoy = hoy or date.today()
     return (hoy.year - anio) * 12 + (hoy.month - mes)
@@ -144,16 +176,25 @@ def rezago_en_meses(anio, mes=12, hoy=None):
 def clasificar(valor):
     """Traduce una celda a la distinción que necesita el campo `motivo`.
 
-    Tres estados, no dos. «nulo» y «cero» dicen cosas distintas sobre lo
-    que el organismo decidió medir, y aplanarlos es exactamente el error
-    que la pieza tiene que evitar.
+    Cuatro estados, no dos. La diferencia entre «nulo» y «vacío» parece
+    cosmética y no lo es: son dos decisiones distintas de quien publica.
+    Un null en el JSON es una celda declarada y sin llenar; una cadena
+    vacía suele ser una columna que existe en el esquema pero que para
+    ese país no se recoge. Y ninguna de las dos es «cero», que es la
+    única que significa «se midió y no había nadie».
+
+    Aplanarlas es exactamente el error que la pieza tiene que evitar:
+    una barra vacía se lee como «aquí no pasa nada» cuando lo que pasa es
+    que no hay medición.
     """
     if valor is None:
         return "nulo"
+    if isinstance(valor, bool):
+        return "no numérico"
     if isinstance(valor, str):
         limpio = valor.strip()
-        if limpio == "" or limpio in {"-", ":", "..", "...", "n/a", "N/A"}:
-            return "nulo"
+        if limpio in MARCAS_DE_VACIO:
+            return "vacío"
         try:
             valor = float(limpio.replace(",", "."))
         except ValueError:
@@ -161,6 +202,56 @@ def clasificar(valor):
     if isinstance(valor, (int, float)):
         return "cero" if valor == 0 else "con valor"
     return "no numérico"
+
+
+def columnas_de_medida(muestra, identidad=()):
+    """Columnas que se comportan como medida, en el orden en que aparecen.
+
+    Una columna entra si en NINGUNA fila trae texto que no sea una marca
+    de vacío. Que traiga nulos o cadenas vacías no la descalifica: la
+    descalifica traer palabras.
+
+    Esa tolerancia no es un detalle. La primera versión de esta función
+    descartaba la columna entera en cuanto una fila traía algo que no
+    fuera número, y contra ACNUR eso dejó fuera ocho de las nueve
+    medidas de `population` —incluidas las tres donde se juega la
+    hipótesis de la pieza— porque el API escribe la ausencia como cadena
+    vacía. El código escondía justo lo que la pregunta 4 tiene que ver.
+    """
+    posibles, descartadas = [], set()
+    for fila in muestra:
+        if not isinstance(fila, dict):
+            continue
+        for clave, valor in fila.items():
+            if clave in identidad or clave in descartadas:
+                continue
+            if clasificar(valor) == "no numérico":
+                descartadas.add(clave)
+                if clave in posibles:
+                    posibles.remove(clave)
+            elif clave not in posibles:
+                posibles.append(clave)
+    return posibles
+
+
+def tabla_de_ausencia(filas, medidas, ancho=30):
+    """Imprime cómo se comporta cada medida y devuelve el conteo.
+
+    Es el corazón de la pregunta 4 y por eso vive aquí y no en cada
+    script: las tres fuentes tienen que responderla con la misma tabla,
+    o sus informes no se pueden comparar.
+    """
+    estados = ["nulo", "vacío", "cero", "con valor"]
+    print(f"    {'columna':{ancho}} " + " ".join(f"{e:>9}" for e in estados))
+    conteos = {}
+    for medida in medidas:
+        conteo = {e: 0 for e in estados}
+        conteo["no numérico"] = 0
+        for fila in filas:
+            conteo[clasificar(fila.get(medida))] += 1
+        conteos[medida] = conteo
+        print(f"    {medida:{ancho}} " + " ".join(f"{conteo[e]:>9}" for e in estados))
+    return conteos
 
 
 def cierre(fuente, id_fuente):
