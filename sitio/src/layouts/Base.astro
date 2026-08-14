@@ -18,12 +18,13 @@
 //   Decisiones que no son obvias:
 //
 //   1. El TIPO se deduce del registro de piezas, no se pasa a mano.
-//      Base.astro importa PIEZAS y compara la ruta actual con los slugs:
-//      si coincide, la página es un artículo y lleva su fecha real de
-//      publicación; si no, es el sitio. Así ninguna página tiene que
-//      acordarse de declarar nada, y una pieza nueva en piezas.js queda
-//      bien etiquetada sola. Es el mismo principio que ya rige la portada,
-//      el feed y la página de método: un registro, varios consumidores.
+//      Base.astro importa PIEZAS y NOTAS y compara la ruta actual con sus
+//      slugs: si coincide, la página es un artículo y lleva su fecha real
+//      de publicación; si no, es el sitio. Así ninguna página tiene que
+//      acordarse de declarar nada, y una pieza o una nota nueva en su
+//      registro queda bien etiquetada sola. Es el mismo principio que ya
+//      rige la portada, el feed y la página de método: un registro, varios
+//      consumidores.
 //
 //   2. og:title NO lleva el sufijo « — Cardinal Datos» que sí lleva el
 //      <title>. Los lectores de tarjetas muestran og:site_name aparte,
@@ -100,6 +101,7 @@
 
 import "../styles/sistema.css";
 import { PIEZAS } from "../datos/piezas.js";
+import { NOTAS } from "../datos/notas.js";
 
 const {
   titulo,
@@ -112,9 +114,17 @@ const canonica = new URL(Astro.url.pathname, Astro.site).href;
 // pieza siempre llega como "/<slug>/". Si la comparación fallara, la
 // consecuencia sería suave —la página se anunciaría como sitio y no como
 // artículo— pero conviene saber por qué está escrita así.
-const pieza = PIEZAS.find((p) => Astro.url.pathname === `/${p.slug}/`);
+// Las piezas viven en la raíz (/<slug>/) y las notas bajo /notas/. Las dos
+// son artículos con fecha de publicación; el resto del sitio —portada,
+// método, licencia, correcciones— es "website". Si esta búsqueda no
+// encontrara nada, la consecuencia sería suave (la página se anunciaría
+// como sitio y no como artículo), pero conviene saber por qué está escrita
+// contra los dos registros y no solo contra uno.
+const publicado =
+  PIEZAS.find((p) => Astro.url.pathname === `/${p.slug}/`) ??
+  NOTAS.find((n) => Astro.url.pathname === `/notas/${n.slug}/`);
 
-const tipoOg = pieza ? "article" : "website";
+const tipoOg = publicado ? "article" : "website";
 const tituloOg = titulo ?? "Cardinal Datos";
 
 // Los rastreadores de Open Graph exigen URL absoluta: una ruta relativa
@@ -144,7 +154,7 @@ const imagenOg = new URL("/og.png", Astro.site).href;
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:alt" content="Cardinal Datos — Datos que no se traducen solos. Estadísticas públicas sobre migración y diáspora, en español." />
-    {pieza && <meta property="article:published_time" content={pieza.publicado} />}
+    {publicado && <meta property="article:published_time" content={publicado.publicado} />}
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={tituloOg} />
