@@ -36,6 +36,16 @@ Tres cosas, y las tres están corregidas en este archivo:
    catálogo propio, pero `footnotes` trae un campo `population_type`:
    de ahí se enumeran.
 
+## Lo que se aprendió en la ejecución del 14 de agosto (segunda)
+
+Las cinco preguntas quedaron respondidas y la licencia resultó ser CC BY
+4.0, leída en la metodología de ACNUR y no en su portada. Quedó una sola
+cosa abierta, y es la que decide si puede haber campo `motivo`: de los
+232 países del catálogo solo 55 aparecen como destino, y no sabíamos si
+los otros 177 son países sin medición o países sin personas venezolanas.
+La función prueba_ausente_o_cero() responde eso y es lo único nuevo de
+esta versión.
+
 ## Lo que este script sigue sin dar por sabido
 
 Los nombres de columna se imprimen todos, con sus totales. Buscar por el
@@ -402,6 +412,119 @@ def paso_3_periodo(anio, tope_catalogo):
 # [4] La ausencia
 # --------------------------------------------------------------------------
 
+def prueba_ausente_o_cero(anio, presentes, ausentes, catalogo):
+    """Decide si un país que no aparece es un país sin medición o un cero.
+
+    Es la única pregunta que quedó abierta después de la segunda ejecución,
+    y es la que decide si la pieza puede tener campo `motivo` o no. De los
+    232 países del catálogo aparecen 55 como destino de personas
+    venezolanas. Los otros 177 pueden ser dos cosas muy distintas:
+
+      a) ACNUR no mide ahí, y la ausencia habla de qué se decide medir
+      b) ACNUR mide y no encontró a nadie, y omite la fila por ahorrar
+
+    Dos comprobaciones, las dos baratas:
+
+    1. Pedir explícitamente un par origen-destino que NO salió en el
+       desglose. Si devuelve una fila de ceros, el API tenía el dato y lo
+       omitió del listado. Si no devuelve nada, no hay fila que omitir.
+
+    2. Comparar el conjunto de destinos de este año con el del anterior.
+       Si un país entra y sale de un año a otro, la ausencia sigue a la
+       población reportada, no a una decisión de medición.
+
+    El control con un país presente no es adorno: si la consulta explícita
+    fallara por estar mal formada, un cero filas se leería como hallazgo
+    cuando sería un error nuestro.
+    """
+    apartado("PRUEBA DECISIVA: ¿ausente significa «sin medir» o «cero»?")
+
+    if not presentes or not ausentes:
+        print("    Sin las dos listas no se puede comparar.")
+        return
+
+    control = presentes[0]
+    muestra = ausentes[:3]
+
+    print(f"    Control (país que SÍ aparece en el desglose): {control}")
+    js = intentar(
+        SLUG, f"04b_control_{control}", f"{BASE}/population/",
+        {"year": anio, "coo": PAIS, "coa": control, "limit": 5},
+    )
+    filas_control = filas(js)
+    print(f"      {len(filas_control)} filas")
+    if not filas_control:
+        aviso("el control no devolvió filas: la consulta está mal formada "
+              "y todo lo de abajo no vale. No interpretes nada de esto.")
+        return
+
+    print("    Países que NO aparecen, pedidos uno por uno:")
+    con_fila, sin_fila = [], []
+    for codigo in muestra:
+        js = intentar(
+            SLUG, f"04b_ausente_{codigo}", f"{BASE}/population/",
+            {"year": anio, "coo": PAIS, "coa": codigo, "limit": 5},
+        )
+        lote = filas(js)
+        nombre = catalogo.get(codigo, codigo)
+        if lote:
+            con_fila.append(codigo)
+            medidas = medidas_de(lote)
+            estados = {clasificar(lote[0].get(m)) for m in medidas}
+            print(f"      {codigo} {nombre[:28]:28} devuelve fila; "
+                  f"estados: {', '.join(sorted(estados)) or '—'}")
+        else:
+            sin_fila.append(codigo)
+            print(f"      {codigo} {nombre[:28]:28} sin fila")
+
+    apartado("El mismo conjunto de destinos, un año antes")
+    anteriores = paginar(
+        "04b_ano_anterior", "population/",
+        {"year": anio - 1, "coo": PAIS, "coa_all": "true"},
+    )
+    destinos_antes = {
+        str(f.get("coa_iso") or f.get("coa"))
+        for f in anteriores if f.get("coa_iso") or f.get("coa")
+    }
+    if destinos_antes:
+        entraron = sorted(set(presentes) - destinos_antes)
+        salieron = sorted(destinos_antes - set(presentes))
+        print(f"    {anio - 1}: {len(destinos_antes)} destinos. "
+              f"{anio}: {len(presentes)}.")
+        print(f"    Entraron en {anio}: {', '.join(entraron) or 'ninguno'}")
+        print(f"    Salieron en {anio}: {', '.join(salieron) or 'ninguno'}")
+    else:
+        print(f"    Sin datos de {anio - 1} para comparar.")
+
+    apartado("Veredicto")
+    if con_fila and not sin_fila:
+        print("    El API SÍ tiene fila para países que no salen en el")
+        print("    desglose: el listado omite filas, no le faltan datos.")
+        print("    Mira los estados de arriba: si vienen en cero, entonces")
+        print("    ausencia y cero son lo mismo en esta fuente, y la pieza")
+        print("    NO puede afirmar que un país ausente no fue medido.")
+    elif sin_fila and not con_fila:
+        print("    El API no tiene fila para esos pares. La ausencia no es")
+        print("    un cero omitido: sencillamente no hay registro.")
+        print("    Eso NO equivale a «no se midió»: puede ser que el país no")
+        print("    reporte, o que reporte y no haya nadie. Este API no")
+        print("    distingue las dos, y la pieza tiene que declararlo así en")
+        print("    vez de atribuirle a la ausencia un significado que no")
+        print("    tiene. Ese es el hueco publicable.")
+    else:
+        print("    Resultado mixto: unos devuelven fila y otros no. Eso")
+        print("    apunta a que la ausencia depende del país y no de una")
+        print("    regla del API. Hay que mirar los JSON uno por uno antes")
+        print("    de escribir nada sobre el campo `motivo`.")
+
+    if destinos_antes and (set(presentes) - destinos_antes or
+                           destinos_antes - set(presentes)):
+        print()
+        print("    Y la lista de destinos cambia de un año a otro, así que")
+        print("    la ausencia sigue a lo que se reporta, no a una decisión")
+        print("    estable sobre dónde medir.")
+
+
 def paso_4_ausencia(anio):
     pregunta(
         4,
@@ -490,13 +613,18 @@ def paso_4_ausencia(anio):
     else:
         print("    Sin notas al pie para este país y año.")
 
+    prueba_ausente_o_cero(anio, sorted(presentes), ausentes, catalogo)
+
     print()
-    print("    LECTURA: un país ausente y un país con cero NO son lo mismo.")
-    print("    El ausente dice que el organismo no midió ahí; el cero dice que")
-    print("    midió y no encontró a nadie. Solo el primero habla de qué se")
-    print("    decide medir. Y la celda vacía es un tercer caso: la columna")
-    print("    existe en el esquema pero para ese país no se recoge. Esa")
-    print("    distinción es el campo `motivo` de limpio.json.")
+    print("    LECTURA: hay tres formas distintas de no tener dato en esta")
+    print("    fuente —celda vacía, cero, y país que no aparece— y el campo")
+    print("    `motivo` de limpio.json sale de distinguirlas. Qué significa")
+    print("    cada una NO se decide por intuición: la celda vacía y el cero")
+    print("    los resolvió la tabla de arriba, y qué significa la ausencia")
+    print("    lo resuelve el veredicto de la prueba decisiva. Si el veredicto")
+    print("    dice que este API no distingue «no medido» de «nadie», la pieza")
+    print("    lo declara así en vez de atribuirle a la ausencia un sentido")
+    print("    que no tiene. Un hueco mal interpretado es peor que un hueco.")
 
     responde(
         4,
