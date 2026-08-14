@@ -43,12 +43,18 @@
       "organismo": "ACNUR / UNHCR — Refugee Data Finder",
       "papel": "global",
       "cubre": "Población refugiada, solicitante de asilo y desplazada, por país de origen y de asilo. Serie desde 1951.",
-      "licencia": "Reuso con atribución",
+      "licencia": "CC BY 4.0",
       "clave_de_acceso": false,
       "enlace": "https://www.unhcr.org/refugee-statistics",
-      "estado": "candidata",
-      "sonda": null,
-      "nota": "API pública sin credenciales, con filtros por país de origen y de asilo. Es la vía para medir el desplazamiento venezolano en series que el Banco Mundial no cubre. Antes de sondearla hay que descubrir su forma con un script de exploración."
+      "estado": "sondeada",
+      "sonda": {
+        "url": "https://api.unhcr.org/population/v1/population/",
+        "params": { "coo": "VEN", "limit": 100 },
+        "tipo": "acnur",
+        "meses_tolerados": 20,
+        "nota": "La consulta no fija año a propósito: pide toda la serie de Venezuela agregada y la sonda se queda con el año mayor, que es lo que mide si la fuente sigue viva. Tampoco pide coa_all, porque para comprobar frescura basta el total y el desglose son 55 filas por año. El umbral de 20 meses sale del calendario declarado: las cifras de cierre de año se publican en junio del año siguiente, así que en mayo, justo antes de la publicación, el último dato tiene 17 meses sin que pase nada raro. Poner el umbral en 12 daría aviso todos los años."
+      },
+      "nota": "Descubierta con pipeline/explorar_acnur.py en agosto de 2026. Lo que hay que saber antes de construir encima. UNO: si se omite coa, el API no da error, agrega la dimensión y devuelve una sola fila con el destino escrito como «-». Una consulta sin coa_all publica el total creyendo publicar un desglose. DOS: la ausencia se escribe como cadena vacía, no como null ni como cero, y solo en la columna oip. Las demás columnas traen cero incluso donde el concepto no aplica, así que un cero de este API no significa «se midió y no había nadie». TRES: /years/ es el catálogo de años del API y va dos años por delante del último con dato; consultar su máximo devuelve cero filas sin ningún error. Además cambió de 2026 a 2027 entre dos ejecuciones del mismo día, así que no es fiable como referencia. CUATRO: /population-types/ devuelve 404; los tipos de población se enumeran desde el campo population_type de /footnotes/. PENDIENTE: no sabemos si un país que no aparece como destino es un país sin personas venezolanas o un país sin medición. De los 232 del catálogo aparecen 55. Esa distinción es el campo motivo de cualquier pieza que se construya encima y hay que resolverla antes."
     },
     {
       "id": "oim-portal",
