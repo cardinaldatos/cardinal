@@ -22,10 +22,23 @@
    ========================================================================== */
 
 import { piezasPorFecha } from "../datos/piezas.js";
+import { notasPorFecha } from "../datos/notas.js";
 
 const TITULO = "Cardinal Datos";
 const DESCRIPCION =
   "Estadísticas públicas sobre migración y diáspora, en español. Cada pieza declara su fuente, su año y su método.";
+
+/* EL FEED LLEVA PIEZAS Y NOTAS, EN UN SOLO CANAL.
+
+   Podrían ir en dos feeds distintos, y sería peor: obligaría a quien
+   quiere seguir el proyecto a suscribirse dos veces, y quien solo hiciera
+   una de las dos cosas se perdería la mitad sin saberlo. EDITORIAL.md pone
+   el feed por delante de los canales con algoritmo justamente porque es el
+   canal donde el proyecto decide qué llega; partirlo en dos lo debilita.
+
+   Cada entrada declara su tipo en <category>, así que un lector que quiera
+   distinguirlas puede. Las piezas siguen llevando además el nombre de su
+   organismo, que es lo que llevaban antes de existir las notas. */
 
 /* En XML estos cinco caracteres tienen significado propio. Si aparecen sin
    escapar dentro de un texto, el feed queda malformado y los lectores lo
@@ -51,18 +64,40 @@ export function GET(context) {
   // quitamos para poder componer rutas sin acabar con barras dobles.
   const SITIO = String(context.site).replace(/\/$/, "");
 
-  const piezas = piezasPorFecha();
+  /* Piezas y notas se normalizan a una forma común y se mezclan en una
+     sola lista ordenada por fecha. Las categorías se calculan aquí, no se
+     escriben en cada registro: los registros describen qué es cada cosa,
+     no cómo se publica en el feed. */
+  const entradas = [
+    ...piezasPorFecha().map((p) => ({
+      titulo: p.titulo,
+      resumen: p.resumen,
+      publicado: p.publicado,
+      ruta: `/${p.slug}/`,
+      categorias: ["Pieza", p.fuente],
+    })),
+    ...notasPorFecha().map((n) => ({
+      titulo: n.titulo,
+      resumen: n.resumen,
+      publicado: n.publicado,
+      ruta: `/notas/${n.slug}/`,
+      categorias: ["Nota"],
+    })),
+  ].sort((a, b) => b.publicado.localeCompare(a.publicado));
 
-  const items = piezas
-    .map((p) => {
-      const enlace = `${SITIO}/${p.slug}/`;
+  const items = entradas
+    .map((e) => {
+      const enlace = `${SITIO}${e.ruta}`;
+      const categorias = e.categorias
+        .map((c) => `      <category>${escapar(c)}</category>`)
+        .join("\n");
       return `    <item>
-      <title>${escapar(p.titulo)}</title>
+      <title>${escapar(e.titulo)}</title>
       <link>${escapar(enlace)}</link>
       <guid isPermaLink="true">${escapar(enlace)}</guid>
-      <pubDate>${fechaRss(p.publicado)}</pubDate>
-      <description>${escapar(p.resumen)}</description>
-      <category>${escapar(p.fuente)}</category>
+      <pubDate>${fechaRss(e.publicado)}</pubDate>
+      <description>${escapar(e.resumen)}</description>
+${categorias}
     </item>`;
     })
     .join("\n");
@@ -78,7 +113,7 @@ export function GET(context) {
     <language>es</language>
     <atom:link href="${SITIO}/rss.xml" rel="self" type="application/rss+xml" />
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-${piezas.length ? `    <pubDate>${fechaRss(piezas[0].publicado)}</pubDate>\n` : ""}${items}
+${entradas.length ? `    <pubDate>${fechaRss(entradas[0].publicado)}</pubDate>\n` : ""}${items}
   </channel>
 </rss>
 `;
