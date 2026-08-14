@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**74 archivos indexados, 767776 bytes en total.**
+**74 archivos indexados, 769469 bytes en total.**
 
-**Huella del repositorio: `027a169ed3dc3910`**
+**Huella del repositorio: `60fe2264b9b135c6`**
 
 
 ## Raíz
@@ -68,7 +68,7 @@ distintos.
 
 ## `data/`
 
-- [fuentes.json](https://github.com/cardinaldatos/cardinal/blob/main/data/fuentes.json) — 11357 B · `517f3e2f`
+- [fuentes.json](https://github.com/cardinaldatos/cardinal/blob/main/data/fuentes.json) — 13050 B · `f2f32246`
 
 ## `data/remesas-costo-latam/`
 
