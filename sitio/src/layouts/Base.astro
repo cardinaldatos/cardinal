@@ -7,7 +7,37 @@
 // mismo archivo real de 01 — Identidad) funciona aquí sin necesitar una
 // segunda variante de color.
 //
-// Nuevo hoy: etiquetas Open Graph y Twitter Card.
+// Nuevo hoy: el uso de inteligencia artificial, declarado en el pie.
+//
+//   Va en el pie y no solo en su propia página por una razón concreta: el
+//   pie sale en todas las páginas, así que la declaración llega a quien
+//   entra directo a una pieza desde un enlace compartido y nunca pasa por
+//   /ia/. Una declaración que hay que ir a buscar no declara nada.
+//
+//   Decisiones que no son obvias:
+//
+//   1. El párrafo dice lo mismo que el pie ya hace con las licencias:
+//      separa dos cosas que se confunden. Que el proyecto se construya con
+//      asistencia de IA y que las cifras las escriba un modelo son
+//      afirmaciones distintas, y la segunda es falsa. Decir solo la
+//      primera invita a suponer la segunda.
+//
+//   2. El enlace del pie va junto a Correcciones y Licencia, no junto a
+//      RSS e Instagram. Los tres primeros responden «quién responde y bajo
+//      qué condiciones»; los otros dos son canales. El agrupamiento es el
+//      mismo criterio con el que se decidió que estos enlaces vivieran en
+//      el pie y no en la cabecera.
+//
+//   3. La etiqueta dice «Uso de IA» y no «Inteligencia artificial». En el
+//      pie, en móvil, los enlaces se envuelven en varias líneas y el
+//      nombre largo empujaba dos enlaces a un renglón propio. «Uso de IA»
+//      dice además lo que la página contiene: no es un tema, es una
+//      declaración.
+//
+//   4. Ninguna cifra en el párrafo nuevo. El pie institucional no las
+//      lleva nunca, y este texto no es la excepción.
+//
+// Anterior: etiquetas Open Graph y Twitter Card.
 //
 //   Sin ellas, un enlace compartido en WhatsApp, en Slack o en cualquier
 //   red llega pelado: la URL cruda y nada más. En el canal principal de
@@ -53,7 +83,7 @@
 //      og:image tiene que ser absoluta o los rastreadores la ignoran sin
 //      avisar. Se construye desde Astro.site, igual que la canónica.
 //
-// Anterior:
+// Y antes:
 //   - Enlaces a /correcciones/ y a /licencia/ en el pie. Las dos páginas
 //     existían pero nada llevaba a ellas: se llegaba solo escribiendo la
 //     dirección a mano, que es tanto como no existir. Van en el pie y no
@@ -202,6 +232,13 @@ const imagenOg = new URL("/og.png", Astro.site).href;
         </p>
 
         <p class="chrome-footer-texto">
+          El proyecto se construye con asistencia de inteligencia artificial.
+          Ninguna cifra publicada la escribe un modelo: todas se rastrean
+          hasta un archivo descargado por un script. Qué hace y qué no hace
+          está en <a href="/ia/">la página de uso de IA</a>.
+        </p>
+
+        <p class="chrome-footer-texto">
           Los datos originales pertenecen a los organismos que los publican.
           Consulta su licencia antes de republicarlos. Nuestro trabajo sobre
           esos datos —el texto, la selección, los gráficos— se puede
@@ -218,6 +255,7 @@ const imagenOg = new URL("/og.png", Astro.site).href;
           <a href="/metodo/">Método y fuentes</a>
           <a href="/correcciones/">Correcciones</a>
           <a href="/licencia/">Licencia</a>
+          <a href="/ia/">Uso de IA</a>
           <a href="/rss.xml">Feed RSS</a>
           <a href="https://www.instagram.com/cardinaldatos" target="_blank" rel="noopener">Instagram ↗</a>
         </nav>
