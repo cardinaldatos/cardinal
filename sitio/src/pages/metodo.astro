@@ -18,9 +18,28 @@ import { piezasPorFecha } from "../datos/piezas.js";
    no en el navegador de nadie. Por eso puede salir de sitio/ y llegar a
    data/, que vive un nivel más arriba. Es exactamente lo que ya hace
    remesas-costo-latam.astro con limpio.json.
+
+   Nuevo hoy: la declaración de uso de inteligencia artificial entra en el
+   bloque «Qué no hacemos», no en un bloque propio.
+
+     El primer punto de esa lista ya dice que no completamos series con
+     estimaciones propias, y esa es justo la duda que un lector traduce
+     hoy a «¿se lo pidieron a un modelo?». La declaración va pegada al
+     punto que la provoca; en un bloque aparte respondería la pregunta
+     lejos de donde nace. La página completa está en /ia/, y el pie del
+     sitio la enlaza desde todas las páginas.
+
+   NOTA DE FORMATO: las etiquetas de apertura van completas en su línea,
+   con su «>». La de <Base> pasó a usar una constante para la descripción
+   por eso mismo: partida en varios renglones, un renderizador de HTML se
+   traga el fragmento suelto al copiar y pegar, y el archivo llega roto al
+   repositorio sin que se note hasta que falla la compilación.
    ========================================================================== */
 
 const CARPETA_DATOS = path.join(process.cwd(), "..", "data");
+
+const DESCRIPCION =
+  "Cómo se obtiene, se limpia y se comprueba cada cifra que publica Cardinal Datos. El método de cada pieza, tal como lo escribe el pipeline.";
 
 /* ---- Conversor de Markdown, deliberadamente mínimo ----------------------
    No es un parser de Markdown general y no debe serlo. Solo entiende la
@@ -153,10 +172,7 @@ const ETIQUETAS = {
 };
 ---
 
-<Base
-  titulo="Método"
-  descripcion="Cómo se obtiene, se limpia y se comprueba cada cifra que publica Cardinal Datos. El método de cada pieza, tal como lo escribe el pipeline."
->
+<Base titulo="Método" descripcion={DESCRIPCION}>
   <div class="pieza" data-fondo="oscuro">
     <div class="marco">
       <p class="cejilla">Cardinal Datos · Método</p>
@@ -311,6 +327,15 @@ const ETIQUETAS = {
         <div class="paso">
           <span class="paso-n">·</span>
           <span class="paso-t">
+            No le pedimos a un modelo de lenguaje que escriba una cifra ni
+            que rellene un hueco. El proyecto se construye con asistencia de
+            inteligencia artificial, y lo que hace y lo que no está
+            declarado en <a href="/ia/">la página de uso de IA</a>.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
             No comparamos países de años distintos sin decirlo en la pieza.
           </span>
         </div>
@@ -357,6 +382,19 @@ const ETIQUETAS = {
     font-size: 12.5px;
     line-height: 1.6;
     color: var(--texto-2);
+  }
+
+  /* Mismo tratamiento que los enlaces de las fichas y de las fuentes: se
+     distinguen por el subrayado, no por el color. El rojo se reserva para
+     el dato central de una pieza. */
+  .paso-t a {
+    color: inherit;
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 3px;
+  }
+
+  .paso-t a:hover {
+    text-decoration-color: var(--rojo);
   }
 
   .nota-frescura {
