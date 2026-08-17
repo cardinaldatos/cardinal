@@ -52,6 +52,36 @@ para un país y que la publique sin obtener valor son dos cosas distintas, y
 solo la primera dice algo sobre qué se decide medir. Donde la fuente permite
 distinguirlas, `limpio.json` lo hace.
 
+## Inteligencia artificial
+
+Este proyecto se construye con asistencia de inteligencia artificial: el
+código del pipeline, la exploración de las APIs que nadie ha abierto todavía,
+la lectura de documentación en inglés y en noruego, la auditoría del propio
+trabajo y la redacción de los textos. Se declara en una página pública,
+https://cardinaldatos.org/ia/, y en el pie de cada página del sitio.
+
+**Ninguna cifra publicada la escribe un modelo.** Lo garantiza la regla de oro
+de más arriba, y no como promesa de buena conducta: es una restricción del
+método que `auditoria/auditar.mjs` comprueba en cada push, incluidos los
+números escritos con letra. Tampoco se le pide a un modelo que rellene un
+hueco con una estimación —los huecos son el hallazgo—, ni que invente fuentes
+o citas, ni que genere imágenes de personas.
+
+Las herramientas concretas no se nombran, a propósito. Cambian de nombre y de
+versión cada pocos meses, así que una lista de marcas envejecería igual que
+una cifra escrita a mano, y nombrarlas se lee como respaldo comercial. Lo que
+se declara son las tareas y los límites.
+
+Aprender a trabajar con APIs públicas, análisis de datos y auditoría de datos
+con esta clase de herramientas fue parte del origen del proyecto y sigue ahí,
+pero en segundo plano: ninguna decisión editorial se toma para que el
+experimento quede mejor. Lo que dejó sí es reutilizable, y está aquí entero.
+
+Lo que hace comprobable todo lo anterior no es esta declaración: es que el
+código, los datos y el método estén abiertos y sean reproducibles. Una
+afirmación sobre cómo se hizo algo vale lo que valga la posibilidad de
+revisarla. El razonamiento completo está en `EDITORIAL.md`.
+
 ## Puesta en marcha
 
 ```bash
@@ -137,8 +167,9 @@ ojo humano se le pasa: que cada pieza tenga su página y sus archivos de datos,
 que ninguna carpeta de `data/` quede huérfana, que las fuentes marcadas «en
 uso» sostengan de verdad una pieza publicada, que los enlaces internos lleven a
 algún sitio, que las cifras derivadas cuadren con las de origen, y que no se
-haya colado un número escrito a mano en el texto de una pieza. Corre sin
-dependencias: `node auditoria/auditar.mjs`.
+haya colado un número escrito a mano en el texto de una pieza —con letra o con
+dígito, porque el fallo real que lo motivó fue una palabra, no un número.
+Corre sin dependencias: `node auditoria/auditar.mjs`.
 
 La segunda existe porque la primera no bastaba. Una fuente puede seguir
 respondiendo perfectamente mientras la pieza que la usa lleva un año mostrando
@@ -163,6 +194,22 @@ El sitio es estático y se despliega en Cloudflare con activos estáticos; el
 contenido de `sitio/` es lo que se sube. Cada `push` a `main` que toque
 `sitio/**` dispara el despliegue. Las dependencias están fijadas con lockfiles
 y se instalan con `npm ci`, de modo que cada compilación es reproducible.
+
+## Autoría
+
+Cardinal Datos publica sobre migración venezolana desde Venezuela. Quién firma
+es una decisión editorial con consecuencias personales reales, no un trámite,
+y sigue abierta: hoy la responsabilidad del trabajo es del proyecto, el
+titular del copyright que declara [`LICENSE`](LICENSE) es «Cardinal Datos» de
+forma provisional, y la persona que responde detrás del nombre está por
+declarar.
+
+Se dice así en vez de dejar el espacio en blanco, por la misma razón por la
+que se declaran los huecos de los datos: una ausencia explicada informa, una
+ausencia sin explicar solo deja dudas. El criterio y el plazo están en
+`EDITORIAL.md`.
+
+Los avisos de corrección se reciben en correcciones@cardinaldatos.org.
 
 ## Licencia
 
