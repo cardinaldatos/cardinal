@@ -133,6 +133,49 @@ Si algún día entra dinero, será por un host fiscal (Open Collective) o a
 través de alguien del colectivo residente fuera. Eso no es un trámite: es
 una decisión sobre a quién se suma al equipo, y madura despacio.
 
+## Inteligencia artificial
+
+El proyecto se construye con asistencia de inteligencia artificial y lo
+declara en una página pública, `/ia/`. La decisión está tomada y no
+depende de si la norma lo exige en nuestro caso concreto.
+
+**El encuadre es método, no descargo.** La página no pide disculpas por
+usar la herramienta: explica qué se le permite tocar y qué no. La regla
+de oro —toda cifra rastreable hasta un archivo descargado por un script—
+es ya el límite más duro que se le puede poner a un modelo de lenguaje,
+porque le quita lo único que aquí haría daño: inventar un número. Un
+proyecto que declara los huecos de otras fuentes no puede esconder el
+propio.
+
+**Se declara de más, no de menos.** La asistencia en la redacción de los
+textos se declara aunque todos pasen por lectura humana completa.
+Quedarse corto es el único error de esa página que no tendría defensa
+después.
+
+**No se nombran productos ni versiones.** Se describen las tareas, no las
+marcas. Las herramientas cambian de nombre cada pocos meses y una página
+que las liste envejece igual que una cifra escrita a mano; además,
+nombrarlas se lee como respaldo comercial.
+
+**Lo que la IA no toca, y es la parte que importa:** no escribe cifras,
+no rellena huecos con estimaciones, no inventa fuentes ni citas, y no
+genera imágenes de personas. Lo último tiene motivo propio: en este tema
+la imagen de una persona migrante se usa a diario para ilustrar cualquier
+cosa, y el proyecto dibuja datos, no gente.
+
+**Qué hace verificable todo lo anterior.** No la declaración, sino que el
+código, los datos y el método estén abiertos. Una afirmación sobre cómo
+se hizo algo vale lo que valga la posibilidad de revisarla. Ese es
+también el argumento ante un fondo o una beca: no «usamos IA de forma
+ética», sino «cualquiera puede comprobarlo».
+
+**El experimento se declara como secundario.** Aprender a trabajar con
+APIs públicas, análisis de datos y auditoría de datos con asistencia de
+IA fue parte del origen del proyecto y sigue ahí. Va en segundo plano y
+se dice así: ninguna decisión editorial se toma para que el experimento
+quede mejor. Lo que dejó es reutilizable —pipeline público y
+reproducible— y eso sí es material publicable.
+
 ## Autoría y seguridad
 
 El proyecto se publica sobre migración venezolana desde Venezuela. Quién
@@ -144,6 +187,16 @@ construida sobre cifras oficiales venezolanas**. Una ausencia de firma
 declarada —explicando que la hay y por qué— pesa mucho más que una
 ausencia sin explicar.
 
+Hay una segunda razón, aparecida después. La norma europea que obliga a
+etiquetar el texto generado con IA cuando se publica para informar sobre
+asuntos de interés general exime de la etiqueta al texto que pasa por
+revisión humana **y del que una persona física o jurídica asume la
+responsabilidad editorial**. Las dos condiciones son acumulativas. Un
+aviso general en el sitio, sin nadie identificable detrás, es la versión
+débil de esa exención. Mientras la autoría siga abierta, el proyecto se
+apoya en declarar el uso de IA —que es lo que hace `/ia/`— y no en
+acogerse a la exención.
+
 ## Confianza
 
 Señales que un lector o un editor usan para decidir si citarnos, en orden
@@ -154,6 +207,8 @@ de cuánto pesan:
 - Página de correcciones: cómo avisar de un error y qué se hace al
   confirmarlo. La confianza no es no equivocarse, es tener el mecanismo.
 - Licencia explícita, o nadie sabe si puede republicar.
+- Uso de IA declarado, con el límite escrito y comprobable: en un tema
+  donde el contenido automático abunda, callarlo cuesta más que decirlo.
 - Fechas visibles de publicación y de última verificación.
 - Previsualización correcta al compartir un enlace: sin ella, en WhatsApp
   —que en Venezuela es *el* canal— el enlace se lee como sospechoso.
