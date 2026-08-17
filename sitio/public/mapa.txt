@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**75 archivos indexados, 804515 bytes en total.**
+**76 archivos indexados, 806772 bytes en total.**
 
-**Huella del repositorio: `6bbd2f7def53903b`**
+**Huella del repositorio: `c2aa1c675cda714d`**
 
 
 ## Raíz
@@ -51,6 +51,7 @@ distintos.
 
 ## `.github/workflows/`
 
+- [acnur.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/acnur.yml) — 2257 B · `9bca0abb`
 - [auditar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/auditar.yml) — 914 B · `d2777324`
 - [datos.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/datos.yml) — 711 B · `81fce6a0`
 - [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 3505 B · `370b58cd`
