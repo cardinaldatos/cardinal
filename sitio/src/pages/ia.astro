@@ -1,0 +1,315 @@
+---
+/* ==========================================================================
+   Página de inteligencia artificial
+
+   Existe por la misma razón que /licencia/ y /correcciones/: es una señal
+   de confianza que un lector o un editor usa para decidir si nos cita, y
+   tiene que estar en una página, no enterrada en el repositorio.
+
+   El encuadre es deliberado. No es un descargo de responsabilidad pegado
+   al final del sitio: es una extensión del método. La regla de oro del
+   proyecto —toda cifra rastreable hasta un archivo descargado por un
+   script— ya es, de hecho, el límite más duro que se le puede poner a un
+   modelo de lenguaje, porque le quita la única cosa que haría daño aquí:
+   la posibilidad de inventar un número. Decirlo así es más fuerte que
+   pedir disculpas por usar la herramienta.
+
+   Sobre declarar de más antes que de menos: la asistencia en la redacción
+   se declara aunque el texto pase por revisión humana. Quedarse corto es
+   el único error de esta página que no se podría defender después.
+
+   Los dos números del texto visible —el artículo del reglamento y el año
+   en que empezó a aplicarse— son una cita legal, no una cifra estadística.
+   Van anotados con «auditoria-ok:» aunque hoy la anotación no haga falta:
+   auditar.mjs solo escanea las páginas de piezas y los componentes .jsx,
+   no las páginas institucionales. Se deja puesta porque si el chequeo se
+   amplía a todo el sitio —que es lo coherente con la regla— esta página ya
+   queda declarada, y porque el motivo escrito junto al número vale por sí
+   solo para quien lea el archivo.
+   ========================================================================== */
+
+import Base from "../layouts/Base.astro";
+
+const ENLACE_ARTICULO = "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-50";
+
+// La descripción va en una constante para que la etiqueta de apertura de
+// <Base> quepa entera en una línea. Una etiqueta de apertura partida en
+// varios renglones se la traga cualquier renderizador al copiar y pegar.
+const DESCRIPCION = "Qué hace la inteligencia artificial en Cardinal Datos y qué no puede hacer. Ninguna cifra publicada la escribe un modelo: toda cifra se rastrea hasta un archivo descargado por un script.";
+---
+
+<Base titulo="Inteligencia artificial" descripcion={DESCRIPCION}>
+  <div class="pieza" data-fondo="oscuro">
+    <div class="marco">
+      <p class="cejilla">Cardinal Datos · Inteligencia artificial</p>
+
+      <h1 class="titular">
+        Aquí se usa IA.<br /><em>Y aquí no</em>
+      </h1>
+
+      <p class="bajada">
+        Este proyecto se construye con ayuda de inteligencia artificial, y lo
+        dice antes de que alguien lo pregunte. No como advertencia, sino como
+        parte del método: quien está decidiendo si puede citarnos merece saber
+        qué hizo una máquina y, sobre todo, qué no se le permite hacer.
+      </p>
+
+      <div class="bloque">
+        <h2>Lo que hace la máquina</h2>
+        <p class="intro">
+          La asistencia es real y es amplia. Enumerarla completa cuesta menos
+          que dejar que alguien la descubra por su cuenta.
+        </p>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>Escribir y revisar el código.</strong> Los scripts que le
+            piden los datos a cada organismo, los limpian, los guardan y
+            comprueban que la fuente sigue viva.
+          </span>
+        </div>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>Explorar fuentes desconocidas.</strong> Averiguar qué
+            series publica una API, qué dimensiones exige, hasta qué periodo
+            llega y cómo representa la ausencia de dato. Es el trabajo previo
+            a cualquier pieza y es donde más ayuda.
+          </span>
+        </div>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>Leer documentación en otros idiomas.</strong> Buena parte
+            de estos datos está encerrada en inglés o en noruego. Que estén
+            encerrados en otro idioma es una de las razones de existir del
+            proyecto.
+          </span>
+        </div>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>Auditar el propio trabajo.</strong> Buscar contradicciones
+            entre lo que afirma un texto y lo que dicen los archivos de datos
+            que lo sostienen.
+          </span>
+        </div>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>Redactar y editar los textos.</strong> Incluida esta
+            página. Todos pasan después por lectura humana completa.
+          </span>
+        </div>
+      </div>
+
+      <div class="bloque">
+        <h2>Lo que no hace</h2>
+        <p class="intro">
+          Ninguna cifra publicada la escribe un modelo. Eso no es una promesa
+          de buena conducta: es una restricción del método, y se puede
+          comprobar sin creernos nada.
+        </p>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>Ningún número sale de un modelo.</strong> Toda cifra tiene
+            que rastrearse hasta un archivo descargado por un script, y ese
+            archivo es público. Un número que no venga de ahí no se publica.
+            Está explicado pieza por pieza en <a href="/metodo/">el método</a>.
+          </span>
+        </div>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>Ningún hueco se rellena.</strong> Cuando un organismo no
+            publica valor para un país, eso se publica como lo que es. Pedirle
+            a un modelo que complete la casilla sería inventar el dato, y los
+            huecos son justamente lo que este proyecto cuenta.
+          </span>
+        </div>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>Ninguna fuente inventada.</strong> Cada fuente del
+            registro enlaza al organismo que publica el dato. No hay citas
+            atribuidas a personas que no las dijeron ni informes que no
+            existan.
+          </span>
+        </div>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>Ninguna imagen de personas generada por computadora.</strong>
+            Las piezas dibujan datos, no gente. En un tema donde la imagen de
+            una persona migrante se usa a diario para ilustrar cualquier cosa,
+            esa línea importa.
+          </span>
+        </div>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            <strong>Y hay una comprobación que lo vigila.</strong> Un script
+            recorre el repositorio en cada cambio y avisa cuando aparece un
+            número escrito a mano en el texto visible, con letra o con dígito.
+            La regla no depende de que nadie se distraiga.
+          </span>
+        </div>
+      </div>
+
+      <div class="bloque">
+        <h2>Quién responde</h2>
+        <p class="intro">
+          La revisión es humana y la responsabilidad también. Ningún texto se
+          publica sin que una persona lo haya leído entero y pueda explicar por
+          qué dice lo que dice. Cuando algo sale mal, no se corrige en
+          silencio: <a href="/correcciones/">el registro de correcciones</a>
+          explica cómo avisar y guarda todo lo corregido, sin borrar nada.
+        </p>
+
+        <p class="detalle">
+          Falta un nombre, y se declara en vez de disimularlo. Cardinal Datos
+          publica sobre migración venezolana desde Venezuela, y quién firma es
+          una decisión con consecuencias personales que sigue abierta. Hoy la
+          responsabilidad editorial es del proyecto; la persona que responde
+          detrás del nombre está por declarar, y se declarará. Una ausencia de
+          firma explicada pesa más que una ausencia sin explicar.
+        </p>
+      </div>
+
+      <div class="bloque">
+        <h2>Por qué está escrito esto</h2>
+        <p class="intro">Por estas razones, en orden de peso.</p>
+
+        <div class="paso">
+          <span class="paso-n">1</span>
+          <span class="paso-t">
+            Porque un proyecto que se dedica a declarar los huecos de otros no
+            puede esconder el propio. Sería el único error de aquí que no
+            tendría defensa.
+          </span>
+        </div>
+
+        <div class="paso">
+          <span class="paso-n">2</span>
+          <span class="paso-t">
+            Porque quien nos va a citar necesita el dato para decidir. Que la
+            respuesta esté escrita y sea la misma para todos ahorra la
+            pregunta.
+          </span>
+        </div>
+
+        <div class="paso">
+          <span class="paso-n">3</span>
+          {/* auditoria-ok: el artículo 50 y agosto de 2026 son una cita legal, no cifras de datos */}
+          <span class="paso-t">
+            Porque la norma europea lo pide en algunos casos: el artículo 50
+            del reglamento europeo de inteligencia artificial obliga, desde
+            agosto de 2026, a declarar el texto generado por IA que se publica
+            para informar al público sobre asuntos de interés general, y exime
+            de esa etiqueta al texto que pasa por revisión humana y del que
+            alguien se hace responsable. Estamos en el caso exento y lo
+            declaramos igual: la exención se apoya en que haya alguien detrás,
+            así que decirlo vale más que acogerse en silencio.
+            <a href={ENLACE_ARTICULO} target="_blank" rel="noopener">El texto del artículo, en la sede de la Comisión Europea.</a>
+          </span>
+        </div>
+      </div>
+
+      <div class="bloque">
+        <h2>El experimento que hay debajo</h2>
+        <p class="intro">
+          Hay un objetivo que no es el principal, y conviene decirlo también.
+          Cardinal Datos nació en parte como una forma de aprender a trabajar
+          con APIs públicas, análisis de datos y auditoría de datos usando
+          inteligencia artificial como herramienta de trabajo.
+        </p>
+
+        <p class="detalle">
+          Ese aprendizaje va en segundo plano. Primero está publicar
+          estadísticas que existen y casi nadie puede leer, y ninguna decisión
+          editorial se toma para que el experimento quede mejor. Pero el
+          experimento dejó algo utilizable: el pipeline entero es público y
+          reproducible, así que cualquiera puede levantar un proyecto parecido
+          en otro país o en otro idioma. Las condiciones están en
+          <a href="/licencia/">la licencia</a>.
+        </p>
+
+        <p class="detalle">
+          Y deja una lección que vale más que la herramienta. Lo que hace
+          comprobable el uso de inteligencia artificial aquí no es esta página:
+          es que el código, los datos y el método estén abiertos. Una
+          afirmación sobre cómo se hizo algo vale exactamente lo que valga la
+          posibilidad de revisarla.
+        </p>
+      </div>
+
+      <div class="pie">
+        <b>Cardinal Datos.</b> Las herramientas concretas cambian de nombre y
+        de versión cada pocos meses; lo que no cambia son los límites de esta
+        página. Si algo de lo que dice aquí no coincide con lo que se ve en el
+        repositorio, el repositorio manda y el error es nuestro:
+        <a href="/correcciones/">avísanos</a>.
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .pie a,
+  .intro a,
+  .detalle a,
+  .paso-t a {
+    color: inherit;
+    text-decoration-color: var(--pizarra);
+    text-underline-offset: 3px;
+  }
+
+  .pie a:hover,
+  .intro a:hover,
+  .detalle a:hover,
+  .paso-t a:hover {
+    text-decoration-color: var(--rojo);
+  }
+
+  .paso {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 10px;
+    align-items: start;
+    border-top: 1px solid var(--linea);
+    padding: 13px 0;
+  }
+
+  .paso-n {
+    font-family: var(--fuente-cifra);
+    font-size: 12px;
+    color: var(--rojo);
+    padding-top: 2px;
+  }
+
+  .paso-t {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--texto-2);
+  }
+
+  .paso-t strong {
+    color: var(--texto);
+    font-weight: 600;
+  }
+
+  .detalle {
+    max-width: 58ch;
+  }
+</style>
