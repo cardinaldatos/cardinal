@@ -1,0 +1,62 @@
+name: Construir desplazamiento venezolano
+
+# Construye los datos de la pieza sobre categorías del desplazamiento
+# venezolano desde el API de ACNUR y los confirma al repositorio.
+#
+# Necesita permiso de escritura, a diferencia de explorar-acnur.yml: aquí
+# sí se producen datos publicables. Sin el commit final, crudo.json,
+# limpio.json y metodo.md solo existirían dentro de esta ejecución, y la
+# web no los encontraría — el checkout descarga el repositorio, no los
+# artifacts.
+#
+# ORDEN DE PUESTA EN MARCHA. La auditoría trata como ERROR una carpeta de
+# data/ que ninguna pieza de piezas.js reclame, y también una pieza que
+# reclame archivos que no existen. O sea que hay un momento en que una de
+# las dos cosas es cierta, y no se puede evitar en dos empujones sueltos:
+# esta ejecución crea data/desplazamiento-venezolano/ antes de que exista
+# la entrada en piezas.js, así que la auditoría de ese empujón sale roja
+# con «no la reclama ninguna pieza». Es esperado y se cierra en cuanto
+# suban la página y la entrada del catálogo.
+#
+# Si prefieren que main nunca pase por ese estado, la vía es lanzar este
+# workflow sobre una rama, añadir en la misma rama la página y la entrada
+# de piezas.js, y mezclar todo de una vez.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Construir la pieza
+        run: cd pipeline && python acnur.py
+
+      - name: Guardar los JSON para descargar
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: desplazamiento-venezolano
+          path: data/desplazamiento-venezolano/
+          if-no-files-found: warn
+
+      - name: Guardar los datos en el repositorio
+        run: |
+          git config user.name "cardinal-bot"
+          git config user.email "actions@github.com"
+          git add data/desplazamiento-venezolano/
+          git diff --staged --quiet && echo "Sin cambios en los datos." || {
+            git commit -m "Actualizar datos: desplazamiento-venezolano"
+            git push
+          }
