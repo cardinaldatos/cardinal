@@ -8,7 +8,7 @@
 # runner efímero sin otros usuarios, así que el escenario del ataque no
 # aplica aquí. Se actualiza igual: mantener el árbol limpio hace que la
 # próxima alerta se note en vez de perderse entre ruido acumulado.
-requests==2.33.0
+requests==2.34.2
 
 # Para pipeline/og.py, que dibuja sitio/public/og.png: la imagen que
 # aparece cuando alguien comparte un enlace del sitio. Pillow dibuja;
@@ -20,5 +20,5 @@ requests==2.33.0
 # Ninguno de los tres los usa el pipeline de datos. Si algún día se
 # separan los requisitos por script, este es el grupo que se va.
 Pillow==12.3.0
-fonttools==4.62.1
+fonttools==4.63.0
 Brotli==1.2.0
