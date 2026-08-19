@@ -18,7 +18,7 @@ jobs:
   desplegar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # Astro 6 en adelante exige Node 22 o superior. El runner ya usa 24
       # por defecto, así que lo pedimos explícitamente y evitamos el aviso.
