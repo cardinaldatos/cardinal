@@ -32,14 +32,14 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**77 archivos indexados, 839603 bytes en total.**
+**77 archivos indexados, 840926 bytes en total.**
 
-**Huella del repositorio: `80990750a440ced3`**
+**Huella del repositorio: `8464e53a27fdb59e`**
 
 
 ## Raíz
 
-- [EDITORIAL.md](https://github.com/cardinaldatos/cardinal/blob/main/EDITORIAL.md) — 10119 B · `e6b3e01b`
+- [EDITORIAL.md](https://github.com/cardinaldatos/cardinal/blob/main/EDITORIAL.md) — 11442 B · `2648f123`
 - [LICENCIA.md](https://github.com/cardinaldatos/cardinal/blob/main/LICENCIA.md) — 3265 B · `98ca8a34`
 - [LICENSE](https://github.com/cardinaldatos/cardinal/blob/main/LICENSE) — 1071 B · `e1eb27d6`
 - [README.md](https://github.com/cardinaldatos/cardinal/blob/main/README.md) — 10742 B · `af1851c8`
