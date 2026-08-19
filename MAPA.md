@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**77 archivos indexados, 841043 bytes en total.**
+**77 archivos indexados, 841020 bytes en total.**
 
-**Huella del repositorio: `bb0ef0730c921098`**
+**Huella del repositorio: `f1aac7931bcdb506`**
 
 
 ## Raíz
@@ -150,7 +150,7 @@ distintos.
 - [correcciones.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/correcciones.astro) — 10089 B · `cb2076c3`
 - [ia.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/ia.astro) — 12688 B · `9c5d2937`
 - [index.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/index.astro) — 2915 B · `2eae7121`
-- [licencia.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/licencia.astro) — 13643 B · `d7f4fa7b`
+- [licencia.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/licencia.astro) — 13620 B · `2ea43f79`
 - [metodo.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/metodo.astro) — 16837 B · `2a8de10e`
 - [remesas-costo-latam.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/remesas-costo-latam.astro) — 1504 B · `ac1b74da`
 - [rss.xml.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/rss.xml.js) — 5155 B · `5bb4ffbe`
