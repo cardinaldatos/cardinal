@@ -34,7 +34,7 @@ distintos.
 
 **77 archivos indexados, 835785 bytes en total.**
 
-**Huella del repositorio: `ef3b483e2ab5a806`**
+**Huella del repositorio: `d55979baa0c396b4`**
 
 
 ## Raíz
@@ -52,14 +52,14 @@ distintos.
 ## `.github/workflows/`
 
 - [acnur.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/acnur.yml) — 2257 B · `9bca0abb`
-- [auditar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/auditar.yml) — 1119 B · `cd4b2476`
+- [auditar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/auditar.yml) — 1119 B · `27e45481`
 - [datos.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/datos.yml) — 711 B · `81fce6a0`
-- [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 3505 B · `370b58cd`
+- [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 3505 B · `230fd7c9`
 - [explorar-acnur.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-acnur.yml) — 1508 B · `f442a4bc`
 - [explorar-eurostat.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-eurostat.yml) — 1211 B · `4307763c`
 - [explorar-rpw.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-rpw.yml) — 1405 B · `7cf29f41`
-- [generar-lockfiles.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/generar-lockfiles.yml) — 1810 B · `b72b52c7`
-- [instagram.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/instagram.yml) — 1254 B · `bc4211cd`
+- [generar-lockfiles.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/generar-lockfiles.yml) — 1810 B · `74c5c0af`
+- [instagram.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/instagram.yml) — 1254 B · `8e3c6b5e`
 - [mapa.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/mapa.yml) — 1691 B · `571b93a4`
 - [sobrecualificacion.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/sobrecualificacion.yml) — 1466 B · `1581c3f5`
 
