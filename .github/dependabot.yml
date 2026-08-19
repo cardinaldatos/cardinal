@@ -2,20 +2,28 @@
 # pull request, que se revisan y fusionan desde la web de GitHub.
 #
 # Cubre cuatro frentes: los dos npm (sitio e instagram), el pip del
-# pipeline y las propias GitHub Actions de los workflows. Las
-# actualizaciones menores y de parche llegan agrupadas en un solo PR
-# semanal por frente, para no inundar de avisos a una sola mantenedora.
-# Las mayores llegan sueltas, que es lo que queremos: cada una se lee
-# aparte. Eso ya lo hace el grupo de menores por sí solo — agrupar las
-# mayores las juntaría todas en un PR y las volvería inseparables.
+# pipeline y las propias GitHub Actions de los workflows.
 #
-# El límite de PR abiertos es lo único nuevo. Sin él Dependabot admite
-# hasta cinco por frente, veinte en total, y se acumulan sin que nadie
-# lo note. Con el límite puesto, deja de abrir nuevos hasta que se
-# mezclen los que hay: el atasco se ve antes de ser un atasco.
+# CÓMO LLEGAN LAS ACTUALIZACIONES. Las menores y de parche vienen
+# agrupadas en un solo PR semanal por frente. Las mayores vienen
+# sueltas, una por una, y eso es deliberado: son las que hay que leer
+# antes de mezclar. No hace falta declarar un grupo para las mayores —
+# al contrario, agruparlas las juntaría todas en un PR y las volvería
+# imposibles de mezclar por separado. Basta con que el grupo de menores
+# exista: todo lo que no entra en él sale individual.
 #
-# Ojo: fusionar un PR que toque sitio/** dispara el despliegue. Es lo
-# esperado: la actualización queda probada en producción de inmediato.
+# POR QUÉ EL LÍMITE. Sin él Dependabot admite hasta cinco PR abiertos
+# por frente, veinte en total, y se acumulan sin que nadie lo note.
+# Con el límite puesto deja de abrir nuevos hasta que se mezclen los que
+# hay: el atasco se ve antes de ser un atasco. El límite rige las
+# actualizaciones de versión; las de seguridad se cuentan aparte, que es
+# lo correcto — un aviso de vulnerabilidad no debe quedarse en cola
+# porque haya PR rutinarios sin revisar.
+#
+# Ojo: fusionar un PR que toque sitio/** dispara el despliegue, y
+# también lo dispara uno que modifique desplegar.yml — que es lo que
+# pasa cuando se actualiza una acción usada ahí. Es lo esperado: la
+# actualización queda probada en producción de inmediato.
 
 version: 2
 
@@ -45,9 +53,17 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 3
+    groups:
+      menores:
+        applies-to: version-updates
+        update-types: ["minor", "patch"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 3
+    groups:
+      menores:
+        applies-to: version-updates
+        update-types: ["minor", "patch"]
