@@ -34,7 +34,7 @@ distintos.
 
 **77 archivos indexados, 839603 bytes en total.**
 
-**Huella del repositorio: `a5dc5c06af699dbf`**
+**Huella del repositorio: `85edd57363da5e1c`**
 
 
 ## Raíz
@@ -43,7 +43,7 @@ distintos.
 - [LICENCIA.md](https://github.com/cardinaldatos/cardinal/blob/main/LICENCIA.md) — 3265 B · `98ca8a34`
 - [LICENSE](https://github.com/cardinaldatos/cardinal/blob/main/LICENSE) — 1071 B · `e1eb27d6`
 - [README.md](https://github.com/cardinaldatos/cardinal/blob/main/README.md) — 10742 B · `af1851c8`
-- [requirements.txt](https://github.com/cardinaldatos/cardinal/blob/main/requirements.txt) — 1225 B · `dab11b7b`
+- [requirements.txt](https://github.com/cardinaldatos/cardinal/blob/main/requirements.txt) — 1225 B · `61b80ba1`
 
 ## `.github/`
 
