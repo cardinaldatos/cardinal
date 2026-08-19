@@ -49,6 +49,31 @@
 
 export const CORRECCIONES = [
   {
+    fecha: "2026-08-19",
+    pieza: null,
+    nivel: "correccion",
+    decia:
+      "La página de uso de IA afirmaba que Cardinal Datos estaba en el caso exento del artículo 50 del reglamento europeo de inteligencia artificial.",
+    dice:
+      "No lo afirma. Explica qué pide la norma y que aquí se declara igual, sin acogerse a ninguna excepción.",
+    por_que:
+      "Esa exención libera de etiquetar el texto generado con IA cuando " +
+      "hay revisión humana y además una persona física o jurídica asume " +
+      "la responsabilidad editorial; las dos condiciones son " +
+      "acumulativas. La segunda no se cumplía: el titular declarado era " +
+      "«Cardinal Datos», el nombre del proyecto, y un nombre de proyecto " +
+      "no asume responsabilidad de nada. EDITORIAL.md lo decía bien —que " +
+      "el proyecto se apoyaba en declarar y no en la exención— y la " +
+      "página se adelantó. Se corrigió el texto de /ia/. En la misma " +
+      "revisión se cerró la decisión de autoría que estaba detrás del " +
+      "error: Cardinal Datos lo firma Mafer Córdova, que es desde ahora " +
+      "el titular del copyright en LICENSE, quien responde los avisos de " +
+      "corrección y quien asume la responsabilidad editorial. Ninguna " +
+      "cifra, dato ni método cambió, y ninguna atribución ya publicada " +
+      "queda invalidada: se cita igual a Cardinal Datos.",
+    aviso: null,
+  },
+  {
     fecha: "2026-08-11",
     pieza: null,
     nivel: "incidencia",
