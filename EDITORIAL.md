@@ -178,24 +178,44 @@ reproducible— y eso sí es material publicable.
 
 ## Autoría y seguridad
 
-El proyecto se publica sobre migración venezolana desde Venezuela. Quién
-firma y quién no es una decisión editorial con consecuencias reales, no un
-detalle administrativo.
+Cerrado en agosto de 2026: **Cardinal Datos lo firma Mafer Córdova**. Con
+nombre propio y el mismo en todas las superficies — titular del copyright
+en `LICENSE`, firma de las respuestas a `correcciones@`, y persona que
+asume la responsabilidad editorial de lo publicado.
 
-Está pendiente y hay que cerrarlo **antes de publicar la primera pieza
-construida sobre cifras oficiales venezolanas**. Una ausencia de firma
-declarada —explicando que la hay y por qué— pesa mucho más que una
-ausencia sin explicar.
+Se descartó el seudónimo. Una identidad de proyecto sin persona detrás no
+es titular de derechos ni asume responsabilidad de nada, y el objetivo
+declarado en «Crecimiento» —que una organización pueda citarnos— pide
+saber quién responde. La decisión tiene un costo asumido a sabiendas: un
+nombre publicado en un repositorio público no se retira.
 
-Hay una segunda razón, aparecida después. La norma europea que obliga a
-etiquetar el texto generado con IA cuando se publica para informar sobre
-asuntos de interés general exime de la etiqueta al texto que pasa por
-revisión humana **y del que una persona física o jurídica asume la
-responsabilidad editorial**. Las dos condiciones son acumulativas. Un
-aviso general en el sitio, sin nadie identificable detrás, es la versión
-débil de esa exención. Mientras la autoría siga abierta, el proyecto se
-apoya en declarar el uso de IA —que es lo que hace `/ia/`— y no en
-acogerse a la exención.
+**No se publica ubicación.** Ni la de residencia ni la de estancia. Una
+ubicación escrita en un archivo envejece igual que una cifra copiada a
+mano, y mantenerla al día convertiría el repositorio en un registro de
+movimientos. Lo que sí se publica es la nacionalidad, que no envejece y
+que además explica por qué existe el proyecto: Cardinal escribe sobre una
+diáspora desde dentro.
+
+**Qué se dice de quién firma, y qué no.** Que estudió economía en
+Venezuela y trabaja con datos administrativos. No se reclama credencial
+periodística porque no la hay, y pesa poco: ninguna cifra de este sitio
+se sostiene en quién firma, sino en que cualquiera puede correr el script
+que la produjo. Una lista larga de credenciales dispersas debilitaría ese
+argumento en vez de reforzarlo, y biografía es lo único de aquí que no se
+puede auditar. Tampoco se publican los motivos personales detrás de una
+trayectoria: los huecos que este proyecto declara son los de los datos.
+
+**Sobre la norma europea.** El artículo 50 del reglamento europeo de IA
+obliga a etiquetar el texto generado con IA que se publica para informar
+sobre asuntos de interés general, y exime de la etiqueta al que pasa por
+revisión humana **y** del que una persona física o jurídica asume la
+responsabilidad editorial. Con la autoría cerrada, las dos condiciones se
+cumplen. Aun así el proyecto no se apoya en la exención y sigue
+declarando: la obligación principal se cumple declarando, no acogiéndose
+a una excepción, y un proyecto que declara no necesita permiso para
+callar. La página `/ia/` llegó a afirmar que estábamos exentos cuando
+todavía no había persona detrás; se corrigió y quedó en
+`/correcciones/`.
 
 ## Confianza
 
