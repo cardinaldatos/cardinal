@@ -34,7 +34,7 @@ distintos.
 
 **77 archivos indexados, 839603 bytes en total.**
 
-**Huella del repositorio: `85edd57363da5e1c`**
+**Huella del repositorio: `2c3802bd0b2a2447`**
 
 
 ## Raíz
@@ -51,17 +51,17 @@ distintos.
 
 ## `.github/workflows/`
 
-- [acnur.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/acnur.yml) — 2257 B · `d32316ed`
+- [acnur.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/acnur.yml) — 2257 B · `8be2bc2e`
 - [auditar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/auditar.yml) — 1119 B · `a376cb49`
-- [datos.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/datos.yml) — 711 B · `eb2b33dd`
-- [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 3505 B · `7d16f163`
-- [explorar-acnur.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-acnur.yml) — 1508 B · `9e9c34b9`
-- [explorar-eurostat.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-eurostat.yml) — 1211 B · `d51fb6d0`
-- [explorar-rpw.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-rpw.yml) — 1405 B · `bddf2658`
+- [datos.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/datos.yml) — 711 B · `1eaf4f6d`
+- [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 3505 B · `2714fe4b`
+- [explorar-acnur.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-acnur.yml) — 1508 B · `c7721336`
+- [explorar-eurostat.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-eurostat.yml) — 1211 B · `91733e69`
+- [explorar-rpw.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-rpw.yml) — 1405 B · `0e81cfab`
 - [generar-lockfiles.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/generar-lockfiles.yml) — 1810 B · `f00bc72a`
 - [instagram.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/instagram.yml) — 1254 B · `a546ec88`
-- [mapa.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/mapa.yml) — 1691 B · `089e4d2d`
-- [sobrecualificacion.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/sobrecualificacion.yml) — 1466 B · `929cbe52`
+- [mapa.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/mapa.yml) — 1691 B · `ffeba6e6`
+- [sobrecualificacion.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/sobrecualificacion.yml) — 1466 B · `ef698d50`
 
 ## `auditoria/`
 
