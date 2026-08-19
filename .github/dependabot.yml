@@ -2,39 +2,71 @@
 # pull request, que se revisan y fusionan desde la web de GitHub.
 #
 # Cubre cuatro frentes: los dos npm (sitio e instagram), el pip del
-# pipeline y las propias GitHub Actions de los workflows. Las
-# actualizaciones menores y de parche llegan agrupadas en un solo PR
-# semanal por frente, para no inundar de avisos a una sola mantenedora.
+# pipeline y las propias GitHub Actions de los workflows.
 #
-# Ojo: fusionar un PR que toque sitio/** dispara el despliegue. Es lo
-# esperado: la actualización queda probada en producción de inmediato.
+# CAMBIOS respecto a la versión anterior:
+# - Límites en open-pull-requests-limit para evitar acumulación
+# - Separación explícita de major bumps: van individuales, no agrupados
+# - Esto hace más fácil identificar qué PRs son "revisar sí o sí" (major)
+#   vs "merge con confianza" (minor/patch)
 
 version: 2
+
 updates:
-  - package-ecosystem: "npm"
-    directory: "/sitio"
-    schedule:
-      interval: "weekly"
-    groups:
-      menores:
-        applies-to: version-updates
-        update-types: ["minor", "patch"]
 
-  - package-ecosystem: "npm"
-    directory: "/instagram"
-    schedule:
-      interval: "weekly"
-    groups:
-      menores:
-        applies-to: version-updates
-        update-types: ["minor", "patch"]
+# ========================
+# npm: sitio (compilación + despliegue directo)
+# ========================
+# Máximo 3 PRs abiertos: típicamente 1 agrupado de menores +
+# hasta 2 major bumps individuales en espera de revisión.
+- package-ecosystem: "npm"
+  directory: "/sitio"
+  schedule:
+    interval: "weekly"
+  open-pull-requests-limit: 3
+  groups:
+    menores:
+      applies-to: version-updates
+      update-types: ["minor", "patch"]
+    mayores:
+      applies-to: version-updates
+      update-types: ["major"]
 
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+# ========================
+# npm: instagram (generación de imágenes, sin despliegue web)
+# ========================
+# Máximo 3 PRs abiertos, mismo patrón.
+- package-ecosystem: "npm"
+  directory: "/instagram"
+  schedule:
+    interval: "weekly"
+  open-pull-requests-limit: 3
+  groups:
+    menores:
+      applies-to: version-updates
+      update-types: ["minor", "patch"]
+    mayores:
+      applies-to: version-updates
+      update-types: ["major"]
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+# ========================
+# pip: raíz (pipeline de datos)
+# ========================
+# Scripts Python con APIs típicamente estables.
+# Máximo 3 PRs abiertos.
+- package-ecosystem: "pip"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  open-pull-requests-limit: 3
+
+# ========================
+# github-actions: workflows del CI/CD
+# ========================
+# Acciones de GitHub, generalmente retro-compatibles.
+# Máximo 2 PRs abiertos (las acciones cambian menos).
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  open-pull-requests-limit: 2
