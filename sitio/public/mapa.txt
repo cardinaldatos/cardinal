@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**77 archivos indexados, 835515 bytes en total.**
+**77 archivos indexados, 835143 bytes en total.**
 
-**Huella del repositorio: `469715a8a03ebacb`**
+**Huella del repositorio: `e8ada5f4c7433830`**
 
 
 ## Raíz
@@ -47,7 +47,7 @@ distintos.
 
 ## `.github/`
 
-- [dependabot.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/dependabot.yml) — 2153 B · `7d41f87b`
+- [dependabot.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/dependabot.yml) — 1781 B · `439db702`
 
 ## `.github/workflows/`
 
