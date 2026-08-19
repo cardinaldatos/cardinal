@@ -14,10 +14,40 @@ import Base from "../layouts/Base.astro";
    Las licencias de los organismos se leen de data/fuentes.json, el mismo
    registro que usa la página de método. Si mañana entra una fuente con
    otra licencia, aparece aquí sola.
+
+   Nuevo hoy: los dos bloques que faltaban para que esta página siga siendo
+   «las mismas condiciones» que LICENCIA.md, como ese archivo promete.
+
+     1. «Quién licencia». La página nunca decía quién es el titular. Como
+        LICENSE nombra a «Cardinal Datos» de forma provisional y el README
+        ya lo declara así, quien comparara los dos se quedaba sin saber si
+        podía citar con confianza. El bloque cierra esa duda por el lado
+        que le importa a quien republica: no cambia nada, citas a Cardinal
+        Datos. Sin esa frase, la provisionalidad se lee como defecto.
+
+     2. La asistencia de IA. Al declarar en /ia/ que la inteligencia
+        artificial también redacta y edita, y licenciar esos textos bajo
+        CC BY 4.0, aparece la pregunta obvia de un editor cuidadoso: ¿hay
+        derechos que ceder? Si la respuesta no está escrita aquí, la
+        transparencia acaba pareciendo un problema de titularidad. Se
+        responde describiendo la decisión humana que hay detrás de lo que
+        la licencia protege, sin dar consejo legal y ofreciendo explicarlo
+        caso por caso.
+
+   Los dos bloques van después de las dos licencias y antes de «Lo que no
+   cubre», que es el mismo orden relativo que tienen en LICENCIA.md.
+
+   NOTA DE FORMATO: las etiquetas de apertura van completas en su línea,
+   con su «>». La de <Base> pasó a usar una constante para la descripción
+   por eso mismo: partida en varios renglones, un renderizador de HTML se
+   traga el fragmento suelto al copiar y el archivo llega roto.
    ========================================================================== */
 
 const CARPETA_DATOS = path.join(process.cwd(), "..", "data");
 const CORREO = "hola@cardinaldatos.org";
+
+const DESCRIPCION =
+  "Qué se puede republicar de Cardinal Datos, con qué condiciones y cómo citarlo. Contenido bajo CC BY 4.0; código bajo licencia MIT.";
 
 let fuentes = [];
 try {
@@ -43,10 +73,7 @@ const EJEMPLO_HTML =
   ' — Cardinal Datos, <a href="https://creativecommons.org/licenses/by/4.0/deed.es">CC BY 4.0</a>';
 ---
 
-<Base
-  titulo="Licencia"
-  descripcion="Qué se puede republicar de Cardinal Datos, con qué condiciones y cómo citarlo. Contenido bajo CC BY 4.0; código bajo licencia MIT."
->
+<Base titulo="Licencia" descripcion={DESCRIPCION}>
   <div class="pieza" data-fondo="oscuro">
     <div class="marco">
       <p class="cejilla">Cardinal Datos · Licencia</p>
@@ -118,6 +145,61 @@ const EJEMPLO_HTML =
         <p class="detalle">
           El archivo <code>LICENSE</code> del repositorio es el texto que
           manda. Esta página lo resume, no lo sustituye.
+        </p>
+      </div>
+
+      <div class="bloque">
+        <h2>Quién licencia</h2>
+        <p class="intro">
+          El titular es el proyecto: «Cardinal Datos» es lo que declara el
+          archivo <code>LICENSE</code> y lo que se cita al republicar. Para
+          republicar no hace falta saber nada más que eso.
+        </p>
+        <p class="detalle">
+          Es una identidad provisional, y lo decimos en vez de dejar el
+          espacio en blanco. Cardinal Datos publica sobre migración
+          venezolana desde Venezuela, y quién firma con nombre propio es una
+          decisión abierta con consecuencias personales. Si esa identidad se
+          concreta, se anunciará en <a href="/correcciones/">la página de correcciones</a> y no invalidará ninguna atribución ya publicada.
+        </p>
+      </div>
+
+      <div class="bloque">
+        <h2>La inteligencia artificial no cambia esto</h2>
+        <p class="intro">
+          Este proyecto se construye con asistencia de inteligencia
+          artificial y lo declara en <a href="/ia/">la página de uso de IA</a>. Conviene decir aquí qué implica para las dos licencias de
+          arriba, porque es una pregunta razonable de quien va a republicar.
+        </p>
+
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            Lo que las licencias cubren es trabajo con decisión humana
+            detrás: qué serie se abre, qué se compara, qué se declara como
+            hueco, cómo se ordena y qué se publica. Cada texto pasa por
+            lectura humana completa antes de publicarse.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            Ninguna cifra publicada la escribe un modelo. Toda cifra se
+            rastrea hasta un archivo que descargó un script, y una
+            comprobación automática vigila que siga siendo así.
+          </span>
+        </div>
+        <div class="paso">
+          <span class="paso-n">·</span>
+          <span class="paso-t">
+            La responsabilidad editorial de lo publicado es de Cardinal
+            Datos.
+          </span>
+        </div>
+
+        <p class="detalle">
+          Esto no es consejo legal. Si tu redacción te pide más detalle sobre
+          la autoría antes de republicar, escríbenos a <a class="correo" href={`mailto:${CORREO}`}>{CORREO}</a> y te contamos qué hizo cada parte.
         </p>
       </div>
 
