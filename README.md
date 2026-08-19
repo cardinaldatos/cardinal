@@ -197,19 +197,21 @@ y se instalan con `npm ci`, de modo que cada compilación es reproducible.
 
 ## Autoría
 
-Cardinal Datos publica sobre migración venezolana desde Venezuela. Quién firma
-es una decisión editorial con consecuencias personales reales, no un trámite,
-y sigue abierta: hoy la responsabilidad del trabajo es del proyecto, el
-titular del copyright que declara [`LICENSE`](LICENSE) es «Cardinal Datos» de
-forma provisional, y la persona que responde detrás del nombre está por
-declarar.
+Cardinal Datos lo hace Mafer Córdova, venezolana. Estudié economía en
+Venezuela y trabajo con datos administrativos.
 
-Se dice así en vez de dejar el espacio en blanco, por la misma razón por la
-que se declaran los huecos de los datos: una ausencia explicada informa, una
-ausencia sin explicar solo deja dudas. El criterio y el plazo están en
-`EDITORIAL.md`.
+No vengo del periodismo, y pesa poco acá: ninguna cifra de este sitio se
+sostiene en quién firma. Cada una viene de un archivo que descargó un script
+publicado en este repositorio, y una comprobación automática rechaza
+cualquier número escrito a mano.
 
-Los avisos de corrección se reciben en correcciones@cardinaldatos.org.
+Soy también el titular del copyright que declara [`LICENSE`](LICENSE) y quien
+asume la responsabilidad editorial de lo publicado. El razonamiento de por
+qué se firma con nombre propio, y por qué no se publica ninguna ubicación,
+está en `EDITORIAL.md`.
+
+Los avisos de corrección se reciben en correcciones@cardinaldatos.org y los
+respondo yo.
 
 ## Licencia
 
