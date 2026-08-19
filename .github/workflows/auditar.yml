@@ -6,6 +6,10 @@ name: Auditoría del repositorio
 # el repositorio puede estar quieto y aun así dejar de cuadrar, porque las
 # fuentes se mueven debajo. Un fallo que aparece sin que nadie haya tocado
 # nada es exactamente el que hay que enterarse por aviso y no por casualidad.
+#
+# CAMBIO en esta versión: Node 22 → 24 para uniformidad.
+# auditar.mjs usa solo módulos estándar de Node, compatible con cualquier
+# versión reciente. Se alinea con desplegar.yml e instagram.yml.
 
 on:
   push:
@@ -26,9 +30,10 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24"
 
       # Sin `npm install`: auditar.mjs no tiene dependencias, solo módulos
       # que vienen con Node. Nada que instalar y nada que actualizar.
+
       - name: Auditar
         run: node auditoria/auditar.mjs
