@@ -39,7 +39,7 @@ jobs:
         run: cd instagram && node generar-carrusel.mjs
 
       - name: Guardar imágenes para descargar
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: instagram-imagenes
           path: instagram/salida/
