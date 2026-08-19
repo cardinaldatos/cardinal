@@ -30,15 +30,18 @@ Ejemplo de atribución:
 
 ## Quién licencia
 
-El titular es el proyecto: «Cardinal Datos» es lo que declara `LICENSE` y lo
-que se cita al republicar. Es una identidad provisional. El proyecto publica
-sobre migración venezolana desde Venezuela, y quién firma con nombre propio
-es una decisión abierta con consecuencias personales, explicada en el
-[`README.md`](README.md) y en <https://cardinaldatos.org/ia/>.
+El titular es **Mafer Córdova**, que es lo que declara `LICENSE`. Cardinal
+Datos es el nombre del proyecto, no el titular de los derechos: un nombre de
+proyecto no es persona física ni entidad registrada, y no puede licenciar
+nada.
 
-Para republicar no cambia nada: citas a Cardinal Datos. Si esa identidad se
-concreta algún día, se anunciará en la página de correcciones y no invalidará
-ninguna atribución ya publicada.
+**Para republicar no cambia nada: citas a Cardinal Datos.** La atribución es
+al proyecto, como en cualquier medio. Ninguna atribución publicada antes de
+esta aclaración queda invalidada.
+
+Hasta agosto de 2026 este archivo declaraba «Cardinal Datos» como titular
+provisional y dejaba abierta la identidad de quien firma. Se cerró, y quedó
+registrado en <https://cardinaldatos.org/correcciones/>.
 
 ## La asistencia de inteligencia artificial no cambia esto
 
@@ -50,7 +53,7 @@ republicar.
 Lo que las licencias cubren es trabajo con decisión humana detrás: qué serie
 se abre, qué se compara, qué se declara como hueco, cómo se ordena y qué se
 publica. Cada texto pasa por lectura humana completa antes de publicarse, y
-la responsabilidad editorial es de Cardinal Datos.
+la responsabilidad editorial es de Mafer Córdova.
 
 Ninguna cifra publicada la escribe un modelo: toda cifra se rastrea hasta un
 archivo que descargó un script, y una comprobación automática vigila que sea
