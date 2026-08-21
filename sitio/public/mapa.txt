@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**76 archivos indexados, 841916 bytes en total.**
+**77 archivos indexados, 842539 bytes en total.**
 
-**Huella del repositorio: `f1e8b3c515316930`**
+**Huella del repositorio: `d29f5bc1f88e96bb`**
 
 
 ## Raíz
@@ -121,6 +121,7 @@ distintos.
 - [archivo-v25-latin-600.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/archivo-v25-latin-600.woff2) — 13820 B · `d9e8c29f`
 - [archivo-v25-latin-700.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/archivo-v25-latin-700.woff2) — 14508 B · `abada6cd`
 - [archivo-v25-latin-regular.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/archivo-v25-latin-regular.woff2) — 14700 B · `07f91601`
+- [favicon.svg](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/favicon.svg) — 623 B · `ac9412af`
 - [ibm-plex-mono-v20-latin-500.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-mono-v20-latin-500.woff2) — 14888 B · `01d28544`
 - [ibm-plex-mono-v20-latin-regular.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-mono-v20-latin-regular.woff2) — 14708 B · `08949f72`
 - [ibm-plex-sans-v23-latin-500.woff2](https://github.com/cardinaldatos/cardinal/blob/main/sitio/public/ibm-plex-sans-v23-latin-500.woff2) — 24184 B · `0717336f`
