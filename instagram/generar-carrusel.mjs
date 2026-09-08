@@ -8,6 +8,16 @@
 // Los nombres de país ya vienen en español desde limpio.json. Antes había
 // aquí un diccionario propio para los países sin dato; se quitó al mover
 // la traducción al pipeline.
+//
+// Ninguna lámina escribe una cifra. El año de la serie, cuántos países
+// tienen dato, cuántos no y el monto de referencia salen todos de
+// limpio.json, igual que en la web. Antes estaban tecleados —«Diez
+// países», «Tres países», «2023» repetido en cuatro sitios— y eran las
+// únicas cifras publicadas del proyecto que ninguna comprobación miraba:
+// la regla de oro solo auditaba sitio/. Una imagen no se recompila
+// cuando cambian los datos, así que habrían envejecido en silencio hasta
+// contradecir a la web, que sí los deriva. Las dos superficies leen ahora
+// el mismo archivo y no pueden discrepar.
 
 import { chromium } from "playwright";
 import { readFile, mkdir } from "node:fs/promises";
@@ -120,14 +130,14 @@ function documento({ cejilla, indice, total, cuerpo, pie, cssExtra = "" }) {
    LÁMINA 1 — Gancho
    -------------------------------------------------------------------- */
 
-function laminaPortada(total) {
+function laminaPortada({ total, conDato, monto }) {
   const cuerpo = `
     <p class="titular-carrusel">
-      Diez países.<br />Un mismo envío.<br /><em>¿Cuánto se queda</em><br /><em>en el camino?</em>
+      ${conDato} países.<br />Un mismo envío.<br /><em>¿Cuánto se queda</em><br /><em>en el camino?</em>
     </p>
     <p class="subida">
-      200 dólares enviados a América Latina. Esto es lo que se pierde antes
-      de llegar.
+      ${coma(monto, 0)} dólares enviados a América Latina. Esto es lo que se
+      pierde antes de llegar.
     </p>
   `;
   return documento({
@@ -158,10 +168,10 @@ function laminaPortada(total) {
 
 /* --------------------------------------------------------------------
    LÁMINAS 2 y 3 — El más caro / el más barato
-   Ahora con el mini-ranking de los diez países debajo del dato.
+   Ahora con el mini-ranking de los países con dato debajo del dato.
    -------------------------------------------------------------------- */
 
-function laminaExtremo({ indice, total, etiqueta, pais, datoValor, costoPct, todosLosPaises }) {
+function laminaExtremo({ indice, total, etiqueta, pais, datoValor, costoPct, todosLosPaises, anio }) {
   const cuerpo = `
     <p class="kicker">${etiqueta}</p>
     <p class="titular-extremo">${pais.pais}</p>
@@ -170,7 +180,7 @@ function laminaExtremo({ indice, total, etiqueta, pais, datoValor, costoPct, tod
     ${renderMiniRanking(todosLosPaises, pais.iso3)}
   `;
   return documento({
-    cejilla: "BANCO MUNDIAL · 2023",
+    cejilla: `BANCO MUNDIAL · ${anio}`,
     indice,
     total,
     cuerpo,
@@ -216,16 +226,16 @@ function laminaExtremo({ indice, total, etiqueta, pais, datoValor, costoPct, tod
    LÁMINA 4 — El hallazgo del hueco
    -------------------------------------------------------------------- */
 
-function laminaHallazgo({ indice, total, paises }) {
+function laminaHallazgo({ indice, total, paises, anio }) {
   const cuerpo = `
-    <p class="titular-hallazgo">Tres países no<br />están en esta<br />estadística</p>
+    <p class="titular-hallazgo">${paises.length} países no<br />están en esta<br />estadística</p>
     <div class="lista-hueco">
       ${paises.map((p) => `<p class="item-hueco">${p}</p>`).join("\n")}
     </div>
-    <p class="dato-nota">Sin datos suficientes en esta serie para 2023.</p>
+    <p class="dato-nota">Sin datos suficientes en esta serie para ${anio}.</p>
   `;
   return documento({
-    cejilla: "BANCO MUNDIAL · 2023",
+    cejilla: `BANCO MUNDIAL · ${anio}`,
     indice,
     total,
     cuerpo,
@@ -309,20 +319,35 @@ async function construirCarrusel() {
   const masBarato = datos.con_dato[datos.con_dato.length - 1];
   const nombresSinDato = datos.sin_dato.map((p) => p.pais);
 
+  const conDato = datos.con_dato.length;
+  const monto = datos.monto_referencia_usd;
+
+  // El año de la serie, no el del país que toque en la lámina. Se toma del
+  // nivel superior de limpio.json, que es donde el pipeline lo deja cuando
+  // todos los países lo comparten; si no lo comparten queda en null a
+  // propósito y aquí se cae al del primer país, como hace la web. Las dos
+  // superficies resuelven el año igual porque leen el mismo campo: si una
+  // dijera 2023 y la otra 2024, sería un fallo y no un matiz.
+  const anio = datos.anio ?? datos.con_dato[0].anio;
+
   const TOTAL = 5;
 
   const paginas = [
-    { archivo: "carrusel-1-portada.png", html: laminaPortada(TOTAL) },
+    {
+      archivo: "carrusel-1-portada.png",
+      html: laminaPortada({ total: TOTAL, conDato, monto }),
+    },
     {
       archivo: "carrusel-2-mas-caro.png",
       html: laminaExtremo({
         indice: 2,
         total: TOTAL,
-        etiqueta: "El más caro de los diez",
+        etiqueta: `El más caro de los ${conDato}`,
         pais: masCaro,
         datoValor: coma(masCaro.sobre_200_usd),
         costoPct: masCaro.costo_pct,
         todosLosPaises: datos.con_dato,
+        anio,
       }),
     },
     {
@@ -330,22 +355,23 @@ async function construirCarrusel() {
       html: laminaExtremo({
         indice: 3,
         total: TOTAL,
-        etiqueta: "El más barato de los diez",
+        etiqueta: `El más barato de los ${conDato}`,
         pais: masBarato,
         datoValor: coma(masBarato.sobre_200_usd),
         costoPct: masBarato.costo_pct,
         todosLosPaises: datos.con_dato,
+        anio,
       }),
     },
     {
       archivo: "carrusel-4-hallazgo.png",
-      html: laminaHallazgo({ indice: 4, total: TOTAL, paises: nombresSinDato }),
+      html: laminaHallazgo({ indice: 4, total: TOTAL, paises: nombresSinDato, anio }),
     },
     {
       archivo: "carrusel-5-cierre.png",
       html: laminaCierre({
         total: TOTAL,
-        pie: `Costo promedio de enviar ${coma(datos.monto_referencia_usd, 0)} dólares, según el Banco Mundial (World Development Indicators). Cardinal Datos, 2023.`,
+        pie: `Costo promedio de enviar ${coma(monto, 0)} dólares, según el Banco Mundial (World Development Indicators). Cardinal Datos, ${anio}.`,
       }),
     },
   ];

@@ -10,7 +10,7 @@ export const coma = (v, decimales = 2) =>
   });
 
 /* --------------------------------------------------------------------
-   MINI-RANKING — los diez países, uno resaltado
+   MINI-RANKING — los países con dato, uno resaltado
 
    Filas más compactas que en la primera versión: esa se probó solo en el
    carrusel y desbordaba el feed, que además lleva el pie de cita completo
@@ -95,5 +95,9 @@ export function renderMiniRanking(paises, isoDestacado) {
     })
     .join("");
 
-  return `<div class="mini-ranking"><p class="mini-titulo">Los diez países</p>${filas}</div>`;
+  // El título contaba «diez» a mano. Lo escribió alguien el día que la
+  // serie tenía diez países, y el día que tenga once seguiría diciendo
+  // diez encima de once barras — sin que nadie lo note, porque una imagen
+  // no se recompila cuando cambian los datos. Se cuenta del arreglo.
+  return `<div class="mini-ranking"><p class="mini-titulo">Los ${paises.length} países</p>${filas}</div>`;
 }

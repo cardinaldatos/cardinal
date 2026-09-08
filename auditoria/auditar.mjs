@@ -361,6 +361,20 @@ async function auditarEnlaces() {
    ISCED) se pone en esa línea o en la anterior un comentario con
    «auditoria-ok: la razón». La exención vive junto al número y con su
    motivo, no en una lista aparte que nadie vuelve a leer.
+
+   SE MIRAN LAS TRES SUPERFICIES, NO SOLO LA WEB
+   Las imágenes de Instagram publican las mismas cifras que la web y salen
+   del mismo limpio.json, así que están sujetas a la misma regla. Durante
+   un tiempo esta comprobación solo miraba sitio/, y en ese hueco las
+   láminas acumularon «Diez países», «Tres países» y el año escrito a
+   mano: exactamente el fallo que la regla existe para evitar, en la única
+   superficie donde nadie podía verlo. Un chequeo que mira dos de tres
+   superficies no comprueba la regla de oro: comprueba dónde miramos.
+
+   Los generadores de instagram/ arman HTML dentro de plantillas de
+   JavaScript. El mismo lector sirve: el CSS va entre llaves y queda fuera
+   por construcción, igual que las expresiones ${...} que sí vienen de los
+   datos.
    ========================================================================== */
 
 const NUMEROS_CON_LETRA = [
@@ -390,6 +404,9 @@ async function auditarReglaDeOro(piezas) {
   }
   for (const c of await archivosDe("sitio/src/components", [".jsx"])) {
     objetivos.push(path.relative(RAIZ, c));
+  }
+  for (const g of await archivosDe("instagram", [".mjs"])) {
+    objetivos.push(path.relative(RAIZ, g));
   }
 
   for (const rel of objetivos) {

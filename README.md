@@ -168,7 +168,11 @@ que ninguna carpeta de `data/` quede huérfana, que las fuentes marcadas «en
 uso» sostengan de verdad una pieza publicada, que los enlaces internos lleven a
 algún sitio, que las cifras derivadas cuadren con las de origen, y que no se
 haya colado un número escrito a mano en el texto de una pieza —con letra o con
-dígito, porque el fallo real que lo motivó fue una palabra, no un número.
+dígito, porque el fallo real que lo motivó fue una palabra, no un número. Eso
+último se comprueba en las tres superficies, imágenes de Instagram incluidas:
+una lámina publica las mismas cifras que la web y no se recompila cuando los
+datos cambian, así que es donde un número tecleado envejece sin que nadie lo
+vea.
 Corre sin dependencias: `node auditoria/auditar.mjs`.
 
 La segunda existe porque la primera no bastaba. Una fuente puede seguir

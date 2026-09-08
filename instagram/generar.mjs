@@ -3,11 +3,11 @@
 // con lo que ya pasó por comun.py.
 //
 // Estructura fija, la del plan: fuente arriba, titular, dato en rojo,
-// atribución abajo. Debajo del dato va el mini-ranking de los diez
-// países — ver comun.mjs.
+// atribución abajo. Debajo del dato va el mini-ranking de los países
+// con dato — ver comun.mjs.
 //
 // El dato va a 190px, no a los 220px de la primera versión: con el pie de
-// cita completo y las diez filas del ranking, 220px hacía que el pie se
+// cita completo y todas las filas del ranking, 220px hacía que el pie se
 // recortara por el borde inferior del lienzo (1350px es un límite duro,
 // no se ve el desborde hasta mirar la imagen exportada).
 
