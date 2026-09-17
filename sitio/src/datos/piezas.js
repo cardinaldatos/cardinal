@@ -40,6 +40,16 @@ export const PIEZAS = [
     metodo: "remesas-costo-latam",
   },
   {
+    slug: "desplazamiento-venezolano",
+    titulo: "Cuando cambia la etiqueta, cambia el pasado",
+    resumen:
+      "ACNUR ha contado a las personas venezolanas desplazadas bajo tres nombres desde 2018, y con cada cambio rehízo la serie de los años anteriores. La mayoría no figura como refugiada, pero sigue dentro del recuento.",
+    fuente: "ACNUR",
+    anio: "2025",
+    publicado: "2026-09-17",
+    metodo: "desplazamiento-venezolano",
+  },
+  {
     slug: "titulo-no-cruza",
     titulo: "El título no cruza",
     resumen:

@@ -7,6 +7,39 @@ on:
     paths:
       - "sitio/**"
       - ".github/workflows/desplegar.yml"
+      # data/ también, aunque no sea parte del sitio. Las piezas no llevan
+      # sus cifras escritas: las leen de data/<tema>/limpio.json durante
+      # `astro build`. Sin esta ruta, el día que un workflow del pipeline
+      # actualizara solo los datos no habría despliegue, y el sitio seguiría
+      # publicando las cifras viejas hasta que alguien tocara algo dentro de
+      # sitio/ por cualquier otro motivo. Justo el fallo que la auditoría
+      # persigue —una cifra publicada que ya no es la de la fuente—, pero
+      # provocado por el desplegador y no por el texto, así que ninguna
+      # comprobación del repositorio lo vería.
+      - "data/**"
+
+  # Y cuando un workflow del pipeline termina de confirmar datos nuevos.
+  #
+  # Hace falta además de la ruta data/** de arriba, no en su lugar: esos
+  # workflows empujan con el GITHUB_TOKEN por defecto, y GitHub no dispara
+  # workflows nuevos desde un push hecho con ese token. Sin esto, la ruta
+  # de arriba solo cubriría un cambio en data/ hecho por una persona, que
+  # es el caso raro; el frecuente —el pipeline actualiza las cifras y la
+  # web sigue sirviendo las viejas— se quedaría igual de roto.
+  #
+  # Se nombran uno por uno a propósito. Un «cualquier workflow que acabe»
+  # desplegaría también tras la auditoría, tras el mapa y tras cada sonda,
+  # que no cambian nada de lo que se publica.
+  #
+  # AL AÑADIR UNA PIEZA: si su workflow confirma en data/, añádelo aquí por
+  # su campo `name`, no por el del archivo. Si no, sus cifras se publicarán
+  # tarde y nada avisará.
+  workflow_run:
+    workflows:
+      - "Construir desplazamiento venezolano"
+      - "Construir sobrecualificación"
+    types: [completed]
+    branches: [main]
 
 # Este workflow no escribe en el repositorio: compila y despliega con el
 # token de Cloudflare, que va aparte. Sin permiso de escritura, aunque una
@@ -17,6 +50,17 @@ permissions:
 jobs:
   desplegar:
     runs-on: ubuntu-latest
+
+    # workflow_run no distingue por resultado: «completed» incluye el
+    # fallo y la cancelación. Sin esta guarda, una ejecución del pipeline
+    # que reventara a mitad dispararía igualmente un despliegue, y lo que
+    # se publicaría sería el árbol tal como quedó: datos a medias, o los
+    # de antes con el aviso de que todo fue bien. Los otros disparos
+    # —push y el manual— no traen workflow_run y pasan de largo.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
+
     steps:
       - uses: actions/checkout@v7
 

@@ -1,0 +1,1883 @@
+{
+  "fuente": "ACNUR — UNHCR Refugee Data Finder, API v1",
+  "anio_inicio": 2018,
+  "anio": 2025,
+  "anios": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "categorias": [
+    {
+      "id": "refugees",
+      "nombre": "Personas refugiadas",
+      "tipo": "poblacion"
+    },
+    {
+      "id": "asylum_seekers",
+      "nombre": "Solicitantes de asilo",
+      "tipo": "poblacion"
+    },
+    {
+      "id": "oip",
+      "nombre": "Otras personas que necesitan protección internacional",
+      "tipo": "poblacion"
+    },
+    {
+      "id": "ooc",
+      "nombre": "Otras personas de interés",
+      "tipo": "poblacion"
+    },
+    {
+      "id": "stateless",
+      "nombre": "Personas apátridas",
+      "tipo": "poblacion"
+    },
+    {
+      "id": "idps",
+      "nombre": "Personas desplazadas internas",
+      "tipo": "poblacion"
+    },
+    {
+      "id": "hst",
+      "nombre": "Comunidad de acogida",
+      "tipo": "poblacion"
+    },
+    {
+      "id": "returned_refugees",
+      "nombre": "Personas refugiadas retornadas",
+      "tipo": "solucion"
+    },
+    {
+      "id": "returned_idps",
+      "nombre": "Personas desplazadas internas retornadas",
+      "tipo": "solucion"
+    }
+  ],
+  "categoria_refugio": "refugees",
+  "reetiquetas": [
+    {
+      "id": "antes",
+      "cuando": "Hasta junio de 2020",
+      "vigente": false,
+      "como": "Otras personas de interés",
+      "que_paso": "La categoría de uso general de ACNUR, la que recoge a quien no encaja en ninguna otra. Ahí estaban contadas las personas venezolanas que habían salido del país."
+    },
+    {
+      "id": "intermedia",
+      "cuando": "Junio de 2020",
+      "vigente": false,
+      "como": "Venezolanos desplazados en el exterior",
+      "que_paso": "ACNUR crea un tipo de población propio y saca a estas personas de la categoría anterior. Por primera vez tienen una etiqueta que las nombra."
+    },
+    {
+      "id": "vigente",
+      "cuando": "Octubre de 2022",
+      "vigente": true,
+      "como": "Otras personas que necesitan protección internacional",
+      "que_paso": "El tipo propio desaparece absorbido por este otro, y ACNUR declara que el término anterior deja de usarse. La serie no se corta ahí: se rehace hacia atrás."
+    }
+  ],
+  "serie": [
+    {
+      "anio": 2018,
+      "destinos": 45,
+      "total": 3078217,
+      "por_categoria": {
+        "refugees": 21047,
+        "asylum_seekers": 464223,
+        "oip": 2592947,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 5,
+        "returned_idps": 0
+      },
+      "parte_refugio": 0.7,
+      "columnas_de_relleno": [
+        "hst",
+        "idps",
+        "ooc",
+        "stateless"
+      ]
+    },
+    {
+      "anio": 2019,
+      "destinos": 56,
+      "total": 4964435,
+      "por_categoria": {
+        "refugees": 93239,
+        "asylum_seekers": 794491,
+        "oip": 3582202,
+        "ooc": 494503,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "parte_refugio": 1.9,
+      "columnas_de_relleno": [
+        "hst",
+        "idps",
+        "stateless"
+      ]
+    },
+    {
+      "anio": 2020,
+      "destinos": 63,
+      "total": 5996996,
+      "por_categoria": {
+        "refugees": 171112,
+        "asylum_seekers": 851265,
+        "oip": 3862102,
+        "ooc": 1112517,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "parte_refugio": 2.9,
+      "columnas_de_relleno": [
+        "hst",
+        "idps",
+        "stateless"
+      ]
+    },
+    {
+      "anio": 2021,
+      "destinos": 65,
+      "total": 6966720,
+      "por_categoria": {
+        "refugees": 199202,
+        "asylum_seekers": 971106,
+        "oip": 4406432,
+        "ooc": 1389980,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "parte_refugio": 2.9,
+      "columnas_de_relleno": [
+        "hst",
+        "idps",
+        "stateless"
+      ]
+    },
+    {
+      "anio": 2022,
+      "destinos": 60,
+      "total": 9973118,
+      "por_categoria": {
+        "refugees": 230393,
+        "asylum_seekers": 1137162,
+        "oip": 5217456,
+        "ooc": 3388107,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "parte_refugio": 2.3,
+      "columnas_de_relleno": [
+        "hst",
+        "idps",
+        "stateless"
+      ]
+    },
+    {
+      "anio": 2023,
+      "destinos": 54,
+      "total": 10596489,
+      "por_categoria": {
+        "refugees": 347695,
+        "asylum_seekers": 1200130,
+        "oip": 5755363,
+        "ooc": 3293301,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "parte_refugio": 3.3,
+      "columnas_de_relleno": [
+        "hst",
+        "idps",
+        "stateless"
+      ]
+    },
+    {
+      "anio": 2024,
+      "destinos": 53,
+      "total": 8416439,
+      "por_categoria": {
+        "refugees": 370169,
+        "asylum_seekers": 1360041,
+        "oip": 5875359,
+        "ooc": 810870,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 18,
+        "returned_idps": 0
+      },
+      "parte_refugio": 4.4,
+      "columnas_de_relleno": [
+        "hst",
+        "idps",
+        "stateless"
+      ]
+    },
+    {
+      "anio": 2025,
+      "destinos": 55,
+      "total": 7878574,
+      "por_categoria": {
+        "refugees": 417010,
+        "asylum_seekers": 1181156,
+        "oip": 6042706,
+        "ooc": 237702,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "parte_refugio": 5.3,
+      "columnas_de_relleno": [
+        "hst",
+        "idps",
+        "stateless"
+      ]
+    }
+  ],
+  "cambios_de_destinos": [
+    {
+      "de": 2018,
+      "a": 2019,
+      "entraron": [
+        "AIA",
+        "BOL",
+        "BRB",
+        "CYM",
+        "CYP",
+        "IND",
+        "JAM",
+        "JOR",
+        "POL",
+        "PRT",
+        "VCT",
+        "VEN"
+      ],
+      "salieron": [
+        "RUS"
+      ]
+    },
+    {
+      "de": 2019,
+      "a": 2020,
+      "entraron": [
+        "BGR",
+        "GRD",
+        "IDN",
+        "KNA",
+        "LBN",
+        "MNE",
+        "SLV",
+        "SXM"
+      ],
+      "salieron": [
+        "CYP"
+      ]
+    },
+    {
+      "de": 2020,
+      "a": 2021,
+      "entraron": [
+        "KGZ",
+        "NZL"
+      ],
+      "salieron": []
+    },
+    {
+      "de": 2021,
+      "a": 2022,
+      "entraron": [
+        "ATG"
+      ],
+      "salieron": [
+        "BGR",
+        "BRB",
+        "ISR",
+        "KOR",
+        "LBN",
+        "MNE"
+      ]
+    },
+    {
+      "de": 2022,
+      "a": 2023,
+      "entraron": [
+        "BGR",
+        "BRB"
+      ],
+      "salieron": [
+        "AIA",
+        "ATG",
+        "GRD",
+        "JAM",
+        "JOR",
+        "KGZ",
+        "KNA",
+        "VCT"
+      ]
+    },
+    {
+      "de": 2023,
+      "a": 2024,
+      "entraron": [
+        "HRV",
+        "HUN"
+      ],
+      "salieron": [
+        "BGR",
+        "BRB",
+        "IDN"
+      ]
+    },
+    {
+      "de": 2024,
+      "a": 2025,
+      "entraron": [
+        "BLZ",
+        "LIE",
+        "SVN"
+      ],
+      "salieron": [
+        "HUN"
+      ]
+    }
+  ],
+  "destinos": [
+    {
+      "coa": "COL",
+      "pais": "Colombia",
+      "pais_fuente": "Colombia",
+      "total": 2828195,
+      "categorias": {
+        "refugees": 1097,
+        "asylum_seekers": 16320,
+        "oip": 2810778,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "PER",
+      "pais": "Perú",
+      "pais_fuente": "Peru",
+      "total": 1641305,
+      "categorias": {
+        "refugees": 4963,
+        "asylum_seekers": 538328,
+        "oip": 1098014,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "BRA",
+      "pais": "Brasil",
+      "pais_fuente": "Brazil",
+      "total": 732272,
+      "categorias": {
+        "refugees": 149501,
+        "asylum_seekers": 33237,
+        "oip": 549534,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "CHL",
+      "pais": "Chile",
+      "pais_fuente": "Chile",
+      "total": 669408,
+      "categorias": {
+        "refugees": 121,
+        "asylum_seekers": 6783,
+        "oip": 662504,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "ECU",
+      "pais": "Ecuador",
+      "pais_fuente": "Ecuador",
+      "total": 441063,
+      "categorias": {
+        "refugees": 2908,
+        "asylum_seekers": 5267,
+        "oip": 432888,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "USA",
+      "pais": "Estados Unidos",
+      "pais_fuente": "United States of America",
+      "total": 435298,
+      "categorias": {
+        "refugees": 29834,
+        "asylum_seekers": 405464,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "ESP",
+      "pais": "España",
+      "pais_fuente": "Spain",
+      "total": 283741,
+      "categorias": {
+        "refugees": 169051,
+        "asylum_seekers": 114690,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "VEN",
+      "pais": "Venezuela",
+      "pais_fuente": "Venezuela (Bolivarian Republic of)",
+      "total": 195822,
+      "categorias": {
+        "refugees": 0,
+        "asylum_seekers": 0,
+        "oip": null,
+        "ooc": 195822,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "refugees": "cero_redactado",
+        "asylum_seekers": "cero_redactado",
+        "oip": "no_recogido",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "ARG",
+      "pais": "Argentina",
+      "pais_fuente": "Argentina",
+      "total": 174794,
+      "categorias": {
+        "refugees": 348,
+        "asylum_seekers": 230,
+        "oip": 174216,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "MEX",
+      "pais": "México",
+      "pais_fuente": "Mexico",
+      "total": 106015,
+      "categorias": {
+        "refugees": 26024,
+        "asylum_seekers": 15831,
+        "oip": 64160,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "DOM",
+      "pais": "República Dominicana",
+      "pais_fuente": "Dominican Rep.",
+      "total": 99692,
+      "categorias": {
+        "refugees": 0,
+        "asylum_seekers": 208,
+        "oip": 99484,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "refugees": "cero_redactado",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "PAN",
+      "pais": "Panamá",
+      "pais_fuente": "Panama",
+      "total": 57845,
+      "categorias": {
+        "refugees": 99,
+        "asylum_seekers": 460,
+        "oip": 57286,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "CRI",
+      "pais": "Costa Rica",
+      "pais_fuente": "Costa Rica",
+      "total": 29493,
+      "categorias": {
+        "refugees": 6937,
+        "asylum_seekers": 3436,
+        "oip": 19120,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "TTO",
+      "pais": "Trinidad y Tobago",
+      "pais_fuente": "Trinidad and Tobago",
+      "total": 26432,
+      "categorias": {
+        "refugees": 1690,
+        "asylum_seekers": 20886,
+        "oip": 3856,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "URY",
+      "pais": "Uruguay",
+      "pais_fuente": "Uruguay",
+      "total": 24998,
+      "categorias": {
+        "refugees": 2534,
+        "asylum_seekers": 1631,
+        "oip": 20833,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "GUY",
+      "pais": "Guyana",
+      "pais_fuente": "Guyana",
+      "total": 23413,
+      "categorias": {
+        "refugees": 7,
+        "asylum_seekers": 5,
+        "oip": 23401,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "HND",
+      "pais": "Honduras",
+      "pais_fuente": "Honduras",
+      "total": 19241,
+      "categorias": {
+        "refugees": 10,
+        "asylum_seekers": 61,
+        "oip": null,
+        "ooc": 19170,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "BOL",
+      "pais": "Bolivia",
+      "pais_fuente": "Bolivia (Plurinational State of)",
+      "total": 17138,
+      "categorias": {
+        "refugees": 240,
+        "asylum_seekers": 0,
+        "oip": 8259,
+        "ooc": 8639,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "asylum_seekers": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "GTM",
+      "pais": "Guatemala",
+      "pais_fuente": "Guatemala",
+      "total": 15230,
+      "categorias": {
+        "refugees": 179,
+        "asylum_seekers": 1047,
+        "oip": null,
+        "ooc": 14004,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "ABW",
+      "pais": "Aruba",
+      "pais_fuente": "Aruba",
+      "total": 11470,
+      "categorias": {
+        "refugees": 0,
+        "asylum_seekers": 0,
+        "oip": 11470,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "refugees": "cero_redactado",
+        "asylum_seekers": "cero_redactado",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "ITA",
+      "pais": "Italia",
+      "pais_fuente": "Italy",
+      "total": 9021,
+      "categorias": {
+        "refugees": 4496,
+        "asylum_seekers": 4525,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "DEU",
+      "pais": "Alemania",
+      "pais_fuente": "Germany",
+      "total": 8672,
+      "categorias": {
+        "refugees": 3418,
+        "asylum_seekers": 5254,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "CAN",
+      "pais": "Canadá",
+      "pais_fuente": "Canada",
+      "total": 7436,
+      "categorias": {
+        "refugees": 4585,
+        "asylum_seekers": 2851,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "CUW",
+      "pais": "Curazao",
+      "pais_fuente": "Curacao ",
+      "total": 6903,
+      "categorias": {
+        "refugees": 0,
+        "asylum_seekers": 0,
+        "oip": 6903,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "refugees": "cero_redactado",
+        "asylum_seekers": "cero_redactado",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "PRY",
+      "pais": "Paraguay",
+      "pais_fuente": "Paraguay",
+      "total": 3925,
+      "categorias": {
+        "refugees": 3041,
+        "asylum_seekers": 884,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "FRA",
+      "pais": "Francia",
+      "pais_fuente": "France",
+      "total": 3356,
+      "categorias": {
+        "refugees": 3004,
+        "asylum_seekers": 352,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "ISL",
+      "pais": "Islandia",
+      "pais_fuente": "Iceland",
+      "total": 1414,
+      "categorias": {
+        "refugees": 1209,
+        "asylum_seekers": 205,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "BEL",
+      "pais": "Bélgica",
+      "pais_fuente": "Belgium",
+      "total": 1198,
+      "categorias": {
+        "refugees": 418,
+        "asylum_seekers": 780,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "NLD",
+      "pais": "Países Bajos",
+      "pais_fuente": "Netherlands (Kingdom of the)",
+      "total": 680,
+      "categorias": {
+        "refugees": 318,
+        "asylum_seekers": 362,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "SUR",
+      "pais": "Surinam",
+      "pais_fuente": "Suriname",
+      "total": 482,
+      "categorias": {
+        "refugees": 12,
+        "asylum_seekers": 470,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "AUS",
+      "pais": "Australia",
+      "pais_fuente": "Australia",
+      "total": 358,
+      "categorias": {
+        "refugees": 114,
+        "asylum_seekers": 244,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "PRT",
+      "pais": "Portugal",
+      "pais_fuente": "Portugal",
+      "total": 340,
+      "categorias": {
+        "refugees": 5,
+        "asylum_seekers": 335,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "LUX",
+      "pais": "Luxemburgo",
+      "pais_fuente": "Luxembourg",
+      "total": 275,
+      "categorias": {
+        "refugees": 5,
+        "asylum_seekers": 270,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "AUT",
+      "pais": "Austria",
+      "pais_fuente": "Austria",
+      "total": 271,
+      "categorias": {
+        "refugees": 214,
+        "asylum_seekers": 57,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "CHE",
+      "pais": "Suiza",
+      "pais_fuente": "Switzerland",
+      "total": 254,
+      "categorias": {
+        "refugees": 129,
+        "asylum_seekers": 125,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "NOR",
+      "pais": "Noruega",
+      "pais_fuente": "Norway",
+      "total": 243,
+      "categorias": {
+        "refugees": 94,
+        "asylum_seekers": 149,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "IRL",
+      "pais": "Irlanda",
+      "pais_fuente": "Ireland",
+      "total": 178,
+      "categorias": {
+        "refugees": 144,
+        "asylum_seekers": 34,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "SXM",
+      "pais": "Sint Maarten (parte neerlandesa)",
+      "pais_fuente": "Sint Maarten (Dutch part)",
+      "total": 138,
+      "categorias": {
+        "refugees": 5,
+        "asylum_seekers": 121,
+        "oip": null,
+        "ooc": 12,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "GBR",
+      "pais": "Reino Unido",
+      "pais_fuente": "United Kingdom of Great Britain and Northern Ireland",
+      "total": 114,
+      "categorias": {
+        "refugees": 92,
+        "asylum_seekers": 22,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "SWE",
+      "pais": "Suecia",
+      "pais_fuente": "Sweden",
+      "total": 79,
+      "categorias": {
+        "refugees": 51,
+        "asylum_seekers": 28,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "MLT",
+      "pais": "Malta",
+      "pais_fuente": "Malta",
+      "total": 65,
+      "categorias": {
+        "refugees": 0,
+        "asylum_seekers": 65,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "refugees": "cero_redactado",
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "CYM",
+      "pais": "Islas Caimán",
+      "pais_fuente": "Cayman Islands",
+      "total": 50,
+      "categorias": {
+        "refugees": 0,
+        "asylum_seekers": 0,
+        "oip": null,
+        "ooc": 50,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "refugees": "cero_redactado",
+        "asylum_seekers": "cero_redactado",
+        "oip": "no_recogido",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "POL",
+      "pais": "Polonia",
+      "pais_fuente": "Poland",
+      "total": 46,
+      "categorias": {
+        "refugees": 24,
+        "asylum_seekers": 22,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "SLV",
+      "pais": "El Salvador",
+      "pais_fuente": "El Salvador",
+      "total": 44,
+      "categorias": {
+        "refugees": 13,
+        "asylum_seekers": 31,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "FIN",
+      "pais": "Finlandia",
+      "pais_fuente": "Finland",
+      "total": 43,
+      "categorias": {
+        "refugees": 18,
+        "asylum_seekers": 25,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "GRC",
+      "pais": "Grecia",
+      "pais_fuente": "Greece",
+      "total": 36,
+      "categorias": {
+        "refugees": 11,
+        "asylum_seekers": 25,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "CZE",
+      "pais": "Chequia",
+      "pais_fuente": "Czechia",
+      "total": 30,
+      "categorias": {
+        "refugees": 20,
+        "asylum_seekers": 10,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "BLZ",
+      "pais": "Belice",
+      "pais_fuente": "Belize",
+      "total": 13,
+      "categorias": {
+        "refugees": 7,
+        "asylum_seekers": 6,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "DNK",
+      "pais": "Dinamarca",
+      "pais_fuente": "Denmark",
+      "total": 10,
+      "categorias": {
+        "refugees": 5,
+        "asylum_seekers": 5,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "IND",
+      "pais": "India",
+      "pais_fuente": "India",
+      "total": 10,
+      "categorias": {
+        "refugees": 5,
+        "asylum_seekers": 5,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "ALB",
+      "pais": "Albania",
+      "pais_fuente": "Albania",
+      "total": 5,
+      "categorias": {
+        "refugees": 5,
+        "asylum_seekers": 0,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "asylum_seekers": "cero_redactado",
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "HRV",
+      "pais": "Croacia",
+      "pais_fuente": "Croatia",
+      "total": 5,
+      "categorias": {
+        "refugees": 0,
+        "asylum_seekers": 5,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "refugees": "cero_redactado",
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "LIE",
+      "pais": "Liechtenstein",
+      "pais_fuente": "Liechtenstein",
+      "total": 5,
+      "categorias": {
+        "refugees": 0,
+        "asylum_seekers": 5,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "refugees": "cero_redactado",
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "NZL",
+      "pais": "Nueva Zelanda",
+      "pais_fuente": "New Zealand",
+      "total": 5,
+      "categorias": {
+        "refugees": 5,
+        "asylum_seekers": 0,
+        "oip": null,
+        "ooc": 0,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "asylum_seekers": "cero_redactado",
+        "oip": "no_recogido",
+        "ooc": "cero_redactado",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    },
+    {
+      "coa": "SVN",
+      "pais": "Eslovenia",
+      "pais_fuente": "Slovenia",
+      "total": 5,
+      "categorias": {
+        "refugees": 0,
+        "asylum_seekers": 0,
+        "oip": null,
+        "ooc": 5,
+        "stateless": 0,
+        "idps": 0,
+        "hst": 0
+      },
+      "soluciones": {
+        "returned_refugees": 0,
+        "returned_idps": 0
+      },
+      "motivos": {
+        "refugees": "cero_redactado",
+        "asylum_seekers": "cero_redactado",
+        "oip": "no_recogido",
+        "stateless": "cero_de_esquema",
+        "idps": "cero_de_esquema",
+        "hst": "cero_de_esquema"
+      }
+    }
+  ],
+  "ausencia": {
+    "paises_en_catalogo": 229,
+    "destinos_con_fila": 55,
+    "sin_fila": 174,
+    "distinguible": false,
+    "nota": "Un país que no aparece como destino puede ser un país sin personas venezolanas contabilizadas o un país que no reporta. Se comprobó pidiendo pares origen-destino ausentes uno por uno: el API no devuelve fila, así que no distingue los dos casos. La ausencia no se interpreta."
+  },
+  "origen_como_destino": {
+    "coa": "VEN",
+    "anios_con_fila": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "por_anio": [
+      {
+        "anio": 2019,
+        "total": 494503,
+        "parte": 10.0
+      },
+      {
+        "anio": 2020,
+        "total": 1112517,
+        "parte": 18.6
+      },
+      {
+        "anio": 2021,
+        "total": 1389980,
+        "parte": 20.0
+      },
+      {
+        "anio": 2022,
+        "total": 3206577,
+        "parte": 32.2
+      },
+      {
+        "anio": 2023,
+        "total": 3206577,
+        "parte": 30.3
+      },
+      {
+        "anio": 2024,
+        "total": 590346,
+        "parte": 7.0
+      },
+      {
+        "anio": 2025,
+        "total": 195822,
+        "parte": 2.5
+      }
+    ],
+    "nota": "ACNUR devuelve una fila cuyo país de acogida es el propio país de origen. Son personas venezolanas contabilizadas dentro de Venezuela, no en otro país. Entran en el total de la serie porque la consulta pide todos los países de acogida, y por eso el conjunto no se puede describir como «personas fuera de Venezuela»."
+  },
+  "motivos": {
+    "nulo": "La celda viene nula. No hay valor declarado.",
+    "no_recogido": "La columna existe en el esquema pero para este país no se recoge. El API lo escribe como cadena vacía, no como cero.",
+    "cero_de_esquema": "Cero en una columna que está en cero para todos los destinos de ese año. No es una medición: es relleno del esquema.",
+    "cero_redactado": "Cero en una columna que en otros destinos sí tiene valor. Por la salvaguarda de confidencialidad de ACNUR, que redondea los números menores que cinco al múltiplo de cinco más cercano, significa entre cero y dos personas. No es un cero exacto.",
+    "ilegible": "El valor no se pudo leer como número."
+  },
+  "filas_agregadas_descartadas": 0,
+  "redaccion": {
+    "regla": "ACNUR redondea los números menores que cinco al múltiplo de cinco más cercano antes de publicar, por confidencialidad, y redondea las decisiones de asilo entre cinco y diez.",
+    "consecuencia": "Un cero publicado significa entre cero y dos personas, y los totales son aproximaciones. Lo declara la propia fuente en su página de estructura de datos."
+  }
+}

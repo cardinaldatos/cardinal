@@ -68,6 +68,55 @@ PAIS = "VEN"
 # disponibilidad. Antes de esa fecha la serie habla de otra clasificación.
 ANIO_INICIO = 2018
 
+# LAS REETIQUETAS — el hallazgo de la pieza, y por eso sale de aquí.
+#
+# Son las tres formas en que ACNUR ha contado a estas mismas personas,
+# según su tabla de versiones. Estaban solo en el docstring de este
+# archivo y en el límite 6 de metodo.md, o sea en prosa: la web tenía que
+# escribirlas a mano, y el número de etapas quedaba tecleado en el titular
+# de la pieza que trata justamente de ellas. Lo que una pieza afirma como
+# hallazgo central es lo que más obligado está a venir de un archivo.
+#
+# No son mediciones y no cambian al volver a correr el pipeline: son
+# hechos con fecha, tomados de la documentación de la fuente. Van en
+# limpio.json para que cualquier superficie cuente las etapas en vez de
+# afirmar cuántas son.
+REETIQUETAS = [
+    {
+        "id": "antes",
+        "cuando": "Hasta junio de 2020",
+        "vigente": False,
+        "como": "Otras personas de interés",
+        "que_paso": (
+            "La categoría de uso general de ACNUR, la que recoge a quien no "
+            "encaja en ninguna otra. Ahí estaban contadas las personas "
+            "venezolanas que habían salido del país."
+        ),
+    },
+    {
+        "id": "intermedia",
+        "cuando": "Junio de 2020",
+        "vigente": False,
+        "como": "Venezolanos desplazados en el exterior",
+        "que_paso": (
+            "ACNUR crea un tipo de población propio y saca a estas personas "
+            "de la categoría anterior. Por primera vez tienen una etiqueta "
+            "que las nombra."
+        ),
+    },
+    {
+        "id": "vigente",
+        "cuando": "Octubre de 2022",
+        "vigente": True,
+        "como": "Otras personas que necesitan protección internacional",
+        "que_paso": (
+            "El tipo propio desaparece absorbido por este otro, y ACNUR "
+            "declara que el término anterior deja de usarse. La serie no se "
+            "corta ahí: se rehace hacia atrás."
+        ),
+    },
+]
+
 LIMITE = 1000
 MAX_PAGINAS = 20
 
@@ -129,6 +178,20 @@ NOMBRES_ES = {
     "SVK": "Eslovaquia", "SVN": "Eslovenia", "SWE": "Suecia",
     "TTO": "Trinidad y Tobago", "TUR": "Türkiye", "URY": "Uruguay",
     "USA": "Estados Unidos", "ZAF": "Sudáfrica",
+    # Faltaban seis destinos que el API sí devuelve. El aviso de revisar()
+    # los venía nombrando en cada ejecución, pero el log de un workflow no
+    # lo lee nadie si el paso termina en verde: «Venezuela (Bolivarian
+    # Republic of)» y «Suriname» iban camino de publicarse así, en inglés,
+    # en una pieza en español. Cuatro de los seis se escriben igual en los
+    # dos idiomas y aun así entran en la tabla: el aviso se dispara por
+    # ausencia del código, no por diferencia de grafía, y una tabla con
+    # huecos deja de avisar de lo que importa.
+    "GTM": "Guatemala", "IND": "India", "ALB": "Albania",
+    "SUR": "Surinam", "SXM": "Sint Maarten (parte neerlandesa)",
+    # Venezuela aparece como país de acogida de personas venezolanas: son
+    # las contabilizadas dentro del propio país de origen. La fila existe
+    # y se publica con el nombre corto, como cualquier otro destino.
+    "VEN": "Venezuela",
     # ACNUR usa dos códigos que no son países. Se traducen igual, porque
     # si aparecen tienen que aparecer legibles y no como sigla cruda.
     "UNK": "Varios o desconocido",
@@ -398,12 +461,10 @@ def limpiar(crudo):
     del_ultimo = [f for f in utiles if f["year"] == anio_ultimo]
     relleno_ultimo = columnas_de_relleno(del_ultimo, claves_pob)
 
-    destinos, sin_traducir = [], set()
+    destinos = []
     for f in del_ultimo:
         iso = str(f.get("coa_iso") or f.get("coa"))
         nombre_fuente = f.get("coa_name") or iso
-        if iso not in NOMBRES_ES:
-            sin_traducir.add((iso, nombre_fuente))
 
         categorias, motivos = {}, {}
         for clave, _ in CATEGORIAS:
@@ -456,6 +517,50 @@ def limpiar(crudo):
         ),
     }
 
+    # --- El país de origen aparece como país de acogida ------------------
+    # ACNUR devuelve una fila con coa = coo: personas venezolanas cuyo país
+    # de asilo registrado es Venezuela. La definición decía «fuera de
+    # Venezuela» y esa fila la contradice. No es un detalle: hubo años en
+    # que pesó cerca de un tercio del total, y buena parte del salto de la
+    # serie y de su caída posterior es esa fila moviéndose, no gente
+    # cruzando una frontera. Se registra aquí para que el método lo declare
+    # con cifras y no de memoria.
+    propio = []
+    for anio in anios:
+        del_anio = [f for f in utiles if f["year"] == anio]
+        fila = next(
+            (f for f in del_anio
+             if str(f.get("coa_iso") or f.get("coa")) == PAIS),
+            None,
+        )
+        if fila is None:
+            continue
+        suma = sum(
+            n for n in (numero(fila.get(c)) for c, _ in CATEGORIAS)
+            if n is not None
+        )
+        del_serie = next(x for x in serie if x["anio"] == anio)
+        propio.append({
+            "anio": anio,
+            "total": int(round(suma)),
+            "parte": round(suma / del_serie["total"] * 100, 1)
+            if del_serie["total"] else None,
+        })
+
+    origen_como_destino = {
+        "coa": PAIS,
+        "anios_con_fila": [p["anio"] for p in propio],
+        "por_anio": propio,
+        "nota": (
+            "ACNUR devuelve una fila cuyo país de acogida es el propio país "
+            "de origen. Son personas venezolanas contabilizadas dentro de "
+            "Venezuela, no en otro país. Entran en el total de la serie "
+            "porque la consulta pide todos los países de acogida, y por eso "
+            "el conjunto no se puede describir como «personas fuera de "
+            "Venezuela»."
+        ),
+    }
+
     # --- Notas al pie de la propia fuente -------------------------------
     notas = []
     vistas = set()
@@ -484,10 +589,12 @@ def limpiar(crudo):
             {"id": c, "nombre": n, "tipo": "solucion"} for c, n in SOLUCIONES
         ],
         "categoria_refugio": CATEGORIA_REFUGIO,
+        "reetiquetas": REETIQUETAS,
         "serie": serie,
         "cambios_de_destinos": cambios,
         "destinos": destinos,
         "ausencia": ausencia,
+        "origen_como_destino": origen_como_destino,
         "motivos": MOTIVOS,
         "filas_agregadas_descartadas": agregadas,
         "redaccion": {
@@ -509,6 +616,50 @@ def limpiar(crudo):
 def plural(n, singular, plural_):
     """«1 salida» y no «1 salidas». El texto de metodo.md se publica."""
     return f"{n} {singular if n == 1 else plural_}"
+
+
+def coma(v):
+    """Decimal con coma. El texto de metodo.md se publica, y en español
+    la cifra lleva coma: «32,2 %» y no «32.2 %»."""
+    return f"{v}".replace(".", ",")
+
+
+def limite_pais_propio(limpio):
+    """Redacta el límite del país de origen como país de acogida.
+
+    Lo redacta el script en cada ejecución porque las cifras que lo
+    sostienen se mueven mucho de un año a otro: escrito a mano habría
+    envejecido entre dos ejecuciones, que es justo el fallo que este
+    proyecto persigue en las cifras publicadas.
+    """
+    o = limpio["origen_como_destino"]
+    por_anio = [p for p in o["por_anio"] if p["parte"] is not None]
+
+    if not por_anio:
+        return (
+            "8. El país de origen no aparece como país de acogida en esta "
+            "ejecución. Si apareciera, sus personas entrarían en el total: "
+            "la consulta pide todos los países de acogida."
+        )
+
+    mayor = max(por_anio, key=lambda p: p["parte"])
+    ultimo = por_anio[-1]
+
+    return (
+        "8. El país de origen aparece también como país de acogida, y "
+        "entra en el total. La consulta pide todos los países de acogida, "
+        "y entre las filas que devuelve la fuente hay una cuyo destino es "
+        "Venezuela: son personas venezolanas contabilizadas dentro del "
+        "propio país, no en otro. Por eso esta serie no se puede describir "
+        "como «personas fuera de Venezuela», y la definición lo decía mal "
+        "hasta esta corrección. No es un matiz de redacción: en "
+        f"{mayor['anio']} esa sola fila fue el {coma(mayor['parte'])} % del "
+        f"total contabilizado, y en {ultimo['anio']} el "
+        f"{coma(ultimo['parte'])} %. "
+        "Buena parte de lo que sube y baja en la serie es esa fila "
+        "moviéndose, no gente cruzando una frontera. El detalle por año "
+        "está en el campo origen_como_destino de limpio.json."
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -612,11 +763,14 @@ def main():
                "población de fin de año por país de origen y de acogida.",
         url=f"{BASE}/population/?coo={PAIS}&coa_all=true&yearFrom={ANIO_INICIO}",
         definicion=(
-            "Personas venezolanas contabilizadas por ACNUR fuera de "
-            "Venezuela, repartidas entre los tipos de población que la "
-            "propia fuente distingue. Los nombres de las categorías son "
-            "los que ACNUR usa en sus publicaciones en español; no son "
-            "traducciones propias.\n\n"
+            "Personas venezolanas contabilizadas por ACNUR, repartidas "
+            "entre los tipos de población que la propia fuente distingue. "
+            "Los nombres de las categorías son los que ACNUR usa en sus "
+            "publicaciones en español; no son traducciones propias.\n\n"
+            "Decía «fuera de Venezuela» y no era exacto: la consulta pide "
+            "todos los países de acogida, y entre ellos la fuente devuelve "
+            "el propio país de origen. Ese matiz está declarado en los "
+            "límites con su peso año por año.\n\n"
             f"La serie arranca en {ANIO_INICIO} porque es el año desde el "
             "que ACNUR aplicó retroactivamente la categoría «otras "
             "personas que necesitan protección internacional», y también "
@@ -675,7 +829,8 @@ def main():
             "API agrega la dimensión y devuelve el total en una sola fila, "
             "con el destino escrito como un guion. Esta consulta pide el "
             "desglose explícitamente y descarta las filas agregadas que "
-            "aun así lleguen; limpio.json registra cuántas fueron."
+            "aun así lleguen; limpio.json registra cuántas fueron.\n\n"
+            f"{limite_pais_propio(limpio)}"
         ),
     )
 
