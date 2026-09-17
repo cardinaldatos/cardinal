@@ -129,6 +129,20 @@ NOMBRES_ES = {
     "SVK": "Eslovaquia", "SVN": "Eslovenia", "SWE": "Suecia",
     "TTO": "Trinidad y Tobago", "TUR": "Türkiye", "URY": "Uruguay",
     "USA": "Estados Unidos", "ZAF": "Sudáfrica",
+    # Faltaban seis destinos que el API sí devuelve. El aviso de revisar()
+    # los venía nombrando en cada ejecución, pero el log de un workflow no
+    # lo lee nadie si el paso termina en verde: «Venezuela (Bolivarian
+    # Republic of)» y «Suriname» iban camino de publicarse así, en inglés,
+    # en una pieza en español. Cuatro de los seis se escriben igual en los
+    # dos idiomas y aun así entran en la tabla: el aviso se dispara por
+    # ausencia del código, no por diferencia de grafía, y una tabla con
+    # huecos deja de avisar de lo que importa.
+    "GTM": "Guatemala", "IND": "India", "ALB": "Albania",
+    "SUR": "Surinam", "SXM": "Sint Maarten (parte neerlandesa)",
+    # Venezuela aparece como país de acogida de personas venezolanas: son
+    # las contabilizadas dentro del propio país de origen. La fila existe
+    # y se publica con el nombre corto, como cualquier otro destino.
+    "VEN": "Venezuela",
     # ACNUR usa dos códigos que no son países. Se traducen igual, porque
     # si aparecen tienen que aparecer legibles y no como sigla cruda.
     "UNK": "Varios o desconocido",
@@ -398,12 +412,10 @@ def limpiar(crudo):
     del_ultimo = [f for f in utiles if f["year"] == anio_ultimo]
     relleno_ultimo = columnas_de_relleno(del_ultimo, claves_pob)
 
-    destinos, sin_traducir = [], set()
+    destinos = []
     for f in del_ultimo:
         iso = str(f.get("coa_iso") or f.get("coa"))
         nombre_fuente = f.get("coa_name") or iso
-        if iso not in NOMBRES_ES:
-            sin_traducir.add((iso, nombre_fuente))
 
         categorias, motivos = {}, {}
         for clave, _ in CATEGORIAS:
