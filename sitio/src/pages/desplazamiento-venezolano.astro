@@ -23,12 +23,23 @@ const fueraDeRefugio =
 // etapas. Estaba escrito «dos veces» a mano. La auditoría no mira dentro
 // de un atributo, así que aquí no habría saltado — razón de más para no
 // dejarlo escrito, porque es el sitio donde envejecería sin testigos.
-const cambiosDeNombre = Math.max((datos.reetiquetas ?? []).length - 1, 0);
+//
+// Se escribe con letra, como en la página: esta frase es la que se ve al
+// compartir el enlace, y ahí «2 veces» canta. Sigue contándose del
+// arreglo, así que el número no se despega de los datos.
+const LETRAS = {
+  2: "dos", 3: "tres", 4: "cuatro", 5: "cinco", 6: "seis",
+  7: "siete", 8: "ocho", 9: "nueve", 10: "diez",
+};
+const etapas = (datos.reetiquetas ?? []).length;
+const cambiosDeNombre = Math.max(etapas - 1, 0);
+const cambiosEnLetra = LETRAS[cambiosDeNombre] ?? String(cambiosDeNombre);
+const vecesOVez = cambiosDeNombre === 1 ? "vez" : "veces";
 ---
 
 <Base
-  titulo="La etiqueta que se reescribió hacia atrás"
-  descripcion={`ACNUR cuenta a ${fueraDeRefugio} de cada 100 personas venezolanas desplazadas bajo categorías que no son la de refugiada. La categoría mayoritaria cambió de nombre ${cambiosDeNombre} veces y la serie se rehízo hasta ${datos.anio_inicio}. Datos de ACNUR, ${datos.anio}.`}
+  titulo="Cuando cambia la etiqueta, cambia el pasado"
+  descripcion={`ACNUR cuenta a ${fueraDeRefugio} de cada 100 personas venezolanas desplazadas bajo categorías que no son la de refugiada. La categoría mayoritaria cambió de nombre ${cambiosEnLetra} ${vecesOVez} y la serie se rehízo hasta ${datos.anio_inicio}. Datos de ACNUR, ${datos.anio}.`}
 >
   <DesplazamientoVenezolano client:load datos={datos} />
 </Base>

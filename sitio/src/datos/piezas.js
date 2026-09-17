@@ -40,13 +40,10 @@ export const PIEZAS = [
     metodo: "remesas-costo-latam",
   },
   {
-    // PROPUESTA: titular y resumen están sin cerrar. El resto de la
-    // entrada no lo está — el slug, la fuente, el año de los datos y la
-    // carpeta de método salen de lo que ya existe en el repositorio.
     slug: "desplazamiento-venezolano",
-    titulo: "La etiqueta que se reescribió hacia atrás",
+    titulo: "Cuando cambia la etiqueta, cambia el pasado",
     resumen:
-      "ACNUR ha contado a las personas venezolanas desplazadas bajo tres nombres distintos desde 2018, y cada vez rehízo la serie de los años anteriores. La mayoría no está contada como refugiada, pero sí sigue contada.",
+      "ACNUR ha contado a las personas venezolanas desplazadas bajo tres nombres desde 2018, y con cada cambio rehízo la serie de los años anteriores. La mayoría no figura como refugiada, pero sigue dentro del recuento.",
     fuente: "ACNUR",
     anio: "2025",
     publicado: "2026-09-17",

@@ -42,6 +42,22 @@ const coma = (v, decimales = 1) =>
     maximumFractionDigits: decimales,
   });
 
+/* En prosa, los números pequeños se escriben con letra: «Tres nombres» y
+   no «3 nombres». Esto NO los devuelve al texto escrito a mano: se siguen
+   contando del arreglo que viene de limpio.json, así que el día que ACNUR
+   añadiera una etiqueta esta frase diría «cuatro» sola. Lo que cambia es
+   cómo se escribe el número, no de dónde sale.
+
+   Empieza en dos a propósito. El uno pide concordancia de género —«un
+   nombre» pero «una vez»— y no hay forma de acertarla sin saber con qué
+   sustantivo va; devolver el dígito es preferible a escribir mal. */
+const LETRAS = {
+  2: "dos", 3: "tres", 4: "cuatro", 5: "cinco", 6: "seis",
+  7: "siete", 8: "ocho", 9: "nueve", 10: "diez",
+};
+const enLetra = (n) => LETRAS[n] ?? String(n);
+const conMayuscula = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+
 /* Un porcentaje que existe no se escribe como cero. Colombia contabiliza
    más de mil personas en la categoría de refugio, y sobre un total de
    millones eso redondea a 0,0 %: escrito así se lee como «ninguna», que
@@ -71,6 +87,14 @@ export default function DesplazamientoVenezolano({ datos }) {
     ORIGEN && ORIGEN.por_anio.length
       ? ORIGEN.por_anio.reduce((a, b) => (b.parte > a.parte ? b : a))
       : null;
+  // Los años de la serie en los que esa fila no existe. Hoy es solo el
+  // primero, y eso lo aparta de los demás por una razón más que la
+  // reclasificación: su total no incluye a nadie contabilizado dentro del
+  // país. Se calcula en vez de nombrarlo, porque el día que ACNUR publique
+  // hacia atrás dejaría de ser cierto sin que nadie lo revisara.
+  const aniosSinOrigen = ORIGEN
+    ? datos.anios.filter((a) => !ORIGEN.anios_con_fila.includes(a))
+    : [];
 
   // Las etapas de la reclasificación salen de limpio.json, no de aquí.
   // Cuántas son se cuenta del arreglo: el titular de esta pieza habla de
@@ -127,20 +151,20 @@ export default function DesplazamientoVenezolano({ datos }) {
         </p>
 
         <h1 className="titular">
-          La etiqueta que se<br />
-          <em>reescribió hacia atrás</em>
+          Cuando cambia la etiqueta,{" "}
+          <em>cambia el pasado</em>
         </h1>
 
         <p className="bajada">
           Las personas venezolanas que ACNUR contabiliza han sido contadas
-          bajo {ETAPAS.length} nombres distintos desde que empezó la salida
-          masiva. Y cada vez que el nombre cambió, la serie de años anteriores
+          bajo {enLetra(ETAPAS.length)} nombres distintos desde que empezó la
+          salida masiva. Y cada vez que el nombre cambió, la serie de años anteriores
           se rehízo con el nombre nuevo.
         </p>
 
         {/* ---------------- EL HALLAZGO: LA REETIQUETA ---------------- */}
         <div className="bloque">
-          <h2>{ETAPAS.length} nombres para las mismas personas</h2>
+          <h2>{conMayuscula(enLetra(ETAPAS.length))} nombres para las mismas personas</h2>
           <p className="intro">
             No es que unas personas salieran de una categoría y otras entraran.
             Es el mismo grupo, renombrado, y con el pasado reescrito cada vez.
@@ -227,7 +251,8 @@ export default function DesplazamientoVenezolano({ datos }) {
                   no si aparecen. Leer este número como una tasa de exclusión
                   sería leerlo al revés. Lo que mide es una recategorización,
                   y la categoría mayoritaria es la que cambió de nombre{" "}
-                  {cambiosDeNombre} veces.
+                  {enLetra(cambiosDeNombre)}{" "}
+                  {cambiosDeNombre === 1 ? "vez" : "veces"}.
                 </p>
 
                 <p className="detalle">
@@ -429,6 +454,21 @@ export default function DesplazamientoVenezolano({ datos }) {
               registro. Las barras de arriba están a escala entre sí, no sobre
               el total de cada año.
             </p>
+
+            {aniosSinOrigen.length > 0 && (
+              <p className="detalle">
+                {aniosSinOrigen.length === 1
+                  ? `En ${aniosSinOrigen[0]} esa fila no existe.`
+                  : `En ${aniosSinOrigen.join(", ")} esa fila no existe.`}{" "}
+                Es una segunda razón para no comparar{" "}
+                {aniosSinOrigen.length === 1 ? "ese año" : "esos años"} con el
+                resto, además de la reclasificación: {aniosSinOrigen.length === 1
+                  ? "su total"
+                  : "sus totales"}{" "}
+                no {aniosSinOrigen.length === 1 ? "incluye" : "incluyen"} a
+                nadie contabilizado dentro de Venezuela, y los demás sí.
+              </p>
+            )}
           </div>
         )}
 
