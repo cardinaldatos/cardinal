@@ -517,6 +517,50 @@ def limpiar(crudo):
         ),
     }
 
+    # --- El país de origen aparece como país de acogida ------------------
+    # ACNUR devuelve una fila con coa = coo: personas venezolanas cuyo país
+    # de asilo registrado es Venezuela. La definición decía «fuera de
+    # Venezuela» y esa fila la contradice. No es un detalle: hubo años en
+    # que pesó cerca de un tercio del total, y buena parte del salto de la
+    # serie y de su caída posterior es esa fila moviéndose, no gente
+    # cruzando una frontera. Se registra aquí para que el método lo declare
+    # con cifras y no de memoria.
+    propio = []
+    for anio in anios:
+        del_anio = [f for f in utiles if f["year"] == anio]
+        fila = next(
+            (f for f in del_anio
+             if str(f.get("coa_iso") or f.get("coa")) == PAIS),
+            None,
+        )
+        if fila is None:
+            continue
+        suma = sum(
+            n for n in (numero(fila.get(c)) for c, _ in CATEGORIAS)
+            if n is not None
+        )
+        del_serie = next(x for x in serie if x["anio"] == anio)
+        propio.append({
+            "anio": anio,
+            "total": int(round(suma)),
+            "parte": round(suma / del_serie["total"] * 100, 1)
+            if del_serie["total"] else None,
+        })
+
+    origen_como_destino = {
+        "coa": PAIS,
+        "anios_con_fila": [p["anio"] for p in propio],
+        "por_anio": propio,
+        "nota": (
+            "ACNUR devuelve una fila cuyo país de acogida es el propio país "
+            "de origen. Son personas venezolanas contabilizadas dentro de "
+            "Venezuela, no en otro país. Entran en el total de la serie "
+            "porque la consulta pide todos los países de acogida, y por eso "
+            "el conjunto no se puede describir como «personas fuera de "
+            "Venezuela»."
+        ),
+    }
+
     # --- Notas al pie de la propia fuente -------------------------------
     notas = []
     vistas = set()
@@ -550,6 +594,7 @@ def limpiar(crudo):
         "cambios_de_destinos": cambios,
         "destinos": destinos,
         "ausencia": ausencia,
+        "origen_como_destino": origen_como_destino,
         "motivos": MOTIVOS,
         "filas_agregadas_descartadas": agregadas,
         "redaccion": {
@@ -571,6 +616,43 @@ def limpiar(crudo):
 def plural(n, singular, plural_):
     """«1 salida» y no «1 salidas». El texto de metodo.md se publica."""
     return f"{n} {singular if n == 1 else plural_}"
+
+
+def limite_pais_propio(limpio):
+    """Redacta el límite del país de origen como país de acogida.
+
+    Lo redacta el script en cada ejecución porque las cifras que lo
+    sostienen se mueven mucho de un año a otro: escrito a mano habría
+    envejecido entre dos ejecuciones, que es justo el fallo que este
+    proyecto persigue en las cifras publicadas.
+    """
+    o = limpio["origen_como_destino"]
+    por_anio = [p for p in o["por_anio"] if p["parte"] is not None]
+
+    if not por_anio:
+        return (
+            "8. El país de origen no aparece como país de acogida en esta "
+            "ejecución. Si apareciera, sus personas entrarían en el total: "
+            "la consulta pide todos los países de acogida."
+        )
+
+    mayor = max(por_anio, key=lambda p: p["parte"])
+    ultimo = por_anio[-1]
+
+    return (
+        "8. El país de origen aparece también como país de acogida, y "
+        "entra en el total. La consulta pide todos los países de acogida, "
+        "y entre las filas que devuelve la fuente hay una cuyo destino es "
+        "Venezuela: son personas venezolanas contabilizadas dentro del "
+        "propio país, no en otro. Por eso esta serie no se puede describir "
+        "como «personas fuera de Venezuela», y la definición lo decía mal "
+        "hasta esta corrección. No es un matiz de redacción: en "
+        f"{mayor['anio']} esa sola fila fue el {mayor['parte']} % del total "
+        f"contabilizado, y en {ultimo['anio']} el {ultimo['parte']} %. "
+        "Buena parte de lo que sube y baja en la serie es esa fila "
+        "moviéndose, no gente cruzando una frontera. El detalle por año "
+        "está en el campo origen_como_destino de limpio.json."
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -674,11 +756,14 @@ def main():
                "población de fin de año por país de origen y de acogida.",
         url=f"{BASE}/population/?coo={PAIS}&coa_all=true&yearFrom={ANIO_INICIO}",
         definicion=(
-            "Personas venezolanas contabilizadas por ACNUR fuera de "
-            "Venezuela, repartidas entre los tipos de población que la "
-            "propia fuente distingue. Los nombres de las categorías son "
-            "los que ACNUR usa en sus publicaciones en español; no son "
-            "traducciones propias.\n\n"
+            "Personas venezolanas contabilizadas por ACNUR, repartidas "
+            "entre los tipos de población que la propia fuente distingue. "
+            "Los nombres de las categorías son los que ACNUR usa en sus "
+            "publicaciones en español; no son traducciones propias.\n\n"
+            "Decía «fuera de Venezuela» y no era exacto: la consulta pide "
+            "todos los países de acogida, y entre ellos la fuente devuelve "
+            "el propio país de origen. Ese matiz está declarado en los "
+            "límites con su peso año por año.\n\n"
             f"La serie arranca en {ANIO_INICIO} porque es el año desde el "
             "que ACNUR aplicó retroactivamente la categoría «otras "
             "personas que necesitan protección internacional», y también "
@@ -737,7 +822,8 @@ def main():
             "API agrega la dimensión y devuelve el total en una sola fila, "
             "con el destino escrito como un guion. Esta consulta pide el "
             "desglose explícitamente y descarta las filas agregadas que "
-            "aun así lleguen; limpio.json registra cuántas fueron."
+            "aun así lleguen; limpio.json registra cuántas fueron.\n\n"
+            f"{limite_pais_propio(limpio)}"
         ),
     )
 
