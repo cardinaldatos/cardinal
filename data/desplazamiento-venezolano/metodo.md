@@ -5,7 +5,9 @@
 **Fecha de extracción:** 2026-09-17
 
 ## Definición
-Personas venezolanas contabilizadas por ACNUR fuera de Venezuela, repartidas entre los tipos de población que la propia fuente distingue. Los nombres de las categorías son los que ACNUR usa en sus publicaciones en español; no son traducciones propias.
+Personas venezolanas contabilizadas por ACNUR, repartidas entre los tipos de población que la propia fuente distingue. Los nombres de las categorías son los que ACNUR usa en sus publicaciones en español; no son traducciones propias.
+
+Decía «fuera de Venezuela» y no era exacto: la consulta pide todos los países de acogida, y entre ellos la fuente devuelve el propio país de origen. Ese matiz está declarado en los límites con su peso año por año.
 
 La serie arranca en 2018 porque es el año desde el que ACNUR aplicó retroactivamente la categoría «otras personas que necesitan protección internacional», y también el primer año en que ese tipo existe en su matriz de disponibilidad.
 
@@ -27,3 +29,5 @@ Según la nota al pie de la propia fuente, la columna de personas refugiadas inc
 6. La serie fue reclasificada dos veces y reescrita hacia atrás. Las personas venezolanas contadas hoy como «otras personas que necesitan protección internacional» estaban antes bajo «venezolanos desplazados en el exterior», tipo introducido en junio de 2020, y antes de eso dentro de «otras personas de interés». En octubre de 2022 ACNUR absorbió el tipo intermedio en el actual, retroactivamente desde 2018, y declaró que el término anterior dejaría de usarse. Cualquier cifra publicada por terceros antes de esa fecha se refiere a una clasificación que ya no existe y no es comparable con esta.
 
 7. Omitir el país de acogida en la consulta no da error: el API agrega la dimensión y devuelve el total en una sola fila, con el destino escrito como un guion. Esta consulta pide el desglose explícitamente y descarta las filas agregadas que aun así lleguen; limpio.json registra cuántas fueron.
+
+8. El país de origen aparece también como país de acogida, y entra en el total. La consulta pide todos los países de acogida, y entre las filas que devuelve la fuente hay una cuyo destino es Venezuela: son personas venezolanas contabilizadas dentro del propio país, no en otro. Por eso esta serie no se puede describir como «personas fuera de Venezuela», y la definición lo decía mal hasta esta corrección. No es un matiz de redacción: en 2022 esa sola fila fue el 32.2 % del total contabilizado, y en 2025 el 2.5 %. Buena parte de lo que sube y baja en la serie es esa fila moviéndose, no gente cruzando una frontera. El detalle por año está en el campo origen_como_destino de limpio.json.

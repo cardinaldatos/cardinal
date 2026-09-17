@@ -1818,6 +1818,56 @@
     "distinguible": false,
     "nota": "Un país que no aparece como destino puede ser un país sin personas venezolanas contabilizadas o un país que no reporta. Se comprobó pidiendo pares origen-destino ausentes uno por uno: el API no devuelve fila, así que no distingue los dos casos. La ausencia no se interpreta."
   },
+  "origen_como_destino": {
+    "coa": "VEN",
+    "anios_con_fila": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "por_anio": [
+      {
+        "anio": 2019,
+        "total": 494503,
+        "parte": 10.0
+      },
+      {
+        "anio": 2020,
+        "total": 1112517,
+        "parte": 18.6
+      },
+      {
+        "anio": 2021,
+        "total": 1389980,
+        "parte": 20.0
+      },
+      {
+        "anio": 2022,
+        "total": 3206577,
+        "parte": 32.2
+      },
+      {
+        "anio": 2023,
+        "total": 3206577,
+        "parte": 30.3
+      },
+      {
+        "anio": 2024,
+        "total": 590346,
+        "parte": 7.0
+      },
+      {
+        "anio": 2025,
+        "total": 195822,
+        "parte": 2.5
+      }
+    ],
+    "nota": "ACNUR devuelve una fila cuyo país de acogida es el propio país de origen. Son personas venezolanas contabilizadas dentro de Venezuela, no en otro país. Entran en el total de la serie porque la consulta pide todos los países de acogida, y por eso el conjunto no se puede describir como «personas fuera de Venezuela»."
+  },
   "motivos": {
     "nulo": "La celda viene nula. No hay valor declarado.",
     "no_recogido": "La columna existe en el esquema pero para este país no se recoge. El API lo escribe como cadena vacía, no como cero.",
