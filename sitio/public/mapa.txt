@@ -32,9 +32,9 @@ contenido del árbol, así que dos huellas distintas son dos árboles
 distintos.
 
 
-**77 archivos indexados, 842539 bytes en total.**
+**82 archivos indexados, 1465929 bytes en total.**
 
-**Huella del repositorio: `d29f5bc1f88e96bb`**
+**Huella del repositorio: `c5d5985f637c8b44`**
 
 
 ## Raíz
@@ -54,7 +54,7 @@ distintos.
 - [acnur.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/acnur.yml) — 2257 B · `3c1b693c`
 - [auditar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/auditar.yml) — 1119 B · `a376cb49`
 - [datos.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/datos.yml) — 711 B · `1eaf4f6d`
-- [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 3505 B · `2b413509`
+- [desplegar.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/desplegar.yml) — 5801 B · `c11c4ec5`
 - [explorar-acnur.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-acnur.yml) — 1508 B · `58bda68c`
 - [explorar-eurostat.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-eurostat.yml) — 1211 B · `11b631fe`
 - [explorar-rpw.yml](https://github.com/cardinaldatos/cardinal/blob/main/.github/workflows/explorar-rpw.yml) — 1405 B · `c03ab1c8`
@@ -69,7 +69,13 @@ distintos.
 
 ## `data/`
 
-- [fuentes.json](https://github.com/cardinaldatos/cardinal/blob/main/data/fuentes.json) — 13050 B · `f2f32246`
+- [fuentes.json](https://github.com/cardinaldatos/cardinal/blob/main/data/fuentes.json) — 13408 B · `a4434d4f`
+
+## `data/desplazamiento-venezolano/`
+
+- [crudo.json](https://github.com/cardinaldatos/cardinal/blob/main/data/desplazamiento-venezolano/crudo.json) — 537612 B · `7a250b41`
+- [limpio.json](https://github.com/cardinaldatos/cardinal/blob/main/data/desplazamiento-venezolano/limpio.json) — 42843 B · `7d82ccc6`
+- [metodo.md](https://github.com/cardinaldatos/cardinal/blob/main/data/desplazamiento-venezolano/metodo.md) — 4518 B · `98877142`
 
 ## `data/remesas-costo-latam/`
 
@@ -95,7 +101,7 @@ distintos.
 
 ## `pipeline/`
 
-- [acnur.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/acnur.py) — 28967 B · `1e8222d2`
+- [acnur.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/acnur.py) — 35905 B · `c8e2e883`
 - [comun.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/comun.py) — 2844 B · `32449e7b`
 - [explorar_acnur.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/explorar_acnur.py) — 32207 B · `8ec66e71`
 - [explorar_comun.py](https://github.com/cardinaldatos/cardinal/blob/main/pipeline/explorar_comun.py) — 11786 B · `5231a2e7`
@@ -131,6 +137,7 @@ distintos.
 
 ## `sitio/src/components/`
 
+- [DesplazamientoVenezolano.jsx](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/components/DesplazamientoVenezolano.jsx) — 22804 B · `60adcc92`
 - [RemesasCostoLatam.jsx](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/components/RemesasCostoLatam.jsx) — 6982 B · `9cffe0d5`
 - [TituloNoCruza.jsx](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/components/TituloNoCruza.jsx) — 12866 B · `e52ca96d`
 
@@ -138,7 +145,7 @@ distintos.
 
 - [correcciones.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/correcciones.js) — 8874 B · `2d2dbecc`
 - [notas.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/notas.js) — 3060 B · `311a0d62`
-- [piezas.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/piezas.js) — 2394 B · `40de157e`
+- [piezas.js](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/datos/piezas.js) — 2848 B · `9aba2afb`
 
 ## `sitio/src/layouts/`
 
@@ -148,6 +155,7 @@ distintos.
 
 - [404.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/404.astro) — 703 B · `447837d4`
 - [correcciones.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/correcciones.astro) — 10089 B · `cb2076c3`
+- [desplazamiento-venezolano.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/desplazamiento-venezolano.astro) — 5567 B · `392f6333`
 - [ia.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/ia.astro) — 12688 B · `9c5d2937`
 - [index.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/index.astro) — 2915 B · `2eae7121`
 - [licencia.astro](https://github.com/cardinaldatos/cardinal/blob/main/sitio/src/pages/licencia.astro) — 13620 B · `2ea43f79`
