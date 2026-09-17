@@ -7,6 +7,16 @@ on:
     paths:
       - "sitio/**"
       - ".github/workflows/desplegar.yml"
+      # data/ también, aunque no sea parte del sitio. Las piezas no llevan
+      # sus cifras escritas: las leen de data/<tema>/limpio.json durante
+      # `astro build`. Sin esta ruta, el día que un workflow del pipeline
+      # actualizara solo los datos no habría despliegue, y el sitio seguiría
+      # publicando las cifras viejas hasta que alguien tocara algo dentro de
+      # sitio/ por cualquier otro motivo. Justo el fallo que la auditoría
+      # persigue —una cifra publicada que ya no es la de la fuente—, pero
+      # provocado por el desplegador y no por el texto, así que ninguna
+      # comprobación del repositorio lo vería.
+      - "data/**"
 
 # Este workflow no escribe en el repositorio: compila y despliega con el
 # token de Cloudflare, que va aparte. Sin permiso de escritura, aunque una
