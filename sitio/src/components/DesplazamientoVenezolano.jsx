@@ -59,6 +59,19 @@ export default function DesplazamientoVenezolano({ datos }) {
   const DESTINOS = datos.destinos;
   const AUSENCIA = datos.ausencia;
 
+  // El país de origen aparece también como país de acogida. Entra en el
+  // total, así que el porcentaje de la cuadrícula y la lista de destinos
+  // dependen de él. No es una rareza menor: hubo años en que fue casi un
+  // tercio de lo contabilizado, y se mueve mucho de un año a otro.
+  const ORIGEN = datos.origen_como_destino ?? null;
+  const origenPorAnio = ORIGEN
+    ? Object.fromEntries(ORIGEN.por_anio.map((p) => [p.anio, p]))
+    : {};
+  const origenMayor =
+    ORIGEN && ORIGEN.por_anio.length
+      ? ORIGEN.por_anio.reduce((a, b) => (b.parte > a.parte ? b : a))
+      : null;
+
   // Las etapas de la reclasificación salen de limpio.json, no de aquí.
   // Cuántas son se cuenta del arreglo: el titular de esta pieza habla de
   // ellas, y era la última cifra que quedaba escrita a mano en el texto.
@@ -222,6 +235,16 @@ export default function DesplazamientoVenezolano({ datos }) {
                   : {coma(delAnio.parte_refugio)} % de{" "}
                   {miles(delAnio.total)} personas contabilizadas en{" "}
                   {delAnio.destinos} destinos.
+                  {origenPorAnio[anio] && (
+                    <>
+                      {" "}
+                      De ese total, {miles(origenPorAnio[anio].total)} personas
+                      —{porcentaje(origenPorAnio[anio].parte)}— están
+                      contabilizadas dentro de Venezuela y no en otro país. El
+                      denominador las incluye, porque la consulta pide todos
+                      los países de acogida.
+                    </>
+                  )}
                 </p>
               </>
             ) : (
@@ -307,11 +330,17 @@ export default function DesplazamientoVenezolano({ datos }) {
             // dibuja tramo, y la fila lo dice.
             const refDibujable = ref !== null && ref !== undefined && ref > 0 && !motivoRef;
             const parte = d.total && refDibujable ? (ref / d.total) * 100 : 0;
+            // El propio país de origen aparece en esta lista. Sin marcarlo,
+            // se lee como un destino más y no lo es.
+            const esOrigen = ORIGEN !== null && d.coa === ORIGEN.coa;
 
             return (
-              <div className="barra-fila" key={d.coa}>
+              <div className={"barra-fila" + (esOrigen ? " es-origen" : "")} key={d.coa}>
                 <div className="barra-cab">
-                  <span>{d.pais}</span>
+                  <span>
+                    {d.pais}
+                    {esOrigen && <em className="marca-origen">dentro del país de origen</em>}
+                  </span>
                   <span className="n">{miles(d.total)}</span>
                 </div>
                 <div className="pista">
@@ -362,6 +391,46 @@ export default function DesplazamientoVenezolano({ datos }) {
             ese año reportó o dejó de reportar.
           </p>
         </div>
+
+        {/* ---------------- EL PAÍS DE ORIGEN, COMO DESTINO ---------------- */}
+        {ORIGEN && origenMayor && (
+          <div className="bloque">
+            <h2>Venezuela también está en la lista de destinos</h2>
+            <p className="intro">{ORIGEN.nota}</p>
+
+            <p className="detalle">
+              Conviene saberlo antes de comparar un año con otro, porque esa
+              fila sola no pesa igual todos los años:
+            </p>
+
+            {ORIGEN.por_anio.map((p) => (
+              <div className="barra-fila" key={p.anio}>
+                <div className="barra-cab">
+                  <span>{p.anio}</span>
+                  <span className="n">{miles(p.total)}</span>
+                </div>
+                <div className="pista">
+                  <div
+                    className="relleno acento"
+                    style={{ width: (p.parte / origenMayor.parte) * 100 + "%" }}
+                  />
+                </div>
+                <p className="barra-pie">
+                  {porcentaje(p.parte)} de lo contabilizado ese año
+                </p>
+              </div>
+            ))}
+
+            <p className="detalle">
+              En {origenMayor.anio} fue {porcentaje(origenMayor.parte)} del
+              total. Buena parte de lo que sube y baja en esta serie es esa
+              fila moviéndose, no gente cruzando una frontera: quien compare
+              años sin saberlo lee una migración donde hay un cambio de
+              registro. Las barras de arriba están a escala entre sí, no sobre
+              el total de cada año.
+            </p>
+          </div>
+        )}
 
         {/* ---------------- HALLAZGO: LO QUE NO SE PUEDE SABER ---------------- */}
         <div className="bloque">
