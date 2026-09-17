@@ -60,6 +60,29 @@
     }
   ],
   "categoria_refugio": "refugees",
+  "reetiquetas": [
+    {
+      "id": "antes",
+      "cuando": "Hasta junio de 2020",
+      "vigente": false,
+      "como": "Otras personas de interés",
+      "que_paso": "La categoría de uso general de ACNUR, la que recoge a quien no encaja en ninguna otra. Ahí estaban contadas las personas venezolanas que habían salido del país."
+    },
+    {
+      "id": "intermedia",
+      "cuando": "Junio de 2020",
+      "vigente": false,
+      "como": "Venezolanos desplazados en el exterior",
+      "que_paso": "ACNUR crea un tipo de población propio y saca a estas personas de la categoría anterior. Por primera vez tienen una etiqueta que las nombra."
+    },
+    {
+      "id": "vigente",
+      "cuando": "Octubre de 2022",
+      "vigente": true,
+      "como": "Otras personas que necesitan protección internacional",
+      "que_paso": "El tipo propio desaparece absorbido por este otro, y ACNUR declara que el término anterior deja de usarse. La serie no se corta ahí: se rehace hacia atrás."
+    }
+  ],
   "serie": [
     {
       "anio": 2018,
