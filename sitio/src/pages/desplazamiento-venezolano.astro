@@ -1,0 +1,146 @@
+---
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import Base from "../layouts/Base.astro";
+import DesplazamientoVenezolano from "../components/DesplazamientoVenezolano.jsx";
+
+// data/ vive en la raíz del repo, un nivel por encima de sitio/. Esto se
+// lee en el servidor durante `astro build` (código de Node en el
+// frontmatter), no en el navegador. Es el mismo limpio.json que genera
+// pipeline/acnur.py: un solo origen para la página y para el método.
+const rutaDatos = path.join(process.cwd(), "..", "data", "desplazamiento-venezolano", "limpio.json");
+const datos = JSON.parse(await readFile(rutaDatos, "utf-8"));
+
+// La descripción es lo que se ve al compartir el enlace, así que sale de
+// los datos como todo lo demás. El dato que la sostiene no es el peso de
+// la categoría de refugio, sino su complemento: cuántas de cada cien
+// personas contabilizadas NO están contadas como refugiadas.
+const ultimo = datos.serie.find((s) => s.anio === datos.anio);
+const fueraDeRefugio =
+  ultimo.parte_refugio === null ? null : Math.round(100 - ultimo.parte_refugio);
+---
+
+<Base
+  titulo="La etiqueta que se reescribió hacia atrás"
+  descripcion={`ACNUR cuenta a ${fueraDeRefugio} de cada 100 personas venezolanas desplazadas bajo categorías que no son la de refugiada. La categoría mayoritaria cambió de nombre dos veces y la serie se rehízo hasta ${datos.anio_inicio}. Datos de ACNUR, ${datos.anio}.`}
+>
+  <DesplazamientoVenezolano client:load datos={datos} />
+</Base>
+
+<style is:global>
+  /* Estilos propios de esta pieza. Lo que se repita en una tercera pieza
+     se promociona a sistema.css; hasta entonces vive aquí.
+     is:global porque el HTML lo genera la isla de React y los estilos
+     con ámbito de Astro no lo alcanzan. */
+
+  .tarjeta {
+    background: var(--fondo);
+    border: 1px solid var(--linea);
+    padding: 22px 20px 20px;
+  }
+
+  .lectura {
+    font-size: 15px;
+    line-height: 1.4;
+    margin: 0 0 16px;
+    max-width: 44ch;
+  }
+
+  .lectura .dato-central {
+    margin-bottom: 6px;
+  }
+
+  /* LÍNEA DE REETIQUETAS — el hallazgo de la pieza.
+     Una lista con un filo a la izquierda. No es un gráfico: son tres
+     momentos y el orden es lo único que tiene que quedar claro. */
+  .reetiquetas {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 20px;
+    border-left: 2px solid var(--linea);
+  }
+
+  .reetiqueta {
+    position: relative;
+    padding-bottom: 20px;
+  }
+
+  .reetiqueta:last-child { padding-bottom: 0; }
+
+  .reetiqueta::before {
+    content: "";
+    position: absolute;
+    left: -26px;
+    top: 5px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--fondo);
+    border: 2px solid var(--linea);
+  }
+
+  .reetiqueta.vigente::before { border-color: var(--acento); }
+
+  .reetiqueta .cuando {
+    display: block;
+    font-family: var(--fuente-cifra);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pizarra);
+    margin-bottom: 3px;
+  }
+
+  .reetiqueta .como {
+    font-family: var(--fuente-titular);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.3;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .reetiqueta .que-paso {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--texto-2);
+  }
+
+  /* Barras por destino: el tramo de refugio delante, el resto detrás.
+     Misma superposición que usa la pieza de sobrecualificación. */
+  .bloque .barra-fila .pista { height: 22px; }
+  .bloque .barra-fila { margin-bottom: 14px; }
+
+  .relleno.tenue {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--linea);
+  }
+
+  .relleno.encima {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    height: 12px;
+  }
+
+  .barra-pie {
+    font-size: 11px;
+    color: var(--pizarra);
+    margin: 4px 0 0;
+  }
+
+  /* Reparto por categoría del año elegido. */
+  .reparto { margin-bottom: 16px; }
+
+  .reparto .barra-cab { align-items: baseline; }
+
+  .nota-fuente {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--texto-2);
+    border-top: 1px solid var(--linea);
+    margin-top: 14px;
+    padding-top: 12px;
+  }
+</style>
