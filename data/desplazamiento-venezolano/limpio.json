@@ -542,7 +542,7 @@
     },
     {
       "coa": "VEN",
-      "pais": "Venezuela (Bolivarian Republic of)",
+      "pais": "Venezuela",
       "pais_fuente": "Venezuela (Bolivarian Republic of)",
       "total": 195822,
       "categorias": {
@@ -1107,7 +1107,7 @@
     },
     {
       "coa": "SUR",
-      "pais": "Suriname",
+      "pais": "Surinam",
       "pais_fuente": "Suriname",
       "total": 482,
       "categorias": {
@@ -1315,7 +1315,7 @@
     },
     {
       "coa": "SXM",
-      "pais": "Sint Maarten (Dutch part)",
+      "pais": "Sint Maarten (parte neerlandesa)",
       "pais_fuente": "Sint Maarten (Dutch part)",
       "total": 138,
       "categorias": {
