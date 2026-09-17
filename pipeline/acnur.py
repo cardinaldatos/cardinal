@@ -68,6 +68,55 @@ PAIS = "VEN"
 # disponibilidad. Antes de esa fecha la serie habla de otra clasificación.
 ANIO_INICIO = 2018
 
+# LAS REETIQUETAS — el hallazgo de la pieza, y por eso sale de aquí.
+#
+# Son las tres formas en que ACNUR ha contado a estas mismas personas,
+# según su tabla de versiones. Estaban solo en el docstring de este
+# archivo y en el límite 6 de metodo.md, o sea en prosa: la web tenía que
+# escribirlas a mano, y el número de etapas quedaba tecleado en el titular
+# de la pieza que trata justamente de ellas. Lo que una pieza afirma como
+# hallazgo central es lo que más obligado está a venir de un archivo.
+#
+# No son mediciones y no cambian al volver a correr el pipeline: son
+# hechos con fecha, tomados de la documentación de la fuente. Van en
+# limpio.json para que cualquier superficie cuente las etapas en vez de
+# afirmar cuántas son.
+REETIQUETAS = [
+    {
+        "id": "antes",
+        "cuando": "Hasta junio de 2020",
+        "vigente": False,
+        "como": "Otras personas de interés",
+        "que_paso": (
+            "La categoría de uso general de ACNUR, la que recoge a quien no "
+            "encaja en ninguna otra. Ahí estaban contadas las personas "
+            "venezolanas que habían salido del país."
+        ),
+    },
+    {
+        "id": "intermedia",
+        "cuando": "Junio de 2020",
+        "vigente": False,
+        "como": "Venezolanos desplazados en el exterior",
+        "que_paso": (
+            "ACNUR crea un tipo de población propio y saca a estas personas "
+            "de la categoría anterior. Por primera vez tienen una etiqueta "
+            "que las nombra."
+        ),
+    },
+    {
+        "id": "vigente",
+        "cuando": "Octubre de 2022",
+        "vigente": True,
+        "como": "Otras personas que necesitan protección internacional",
+        "que_paso": (
+            "El tipo propio desaparece absorbido por este otro, y ACNUR "
+            "declara que el término anterior deja de usarse. La serie no se "
+            "corta ahí: se rehace hacia atrás."
+        ),
+    },
+]
+
 LIMITE = 1000
 MAX_PAGINAS = 20
 
@@ -496,6 +545,7 @@ def limpiar(crudo):
             {"id": c, "nombre": n, "tipo": "solucion"} for c, n in SOLUCIONES
         ],
         "categoria_refugio": CATEGORIA_REFUGIO,
+        "reetiquetas": REETIQUETAS,
         "serie": serie,
         "cambios_de_destinos": cambios,
         "destinos": destinos,
