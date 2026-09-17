@@ -618,6 +618,12 @@ def plural(n, singular, plural_):
     return f"{n} {singular if n == 1 else plural_}"
 
 
+def coma(v):
+    """Decimal con coma. El texto de metodo.md se publica, y en español
+    la cifra lleva coma: «32,2 %» y no «32.2 %»."""
+    return f"{v}".replace(".", ",")
+
+
 def limite_pais_propio(limpio):
     """Redacta el límite del país de origen como país de acogida.
 
@@ -647,8 +653,9 @@ def limite_pais_propio(limpio):
         "propio país, no en otro. Por eso esta serie no se puede describir "
         "como «personas fuera de Venezuela», y la definición lo decía mal "
         "hasta esta corrección. No es un matiz de redacción: en "
-        f"{mayor['anio']} esa sola fila fue el {mayor['parte']} % del total "
-        f"contabilizado, y en {ultimo['anio']} el {ultimo['parte']} %. "
+        f"{mayor['anio']} esa sola fila fue el {coma(mayor['parte'])} % del "
+        f"total contabilizado, y en {ultimo['anio']} el "
+        f"{coma(ultimo['parte'])} %. "
         "Buena parte de lo que sube y baja en la serie es esa fila "
         "moviéndose, no gente cruzando una frontera. El detalle por año "
         "está en el campo origen_como_destino de limpio.json."
