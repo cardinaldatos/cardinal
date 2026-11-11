@@ -21,4 +21,4 @@ requests==2.34.2
 # separan los requisitos por script, este es el grupo que se va.
 Pillow==12.3.0
 fonttools==4.63.0
-Brotli==1.2.0
+Brotli==1.2.1
